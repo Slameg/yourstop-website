@@ -1,79 +1,83 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Your Stop — Minecraft Server</title>
-<meta name="description" content="Your Stop — Minecraft server. Статус сервера, онлайн игроков и подключение." />
-<link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:;base64,iVBORw0KGgo="> <!-- можно заменить на ваш favicon -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Stop — Minecraft Server</title>
+  <meta name="description" content="Your Stop — Minecraft server. Статус сервера, онлайн игроков и подключение." />
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo="> <!-- замените на свой favicon -->
 </head>
 <body>
-<main class="container">
-<header class="top">
-<div class="branding">
-<img src="" alt="YourStop logo" id="logo" class="logo" />
-<div>
-<h1>Your Stop</h1>
-<p class="tag">Добро пожаловать на официальный сайт сервера</p>
-</div>
-</div>
-<nav class="actions">
-<button id="copyIp" class="btn ghost">Копировать IP</button>
-<a href="#join" class="btn primary">Присоединиться</a>
-</nav>
-</header>
+  <main class="container">
+    <header class="top">
+      <div class="branding">
+        <div class="logo"></div>
+        <div>
+          <h1>Your Stop</h1>
+          <p class="tag">Добро пожаловать на официальный сервер Minecraft</p>
+        </div>
+      </div>
+      <nav class="actions">
+        <button id="copyIp" class="btn ghost">Копировать IP</button>
+        <a href="#join" class="btn primary">Присоединиться</a>
+      </nav>
+    </header>
 
+    <section class="hero">
+      <div class="hero-left">
+        <h2 id="statusTitle">Статус сервера</h2>
+        <p id="statusText" class="muted">Загрузка...</p>
 
-<section class="hero">
-<div class="hero-left">
-<h2 id="statusTitle">Статус сервера</h2>
-<p id="statusText" class="muted">Загрузка...</p>
+        <div class="stats">
+          <div class="card">
+            <div class="card-title">Онлайн</div>
+            <div id="playersCount" class="card-value">—</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Версия</div>
+            <div id="version" class="card-value">—</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Пинг</div>
+            <div id="ping" class="card-value">—</div>
+          </div>
+        </div>
 
+        <div class="motd">
+          <h3>Описание</h3>
+          <div id="motdHtml">—</div>
+        </div>
 
-<div class="stats">
-<div class="card">
-<div class="card-title">Онлайн</div>
-<div id="playersCount" class="card-value">—</div>
-</div>
-<div class="card">
-<div class="card-title">Версия</div>
-<div id="version" class="card-value">—</div>
-</div>
-<div class="card">
-<div class="card-title">Пинг</div>
-<div id="ping" class="card-value">—</div>
-</div>
-</div>
+        <div class="players-list" id="playersListWrap">
+          <h3>Игроки на сервере</h3>
+          <ul id="playersList" class="players"></ul>
+        </div>
+      </div>
 
+      <aside class="hero-right">
+        <div class="card big">
+          <h3>Подключиться</h3>
+          <p class="mono">yourstop.online</p>
+          <a class="btn primary big" href="#" id="join">Подключиться</a>
+          <p class="hint">В Minecraft добавьте сервер <span class="mono">yourstop.online</span></p>
+        </div>
 
-<div class="motd">
-<h3>Описание</h3>
-<div id="motdHtml">—</div>
-</div>
+        <div class="card small">
+          <h4>Сообщества</h4>
+          <div class="links">
+            <a class="link" href="#">Discord</a>
+            <a class="link" href="#">Telegram</a>
+          </div>
+        </div>
+      </aside>
+    </section>
 
+    <footer class="footer">
+      <p>© Your Stop — все права защищены.  •  Статус обновляется автоматически.</p>
+    </footer>
+  </main>
 
-<div class="players-list" id="playersListWrap">
-<h3>Игроки на сервере</h3>
-<ul id="playersList" class="players"></ul>
-</div>
-</div>
-
-
-<aside class="hero-right">
-<div class="card big">
-<h3>Подключиться</h3>
-<p class="mono">yourstop.online</p>
-<a class="btn primary big" href="#" id="join">Подключиться</a>
-<p class="hint">Через Minecraft: <span class="mono">yourstop.online</span></p>
-</div>
-
-
-<div class="card small">
-<h4>Сообщества</h4>
-<div class="links">
-<a class="link" href="#">Discord</a>
-<a class="link" href="#">Telegram</a>
-</div>
-</div>
+  <script src="script.js"></script>
+</body>
 </html>
