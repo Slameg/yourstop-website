@@ -1,38 +1,40 @@
-// Прокси URL — здесь нужно указать ваш работающий сервер Node.js/Render/VPS
-const API_URL = 'https://YOUR-PROXY-DOMAIN/api/status';
+const serverAddress = "yourstop.online"; // Без порта, стандартный 25565
 
-async function updateStatus() {
+async function fetchServerStatus() {
     try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
+        const res = await fetch(`https://api.mcsrvstat.us/2/${serverAddress}`);
+        const data = await res.json();
 
-        document.getElementById('motd').textContent = data.motd.replace(/§[0-9a-fk-or]/g, '');
-        document.getElementById('online').textContent = data.online;
-        document.getElementById('maxPlayers').textContent = data.maxPlayers;
-        document.getElementById('tps').textContent = data.tps.toFixed(2);
-        document.getElementById('version').textContent = data.version;
+        document.getElementById("motd").textContent = data.motd?.clean?.join(" ") || "Сервер недоступен";
+        document.getElementById("online").textContent = data.players?.online || 0;
+        document.getElementById("maxPlayers").textContent = data.players?.max || 0;
+        document.getElementById("version").textContent = data.version || "—";
 
-        const playerList = document.getElementById('playerList');
-        playerList.innerHTML = '';
-        if (data.players.length === 0) {
-            playerList.innerHTML = '<li>Нет игроков онлайн</li>';
-        } else {
-            data.players.forEach(p => {
-                const li = document.createElement('li');
-                li.textContent = p;
-                playerList.appendChild(li);
+        const list = document.getElementById("playerList");
+        list.innerHTML = "";
+        if (data.players?.list && data.players.list.length > 0) {
+            data.players.list.forEach(player => {
+                const li = document.createElement("li");
+                li.textContent = player;
+                list.appendChild(li);
             });
+        } else {
+            const li = document.createElement("li");
+            li.textContent = "Нет игроков онлайн";
+            list.appendChild(li);
         }
 
-        // Можно добавить новости, если есть отдельный endpoint
-        const newsList = document.getElementById('newsList');
-        newsList.innerHTML = '<li>Сайт обновлен!</li>';
     } catch (err) {
-        console.error(err);
-        document.getElementById('motd').textContent = 'Ошибка';
+        console.error("Ошибка при получении статуса сервера:", err);
+        document.getElementById("motd").textContent = "Сервер недоступен";
+        document.getElementById("playerList").innerHTML = "<li>Нет данных</li>";
     }
 }
 
-// Обновляем каждые 15 секунд
-updateStatus();
-setInterval(updateStatus, 15000);
+document.getElementById("connectBtn").addEventListener("click", () => {
+    window.location.href = `minecraft://connect/${serverAddress}`;
+});
+
+// Обновление каждые 10 секунд
+fetchServerStatus();
+setInterval(fetchServerStatus, 10000);
