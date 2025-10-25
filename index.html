@@ -1,104 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>YourStop — Minecraft сервер</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: linear-gradient(to bottom right, #0d1117, #1a1f2b);
-      color: #e6e6e6;
-      text-align: center;
-    }
-    header {
-      padding: 40px 20px;
-      background: rgba(0,0,0,0.6);
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-    h1 { color: #00c8ff; margin-bottom: 10px; }
-    h2 { color: #aaa; margin-top: 0; }
-    main { padding: 40px 20px; }
-    section {
-      max-width: 800px;
-      margin: 40px auto;
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-    .btn {
-      display: inline-block;
-      background: #00c8ff;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .btn:hover { background: #0099cc; }
-    footer {
-      margin-top: 60px;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #888;
-    }
-    img.screenshot {
-      width: 90%;
-      max-width: 700px;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Your Stop — Minecraft Server</title>
+<meta name="description" content="Your Stop — Minecraft server. Статус сервера, онлайн игроков и подключение." />
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:;base64,iVBORw0KGgo="> <!-- можно заменить на ваш favicon -->
 </head>
 <body>
-  <header>
-    <h1>🌍 YourStop</h1>
-    <h2>Minecraft сервер с системой защиты и прогрессом</h2>
-    <a href="#join" class="btn">Присоединиться</a>
-  </header>
+<main class="container">
+<header class="top">
+<div class="branding">
+<img src="" alt="YourStop logo" id="logo" class="logo" />
+<div>
+<h1>Your Stop</h1>
+<p class="tag">Добро пожаловать на официальный сайт сервера</p>
+</div>
+</div>
+<nav class="actions">
+<button id="copyIp" class="btn ghost">Копировать IP</button>
+<a href="#join" class="btn primary">Присоединиться</a>
+</nav>
+</header>
 
-  <main>
-    <section id="about">
-      <h2>О сервере</h2>
-      <p>
-        YourStop — это современный Minecraft сервер, где можно строить, развиваться и защищать свои постройки
-        при помощи уникального плагина <b>YourStop Protection</b>.
-      </p>
-      <p>Версия сервера: <b>1.21.1</b> (Java + Bedrock через Geyser)</p>
-      <p>IP: <b>yourstop.ru</b></p>
-    </section>
 
-    <section id="plugins">
-      <h2>Плагины и особенности</h2>
-      <ul style="text-align:left; display:inline-block;">
-        <li>🔐 YourStop — защита блоков и дверей</li>
-        <li>🧱 Build & Repair режимы</li>
-        <li>💬 AuthMe — авторизация</li>
-        <li>⚡ ViaVersion + Geyser — поддержка Bedrock игроков</li>
-        <li>🛒 GlobalMarketplace — внутриигровой рынок</li>
-        <li>🎭 LuckPerms — гибкие права</li>
-      </ul>
-    </section>
+<section class="hero">
+<div class="hero-left">
+<h2 id="statusTitle">Статус сервера</h2>
+<p id="statusText" class="muted">Загрузка...</p>
 
-    <section id="screenshots">
-      <h2>Скриншоты</h2>
-      <img src="https://minecraft.wiki/images/Minecraft-blocks.png?202307101" alt="screenshot" class="screenshot">
-    </section>
 
-    <section id="join">
-      <h2>Как присоединиться</h2>
-      <p>1️⃣ Открой Minecraft версии <b>1.21+</b>  
-         2️⃣ В разделе «Мультиплеер» добавь сервер с IP: <b>yourstop.ru</b>  
-         3️⃣ Присоединяйся и построй свою базу!</p>
-      <a href="https://discord.gg/" class="btn">Наш Discord</a>
-    </section>
-  </main>
+<div class="stats">
+<div class="card">
+<div class="card-title">Онлайн</div>
+<div id="playersCount" class="card-value">—</div>
+</div>
+<div class="card">
+<div class="card-title">Версия</div>
+<div id="version" class="card-value">—</div>
+</div>
+<div class="card">
+<div class="card-title">Пинг</div>
+<div id="ping" class="card-value">—</div>
+</div>
+</div>
 
-  <footer>
-    © 2025 YourStop Server — Slameg. Сделано с ❤️
-  </footer>
-</body>
+
+<div class="motd">
+<h3>Описание</h3>
+<div id="motdHtml">—</div>
+</div>
+
+
+<div class="players-list" id="playersListWrap">
+<h3>Игроки на сервере</h3>
+<ul id="playersList" class="players"></ul>
+</div>
+</div>
+
+
+<aside class="hero-right">
+<div class="card big">
+<h3>Подключиться</h3>
+<p class="mono">yourstop.online</p>
+<a class="btn primary big" href="#" id="join">Подключиться</a>
+<p class="hint">Через Minecraft: <span class="mono">yourstop.online</span></p>
+</div>
+
+
+<div class="card small">
+<h4>Сообщества</h4>
+<div class="links">
+<a class="link" href="#">Discord</a>
+<a class="link" href="#">Telegram</a>
+</div>
+</div>
 </html>
