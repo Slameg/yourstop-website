@@ -12,10 +12,10 @@
 <meta property="og:title" content="Your Stop — Minecraft сервер">
 <meta property="og:description" content="Классическое выживание с вайпами, пираткой и авторизацией.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="http://yourstop.online/">
+<meta property="og:url" content="https://yourstop.github.io/yourstop-website/">
 <meta property="og:image" content="logo.png">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>
@@ -32,7 +32,7 @@
             <p><strong>TPS:</strong> <span id="tps">0</span></p>
             <p><strong>Версия:</strong> <span id="version">0</span></p>
             <p><strong>Ping:</strong> <span id="ping">—</span> мс</p>
-            <button id="connectBtn">Подключиться</button>
+            <button id="connectBtn" onclick="window.location.href='minecraft://yourstop.online:25565'">Подключиться</button>
         </div>
 
         <div class="players-box">
@@ -56,25 +56,6 @@
 </footer>
 
 <script src="script.js"></script>
-
-<!-- JSON-LD для поисковиков -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "VideoGame",
-  "name": "Your Stop",
-  "url": "http://yourstop.online/",
-  "gamePlatform": "Minecraft",
-  "description": "Классическое выживание в Minecraft с вайпами, пираткой+лицензией и авторизацией на входе.",
-  "genre": "Survival",
-  "operatingSystem": "Cross-platform",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5",
-    "ratingCount": "100"
-  }
-}
-</script>
 
 </body>
 </html>
