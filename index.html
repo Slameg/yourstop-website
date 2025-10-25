@@ -1,65 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Your Stop — Minecraft Server</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Your Stop — классическое выживание в Minecraft! Вайпы, пиратка+лицензия, авторизация на входе. Онлайн игроков, TPS и версия сервера в реальном времени.">
+<meta name="keywords" content="Minecraft, сервер, Your Stop, выживание, пиратка, лицензия, Minecraft сервер онлайн, TPS">
+<meta name="robots" content="index, follow">
+<title>Your Stop — Minecraft сервер</title>
+
+<!-- Open Graph для соцсетей -->
+<meta property="og:title" content="Your Stop — Minecraft сервер">
+<meta property="og:description" content="Классическое выживание с вайпами, пираткой и авторизацией.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://yourstop.online/">
+<meta property="og:image" content="logo.png">
+
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<main class="container">
-  <header class="top">
-    <div class="branding">
-      <div class="logo"></div>
-      <div>
-        <h1>Your Stop</h1>
-        <p class="tag">Официальный сайт сервера Minecraft</p>
-      </div>
-    </div>
-    <nav class="actions">
-      <button id="copyIp" class="btn ghost">Копировать IP</button>
-      <a href="#join" class="btn primary">Присоединиться</a>
-    </nav>
-  </header>
+<header>
+    <h1 class="animated-motd">⛺ Your Stop</h1>
+    <p>Классическое выживание — Вайпы, пиратка+лицензия, авторизация на входе ✅</p>
+</header>
 
-  <section class="hero">
-    <div class="hero-left">
-      <h2>Статус сервера</h2>
-      <div class="stats">
-        <div class="card">
-          <div class="card-title">Онлайн</div>
-          <div id="online" class="card-value">—</div>
+<main>
+    <section class="status-section">
+        <div class="status-box">
+            <h2>Статус сервера</h2>
+            <p><strong>MOTD:</strong> <span id="motd">Загрузка...</span></p>
+            <p><strong>Игроки:</strong> <span id="online">0</span> / <span id="maxPlayers">0</span></p>
+            <p><strong>TPS:</strong> <span id="tps">0</span></p>
+            <p><strong>Версия:</strong> <span id="version">0</span></p>
+            <p><strong>Ping:</strong> <span id="ping">—</span> мс</p>
+            <button id="connectBtn">Подключиться</button>
         </div>
-        <div class="card">
-          <div class="card-title">TPS</div>
-          <div id="tps" class="card-value">—</div>
+
+        <div class="players-box">
+            <h2>Игроки онлайн</h2>
+            <ul id="playerList">
+                <li>Загрузка...</li>
+            </ul>
         </div>
-        <div class="card">
-          <div class="card-title">MOTD</div>
-          <div id="motd" class="card-value">—</div>
-        </div>
-      </div>
+    </section>
 
-      <div class="players-list">
-        <h3>Игроки</h3>
-        <ul id="playersList" class="players"></ul>
-      </div>
-    </div>
-
-    <aside class="hero-right">
-      <div class="card big">
-        <h3>Подключиться</h3>
-        <p class="mono">yourstop.online</p>
-        <a class="btn primary big" href="#" id="join">Подключиться</a>
-      </div>
-    </aside>
-  </section>
-
-  <footer class="footer">
-    <p>© Your Stop — Статус обновляется автоматически</p>
-  </footer>
+    <section class="news-section">
+        <h2>Новости</h2>
+        <ul id="newsList">
+            <li>Загрузка новостей...</li>
+        </ul>
+    </section>
 </main>
 
+<footer>
+    © 2025 Your Stop Minecraft Server — Все права защищены
+</footer>
+
 <script src="script.js"></script>
+
+<!-- JSON-LD для поисковиков -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Your Stop",
+  "url": "http://yourstop.online/",
+  "gamePlatform": "Minecraft",
+  "description": "Классическое выживание в Minecraft с вайпами, пираткой+лицензией и авторизацией на входе.",
+  "genre": "Survival",
+  "operatingSystem": "Cross-platform",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "ratingCount": "100"
+  }
+}
+</script>
+
 </body>
 </html>
