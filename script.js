@@ -1,46 +1,35 @@
-async function fetchServerStatus() {
+const API_URL = "http://yourstop.online:55555/status";
+
+async function fetchStatus() {
     try {
-        const response = await fetch('http://yourstop.online:55555/status');
-        const data = await response.json();
+        const res = await fetch(API_URL);
+        const data = await res.json();
 
-        document.getElementById('motd').textContent = data.motd || 'Нет данных';
-        document.getElementById('online').textContent = data.online || 0;
-        document.getElementById('maxPlayers').textContent = data.maxPlayers || 0;
-        document.getElementById('tps').textContent = data.tps ? data.tps.toFixed(2) : '—';
-        document.getElementById('version').textContent = data.version || '—';
-        document.getElementById('ping').textContent = data.ping?.ms || '—';
+        // MOTD с удалением символов форматирования Minecraft
+        document.getElementById("motd").textContent = data.motd.replace(/§./g, "");
 
-        // Список игроков
-        const playerList = document.getElementById('playerList');
-        playerList.innerHTML = '';
-        if(data.players && data.players.length > 0) {
-            data.players.forEach(player => {
-                const li = document.createElement('li');
-                li.textContent = player;
+        document.getElementById("online").textContent = data.online;
+        document.getElementById("maxPlayers").textContent = data.maxPlayers;
+        document.getElementById("tps").textContent = data.tps.toFixed(2);
+        document.getElementById("version").textContent = data.version;
+
+        const playerList = document.getElementById("playerList");
+        playerList.innerHTML = "";
+        if (data.players.length === 0) {
+            playerList.innerHTML = "<li>Нет игроков онлайн</li>";
+        } else {
+            data.players.forEach(p => {
+                const li = document.createElement("li");
+                li.textContent = p;
                 playerList.appendChild(li);
             });
-        } else {
-            playerList.innerHTML = '<li>Игроки отсутствуют</li>';
         }
-
     } catch (err) {
-        console.error(err);
-        document.getElementById('motd').textContent = 'Сервер недоступен';
+        console.error("Ошибка загрузки статуса сервера:", err);
+        document.getElementById("motd").textContent = "Сервер недоступен";
     }
 }
 
-// Подключение к серверу (открывает Minecraft)
-document.getElementById('connectBtn').addEventListener('click', () => {
-    window.location.href = 'minecraft://yourstop.online:25565';
-});
-
-// Новости (можно заменить на реальный API)
-const newsList = document.getElementById('newsList');
-newsList.innerHTML = `
-<li>Запуск нового вайпа! 🎉</li>
-<li>Добавлена поддержка Bedrock игроков через Geyser!</li>
-<li>Оптимизация сервера и улучшение производительности TPS.</li>
-`;
-
-fetchServerStatus();
-setInterval(fetchServerStatus, 5000);
+// Автообновление каждые 10 секунд
+fetchStatus();
+setInterval(fetchStatus, 10000);
