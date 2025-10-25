@@ -1,86 +1,63 @@
-// script.js — получает данные с https://api.mcsrvstat.us/2/yourstop.online
-const SERVER = 'yourstop.online';
-const API = `https://api.mcsrvstat.us/2/${SERVER}`;
+const API = 'http://yourstop.online:8080/status';
 
 const el = {
-  statusText: document.getElementById('statusText'),
-  playersCount: document.getElementById('playersCount'),
+  online: document.getElementById('online'),
+  tps: document.getElementById('tps'),
+  motd: document.getElementById('motd'),
   playersList: document.getElementById('playersList'),
-  motdHtml: document.getElementById('motdHtml'),
-  version: document.getElementById('version'),
-  ping: document.getElementById('ping'),
   copyIp: document.getElementById('copyIp'),
+  joinBtn: document.getElementById('join')
 };
 
-async function fetchStatus() {
-  try {
-    const res = await fetch(API, { cache: 'no-store' });
-    if (!res.ok) throw new Error('network');
-    const json = await res.json();
+async function fetchStatus(){
+  try{
+    const res = await fetch(API);
+    if(!res.ok) throw new Error('network error');
+    const data = await res.json();
 
-    if (json && json.online) {
-      el.statusText.textContent = 'Онлайн';
-      el.statusText.classList.remove('muted');
-      el.playersCount.textContent = json.players?.online || '0';
-      el.version.textContent = json.version || '—';
-      el.ping.textContent = json.debug?.ping ? json.debug.ping + ' ms' : '—';
+    el.online.textContent = `${data.online} / ${data.maxPlayers}`;
+    el.tps.textContent = data.tps.toFixed(2);
+    el.motd.textContent = data.motd;
 
-      const motd = json.motd?.clean?.join('\n') || json.motd?.raw?.join('\n') || '';
-      el.motdHtml.textContent = motd || '—';
-
-      renderPlayers(json.players?.list || []);
+    el.playersList.innerHTML = '';
+    if(data.players.length === 0){
+      const li = document.createElement('li');
+      li.textContent = 'Нет игроков';
+      el.playersList.appendChild(li);
     } else {
-      setOffline();
+      data.players.forEach(name => {
+        const li = document.createElement('li');
+        li.textContent = `${name} (${data.ping[name]} ms)`;
+        el.playersList.appendChild(li);
+      });
     }
-  } catch (err) {
-    console.error('Ошибка получения статуса:', err);
-    setOffline('Ошибка подключения');
+  }catch(e){
+    console.error('Ошибка API', e);
+    el.online.textContent = '—';
+    el.tps.textContent = '—';
+    el.motd.textContent = 'Сервер недоступен';
+    el.playersList.innerHTML = '';
   }
 }
 
-function setOffline(msg = 'Оффлайн') {
-  el.statusText.textContent = msg;
-  el.playersCount.textContent = '0';
-  el.version.textContent = '—';
-  el.ping.textContent = '—';
-  el.motdHtml.textContent = 'Сервер недоступен.';
-  renderPlayers([]);
-}
-
-function renderPlayers(list) {
-  el.playersList.innerHTML = '';
-  if (!list.length) {
-    const li = document.createElement('li');
-    li.textContent = 'Нет игроков';
-    el.playersList.appendChild(li);
-    return;
-  }
-  list.forEach(name => {
-    const li = document.createElement('li');
-    li.textContent = name;
-    el.playersList.appendChild(li);
-  });
-}
-
-// копировать IP
-el.copyIp.addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText(SERVER);
+// копирование IP
+el.copyIp.addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText('yourstop.online');
     el.copyIp.textContent = 'Скопировано!';
-    setTimeout(() => (el.copyIp.textContent = 'Копировать IP'), 2000);
-  } catch {
-    alert(`IP: ${SERVER}`);
+    setTimeout(()=>el.copyIp.textContent='Копировать IP',2000);
+  }catch{
+    alert('IP: yourstop.online');
   }
 });
 
-// кнопка «Присоединиться»
-document.getElementById('join').addEventListener('click', e => {
+// кнопка Join
+el.joinBtn.addEventListener('click', e=>{
   e.preventDefault();
-  navigator.clipboard?.writeText(SERVER).then(() => {
-    alert(`IP скопирован: ${SERVER}\\nОткрой Minecraft и вставь IP в список серверов.`);
+  navigator.clipboard.writeText('yourstop.online').then(()=>{
+    alert('IP скопирован! Открой Minecraft и вставь в список серверов.');
   });
 });
 
-// автообновление каждые 15 секунд
 fetchStatus();
-setInterval(fetchStatus, 15000);
+setInterval(fetchStatus, 10000); // обновляем каждые 10 сек
