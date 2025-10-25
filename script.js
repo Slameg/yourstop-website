@@ -1,4 +1,4 @@
-const serverAddress = "yourstop.online"; // Без порта, стандартный 25565
+const serverAddress = "yourstop.online"; // Без порта
 
 async function fetchServerStatus() {
     try {
@@ -31,6 +31,7 @@ async function fetchServerStatus() {
     }
 }
 
+// Кнопка подключиться
 document.getElementById("connectBtn").addEventListener("click", () => {
     window.location.href = `minecraft://connect/${serverAddress}`;
 });
