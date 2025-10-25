@@ -1,80 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Your Stop — дружелюбный Minecraft сервер. Онлайн, игроки, новости, версия и TPS сервера в реальном времени.">
-<meta name="keywords" content="Minecraft, сервер, Your Stop, выживание, друзья, онлайн">
-<meta name="robots" content="index, follow">
-<title>Your Stop — Minecraft сервер</title>
-
-<!-- Open Graph для соцсетей -->
-<meta property="og:title" content="Your Stop — Minecraft сервер">
-<meta property="og:description" content="Дружелюбный классический сервер Minecraft с активными игроками и интересными новостями.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://yourstop.online/">
-<meta property="og:image" content="logo.png">
-
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Your Stop — Minecraft сервер</title>
+  <meta name="description" content="Your Stop — дружелюбное выживание. Подключиться: yourstop.online">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-    <div class="header-container">
-        <h1 class="animated-motd">⛺ Your Stop</h1>
-        <p>Дружелюбное выживание — Вайпы, лицензия + пиратка, авторизация на входе ✅</p>
-    </div>
-</header>
+  <div class="wrap">
+    <header class="top">
+      <div class="logo">YS</div>
+      <div>
+        <h1>Your Stop</h1>
+        <p class="lead">Подключайтесь: <strong id="ip-display">yourstop.online</strong></p>
+      </div>
+    </header>
 
-<main>
-    <section class="status-section">
-        <div class="status-box">
-            <h2>Статус сервера</h2>
-            <p><strong>MOTD:</strong> <span id="motd">Загрузка...</span></p>
-            <p><strong>Игроки:</strong> <span id="online">0</span> / <span id="maxPlayers">0</span></p>
-            <p><strong>TPS:</strong> <span id="tps">—</span></p>
-            <p><strong>Версия:</strong> <span id="version">—</span></p>
-            <button id="connectBtn" onclick="window.location='minecraft://yourstop.online';">Подключиться</button>
+    <main class="main">
+      <section class="panel status-panel">
+        <div class="status-row">
+          <div class="status-badge" id="status-badge">—</div>
+          <div class="status-info">
+            <div id="motd" class="motd">Загрузка...</div>
+            <div id="ver" class="ver">Версия: —</div>
+          </div>
         </div>
 
-        <div class="players-box">
-            <h2>Игроки онлайн</h2>
-            <ul id="playerList">
-                <li>Загрузка...</li>
-            </ul>
+        <div class="controls">
+          <button id="copy-ip" class="btn">Скопировать IP</button>
+          <button id="join" class="btn ghost">Как подключиться</button>
         </div>
-    </section>
 
-    <section class="news-section">
-        <h2>Новости сервера</h2>
-        <ul id="newsList">
-            <li>Загрузка новостей...</li>
+        <div class="meta">
+          <div class="meta-block">
+            <h4>Игроки</h4>
+            <div id="players">Загрузка...</div>
+          </div>
+          <div class="meta-block">
+            <h4>Ping</h4>
+            <div id="ping">— ms</div>
+          </div>
+        </div>
+
+      </section>
+
+      <aside class="panel side">
+        <h3>Полезные ссылки</h3>
+        <ul class="links">
+          <li><a id="site-link" href="https://yourstop.ru" target="_blank">Официальный сайт</a></li>
+          <li><a id="discord-link" href="#">Discord</a></li>
         </ul>
-    </section>
-</main>
 
-<footer>
-    © 2025 Your Stop — Все права защищены
-</footer>
+        <h4>Правила (коротко)</h4>
+        <ol>
+          <li>Без griefа</li>
+          <li>Уважение к игрокам</li>
+          <li>Следуйте модам/админам</li>
+        </ol>
 
-<script src="script.js"></script>
+        <div class="card donate">
+          <strong>IP:</strong>
+          <div class="ip-large" id="ip-large">yourstop.online</div>
+        </div>
+      </aside>
+    </main>
 
-<!-- JSON-LD для поисковиков -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "VideoGame",
-  "name": "Your Stop",
-  "url": "https://yourstop.online/",
-  "gamePlatform": "Minecraft",
-  "description": "Дружелюбный сервер Minecraft с выживанием, онлайн игроками и новостями.",
-  "genre": "Survival",
-  "operatingSystem": "Cross-platform",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5",
-    "ratingCount": "100"
-  }
-}
-</script>
+    <footer class="foot">© 2025 Your Stop — Авто-обновление статуса через публичное API</footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
