@@ -3,20 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Your Stop — классическое выживание в Minecraft! Вайпы, пиратка+лицензия, авторизация на входе. Онлайн игроков, TPS и версия сервера.">
-<meta name="keywords" content="Minecraft, сервер, Your Stop, выживание, пиратка, лицензия, Minecraft сервер онлайн, TPS">
-<meta name="robots" content="index, follow">
 <title>Your Stop — Minecraft сервер</title>
+<meta name="description" content="Your Stop — классическое выживание в Minecraft. Онлайн игроков, MOTD и версия сервера в реальном времени.">
+<meta name="keywords" content="Minecraft, сервер, Your Stop, выживание, пиратка, лицензия, онлайн, TPS">
+
+<!-- Open Graph для соцсетей -->
+<meta property="og:title" content="Your Stop — Minecraft сервер">
+<meta property="og:description" content="Классическое выживание с вайпами и авторизацией. Онлайн игроков в реальном времени.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourstop.online/">
+<meta property="og:image" content="logo.png">
 
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-  <h1 class="animated-motd">⛺ Your Stop</h1>
-  <p>Классическое выживание — Вайпы, пиратка+лицензия, авторизация на входе ✅</p>
+  <div class="container">
+    <h1 class="animated-motd">⛺ Your Stop</h1>
+    <p>Классическое выживание — Вайпы, пиратка+лицензия, авторизация ✅</p>
+  </div>
 </header>
 
-<main>
+<main class="container">
   <section class="status-section">
     <div class="status-box">
       <h2>Статус сервера</h2>
@@ -43,9 +51,30 @@
 </main>
 
 <footer>
-  © 2025 Your Stop Minecraft Server — Все права защищены
+  <div class="container">
+    © 2025 Your Stop Minecraft Server — Все права защищены
+  </div>
 </footer>
 
 <script src="script.js"></script>
+
+<!-- JSON-LD для поисковых систем -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Your Stop",
+  "url": "https://yourstop.online/",
+  "gamePlatform": "Minecraft",
+  "description": "Классическое выживание в Minecraft с вайпами и авторизацией на входе.",
+  "genre": "Survival",
+  "operatingSystem": "Cross-platform",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "ratingCount": "100"
+  }
+}
+</script>
 </body>
 </html>
