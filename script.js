@@ -1,35 +1,38 @@
-const API_URL = "https://yourstop.online:55555/status";
+// Прокси URL — здесь нужно указать ваш работающий сервер Node.js/Render/VPS
+const API_URL = 'https://YOUR-PROXY-DOMAIN/api/status';
 
-async function fetchStatus() {
+async function updateStatus() {
     try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
+        const response = await fetch(API_URL);
+        const data = await response.json();
 
-        // MOTD с удалением символов форматирования Minecraft
-        document.getElementById("motd").textContent = data.motd.replace(/§./g, "");
+        document.getElementById('motd').textContent = data.motd.replace(/§[0-9a-fk-or]/g, '');
+        document.getElementById('online').textContent = data.online;
+        document.getElementById('maxPlayers').textContent = data.maxPlayers;
+        document.getElementById('tps').textContent = data.tps.toFixed(2);
+        document.getElementById('version').textContent = data.version;
 
-        document.getElementById("online").textContent = data.online;
-        document.getElementById("maxPlayers").textContent = data.maxPlayers;
-        document.getElementById("tps").textContent = data.tps.toFixed(2);
-        document.getElementById("version").textContent = data.version;
-
-        const playerList = document.getElementById("playerList");
-        playerList.innerHTML = "";
+        const playerList = document.getElementById('playerList');
+        playerList.innerHTML = '';
         if (data.players.length === 0) {
-            playerList.innerHTML = "<li>Нет игроков онлайн</li>";
+            playerList.innerHTML = '<li>Нет игроков онлайн</li>';
         } else {
             data.players.forEach(p => {
-                const li = document.createElement("li");
+                const li = document.createElement('li');
                 li.textContent = p;
                 playerList.appendChild(li);
             });
         }
+
+        // Можно добавить новости, если есть отдельный endpoint
+        const newsList = document.getElementById('newsList');
+        newsList.innerHTML = '<li>Сайт обновлен!</li>';
     } catch (err) {
-        console.error("Ошибка загрузки статуса сервера:", err);
-        document.getElementById("motd").textContent = "Сервер недоступен";
+        console.error(err);
+        document.getElementById('motd').textContent = 'Ошибка';
     }
 }
 
-// Автообновление каждые 10 секунд
-fetchStatus();
-setInterval(fetchStatus, 10000);
+// Обновляем каждые 15 секунд
+updateStatus();
+setInterval(updateStatus, 15000);
