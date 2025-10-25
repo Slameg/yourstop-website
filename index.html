@@ -2,28 +2,103 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>YourStop Dashboard</title>
+  <title>YourStop — Minecraft сервер</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: Arial, sans-serif; background: #111; color: #eee; text-align: center; padding: 30px; }
-    h1 { color: #00aaff; }
-    .card { background: #1b1b1b; border-radius: 10px; padding: 20px; display: inline-block; margin-top: 30px; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom right, #0d1117, #1a1f2b);
+      color: #e6e6e6;
+      text-align: center;
+    }
+    header {
+      padding: 40px 20px;
+      background: rgba(0,0,0,0.6);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    h1 { color: #00c8ff; margin-bottom: 10px; }
+    h2 { color: #aaa; margin-top: 0; }
+    main { padding: 40px 20px; }
+    section {
+      max-width: 800px;
+      margin: 40px auto;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+    .btn {
+      display: inline-block;
+      background: #00c8ff;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #0099cc; }
+    footer {
+      margin-top: 60px;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #888;
+    }
+    img.screenshot {
+      width: 90%;
+      max-width: 700px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
-  <h1>🛡 YourStop — панель сервера</h1>
-  <div class="card">
-    <p><b>Защищённых блоков:</b> <span id="blocks">загрузка...</span></p>
-    <p><b>Последнее обновление:</b> <span id="time">—</span></p>
-  </div>
+  <header>
+    <h1>🌍 YourStop</h1>
+    <h2>Minecraft сервер с системой защиты и прогрессом</h2>
+    <a href="#join" class="btn">Присоединиться</a>
+  </header>
 
-  <script>
-    fetch("webdata.json?"+Date.now())
-      .then(r=>r.json())
-      .then(d=>{
-        document.getElementById("blocks").textContent = d.protected_blocks ?? "0";
-        document.getElementById("time").textContent = d.last_save ?? "—";
-      })
-      .catch(()=>{document.getElementById("blocks").textContent="ошибка";});
-  </script>
+  <main>
+    <section id="about">
+      <h2>О сервере</h2>
+      <p>
+        YourStop — это современный Minecraft сервер, где можно строить, развиваться и защищать свои постройки
+        при помощи уникального плагина <b>YourStop Protection</b>.
+      </p>
+      <p>Версия сервера: <b>1.21.1</b> (Java + Bedrock через Geyser)</p>
+      <p>IP: <b>yourstop.ru</b></p>
+    </section>
+
+    <section id="plugins">
+      <h2>Плагины и особенности</h2>
+      <ul style="text-align:left; display:inline-block;">
+        <li>🔐 YourStop — защита блоков и дверей</li>
+        <li>🧱 Build & Repair режимы</li>
+        <li>💬 AuthMe — авторизация</li>
+        <li>⚡ ViaVersion + Geyser — поддержка Bedrock игроков</li>
+        <li>🛒 GlobalMarketplace — внутриигровой рынок</li>
+        <li>🎭 LuckPerms — гибкие права</li>
+      </ul>
+    </section>
+
+    <section id="screenshots">
+      <h2>Скриншоты</h2>
+      <img src="https://minecraft.wiki/images/Minecraft-blocks.png?202307101" alt="screenshot" class="screenshot">
+    </section>
+
+    <section id="join">
+      <h2>Как присоединиться</h2>
+      <p>1️⃣ Открой Minecraft версии <b>1.21+</b>  
+         2️⃣ В разделе «Мультиплеер» добавь сервер с IP: <b>yourstop.ru</b>  
+         3️⃣ Присоединяйся и построй свою базу!</p>
+      <a href="https://discord.gg/" class="btn">Наш Discord</a>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 YourStop Server — Slameg. Сделано с ❤️
+  </footer>
 </body>
 </html>
