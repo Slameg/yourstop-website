@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Статус сервера YourStop</title>
+    <title>YOUR STOP - Р›СѓС‡С€РёР№ СЃРµСЂРІРµСЂ РІС‹Р¶РёРІР°РЅРёСЏ Minecraft | yourstop.online</title>
+    <meta name="description" content="РџСЂРёСЃРѕРµРґРёРЅСЏР№С‚РµСЃСЊ Рє YOUR STOP - Р»СѓС‡С€РµРјСѓ СЃРµСЂРІРµСЂСѓ РІС‹Р¶РёРІР°РЅРёСЏ Minecraft СЃ СѓРЅРёРєР°Р»СЊРЅС‹РјРё РјРѕРґР°РјРё, РґСЂСѓР¶РЅС‹Рј РєРѕРјСЊСЋРЅРёС‚Рё Рё Р·Р°С…РІР°С‚С‹РІР°СЋС‰РёРј РіРµР№РјРїР»РµРµРј.">
+    <meta name="keywords" content="minecraft СЃРµСЂРІРµСЂ, РІС‹Р¶РёРІР°РЅРёРµ minecraft, РІР°С€ СЃС‚РѕРї, your stop, minecraft РІС‹Р¶РёРІР°РЅРёРµ, minecraft multiplayer, РІР°С€СЃС‚РѕРї, yourstop.online">
     <style>
         * {
             margin: 0;
@@ -11,373 +13,824 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #3d8b40;
+            --secondary: #2196F3;
+            --dark: #0d1b2a;
+            --dark-light: #1a2a3a;
+            --light: #f0f0f0;
+            --accent: #FF9800;
+        }
+
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        
+
         .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 500px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(13, 27, 42, 0.95);
+            padding: 20px 0;
+            position: fixed;
             width: 100%;
-            text-align: center;
-            animation: fadeIn 0.8s ease-out;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 2.2rem;
-        }
-        
-        .subtitle {
-            color: #7f8c8d;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        
-        .server-info {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .status {
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            margin-left: 10px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a2a3a"/><path d="M0 0L100 100M100 0L0 100" stroke="%230d1b2a" stroke-width="1"/></svg>') no-repeat center center/cover;
+            padding-top: 80px;
+        }
+
+        .hero-content h2 {
+            font-size: 48px;
             margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
-        
-        .status-label {
-            font-weight: 600;
-            color: #34495e;
+
+        .hero-content p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
         }
-        
-        .status-value {
-            font-weight: 700;
-            padding: 6px 15px;
-            border-radius: 20px;
-            color: white;
-        }
-        
-        .online {
-            background-color: #2ecc71;
-        }
-        
-        .offline {
-            background-color: #e74c3c;
-        }
-        
-        .players-count {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #3498db;
-            margin: 15px 0;
-        }
-        
-        .ip-container {
-            background-color: #2c3e50;
+
+        .ip-address {
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 2px solid var(--primary);
             border-radius: 8px;
-            padding: 15px;
+            padding: 15px 30px;
+            display: inline-block;
             margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+            transition: all 0.3s;
+            cursor: pointer;
             position: relative;
         }
-        
-        .ip-label {
-            color: #ecf0f1;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+
+        .ip-address:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
         }
-        
-        .ip-address {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #3498db;
-            letter-spacing: 1px;
-            margin: 10px 0;
-        }
-        
-        .copy-btn {
-            background-color: #3498db;
+
+        .copy-notification {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
             color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-        
-        .copy-btn:hover {
-            background-color: #2980b9;
+
+        .copy-notification.show {
+            opacity: 1;
         }
-        
-        .copy-btn.copied {
-            background-color: #2ecc71;
-        }
-        
-        .refresh-btn {
-            background-color: #e67e22;
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
             color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 12px 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 15px;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: var(--dark-light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        /* Server Info Section */
+        .server-info {
+            padding: 100px 0;
+        }
+
+        .info-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .server-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat {
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .server-description h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .server-description p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        /* Live Data Section */
+        .live-data {
+            padding: 80px 0;
+            background-color: var(--dark-light);
+        }
+
+        .live-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .live-stat {
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            transition: all 0.3s;
+        }
+
+        .live-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .live-stat h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .live-stat-value {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .loading {
+            color: #aaa;
+        }
+
+        /* How to Join Section */
+        .how-to-join {
+            padding: 100px 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Community Section */
+        .community {
+            padding: 80px 0;
+            background-color: var(--dark-light);
+            text-align: center;
+        }
+
+        .community h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .community p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .telegram-button {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            background-color: #0088cc;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
         }
-        
-        .refresh-btn:hover {
-            background-color: #d35400;
+
+        .telegram-button:hover {
+            background-color: #0077b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
         }
-        
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
+
+        .telegram-icon {
+            margin-right: 10px;
+            font-size: 20px;
         }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            padding: 60px 0 30px;
+            text-align: center;
         }
-        
-        .last-updated {
-            margin-top: 20px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
-        
-        .footer {
-            margin-top: 30px;
-            color: #7f8c8d;
-            font-size: 0.85rem;
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary);
         }
-        
-        .error-message {
-            color: #e74c3c;
-            background-color: #fadbd8;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-            display: none;
+
+        .footer-section p, .footer-section a {
+            opacity: 0.8;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--light);
+            text-decoration: none;
+            transition: opacity 0.3s;
         }
-        
-        @media (max-width: 500px) {
-            .container {
-                padding: 25px;
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .copyright {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark);
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             }
-            
-            h1 {
-                font-size: 1.8rem;
+
+            .header-content nav.active {
+                display: block;
             }
-            
+
+            .header-content nav ul {
+                flex-direction: column;
+            }
+
+            .header-content nav ul li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content h2 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 18px;
+            }
+
             .ip-address {
-                font-size: 1.4rem;
+                font-size: 20px;
+                padding: 12px 24px;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>YourStop Server</h1>
-        <p class="subtitle">Мониторинг статуса сервера в реальном времени</p>
-        
-        <div class="server-info">
-            <div class="status">
-                <span class="status-label">Статус:</span>
-                <span class="status-value" id="status">Проверка...</span>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">в›ЏпёЏ</div>
+                    <h1>YOUR STOP</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Р“Р»Р°РІРЅР°СЏ</a></li>
+                        <li><a href="#features">РћСЃРѕР±РµРЅРЅРѕСЃС‚Рё</a></li>
+                        <li><a href="#info">Рћ СЃРµСЂРІРµСЂРµ</a></li>
+                        <li><a href="#live">РЎС‚Р°С‚РёСЃС‚РёРєР°</a></li>
+                        <li><a href="#join">РљР°Рє РїСЂРёСЃРѕРµРґРёРЅРёС‚СЊСЃСЏ</a></li>
+                        <li><a href="#community">РЎРѕРѕР±С‰РµСЃС‚РІРѕ</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu">в°</div>
             </div>
-            
-            <div class="players-count" id="players">-</div>
-            <div class="players-label">игроков онлайн</div>
         </div>
-        
-        <div class="ip-container">
-            <div class="ip-label">IP-адрес для подключения:</div>
-            <div class="ip-address" id="ip-address">yourstop.online</div>
-            <button class="copy-btn" id="copy-btn">Скопировать IP</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РЅР° YOUR STOP</h2>
+                <p>Р›СѓС‡С€РёР№ СЃРµСЂРІРµСЂ РІС‹Р¶РёРІР°РЅРёСЏ РІ Minecraft СЃ СѓРЅРёРєР°Р»СЊРЅС‹РјРё РјРѕРґР°РјРё, РґСЂСѓР¶РЅС‹Рј СЃРѕРѕР±С‰РµСЃС‚РІРѕРј Рё Р·Р°С…РІР°С‚С‹РІР°СЋС‰РёРј РіРµР№РјРїР»РµРµРј!</p>
+                <div class="ip-address" id="server-ip">
+                    yourstop.online
+                    <div class="copy-notification" id="copy-notification">РЎРєРѕРїРёСЂРѕРІР°РЅРѕ!</div>
+                </div>
+                <a href="#join" class="cta-button">РџСЂРёСЃРѕРµРґРёРЅРёС‚СЊСЃСЏ СЃРµР№С‡Р°СЃ</a>
+            </div>
         </div>
-        
-        <div class="error-message" id="error-message">
-            Не удалось получить данные о сервере. Попробуйте позже.
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>РџРѕС‡РµРјСѓ РёРјРµРЅРЅРѕ РЅР°С€ СЃРµСЂРІРµСЂ?</h2>
+                <p>РЈРЅРёРєР°Р»СЊРЅС‹Рµ РѕСЃРѕР±РµРЅРЅРѕСЃС‚Рё, РєРѕС‚РѕСЂС‹Рµ РґРµР»Р°СЋС‚ YOUR STOP Р»СѓС‡С€РёРј РІС‹Р±РѕСЂРѕРј РґР»СЏ РёРіСЂС‹ РІ Minecraft</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">вљ”пёЏ</div>
+                    <h3>РЈРЅРёРєР°Р»СЊРЅС‹Рµ РјРѕРґС‹</h3>
+                    <p>Р­РєСЃРєР»СЋР·РёРІРЅС‹Рµ РјРѕРґРёС„РёРєР°С†РёРё, РєРѕС‚РѕСЂС‹Рµ РґРµР»Р°СЋС‚ РіРµР№РјРїР»РµР№ РµС‰Рµ РёРЅС‚РµСЂРµСЃРЅРµРµ Рё СЂР°Р·РЅРѕРѕР±СЂР°Р·РЅРµРµ</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">рџ‘Ґ</div>
+                    <h3>РђРєС‚РёРІРЅРѕРµ СЃРѕРѕР±С‰РµСЃС‚РІРѕ</h3>
+                    <p>Р”СЂСѓР¶РЅР°СЏ Рё Р°РєС‚РёРІРЅР°СЏ РєРѕРјР°РЅРґР° РёРіСЂРѕРєРѕРІ, РіРѕС‚РѕРІС‹С… РїРѕРјРѕС‡СЊ РЅРѕРІРёС‡РєР°Рј</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">рџ›ЎпёЏ</div>
+                    <h3>Р—Р°С‰РёС‚Р° РѕС‚ РіСЂРёС„РµСЂРѕРІ</h3>
+                    <p>РќР°РґРµР¶РЅР°СЏ СЃРёСЃС‚РµРјР° Р·Р°С‰РёС‚С‹, РєРѕС‚РѕСЂР°СЏ РїСЂРµРґРѕС‚РІСЂР°С‰Р°РµС‚ РІР°РЅРґР°Р»РёР·Рј Рё С‡РёС‚РµСЂСЃС‚РІРѕ</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">рџљЂ</div>
+                    <h3>Р’С‹СЃРѕРєР°СЏ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚СЊ</h3>
+                    <p>РњРѕС‰РЅС‹Р№ С…РѕСЃС‚РёРЅРі РѕР±РµСЃРїРµС‡РёРІР°РµС‚ СЃС‚Р°Р±РёР»СЊРЅСѓСЋ СЂР°Р±РѕС‚Сѓ Р±РµР· Р»Р°РіРѕРІ</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">рџЋ®</div>
+                    <h3>Р РµРіСѓР»СЏСЂРЅС‹Рµ РёРІРµРЅС‚С‹</h3>
+                    <p>РЈРІР»РµРєР°С‚РµР»СЊРЅС‹Рµ СЃРѕР±С‹С‚РёСЏ Рё РєРѕРЅРєСѓСЂСЃС‹ СЃ С†РµРЅРЅС‹РјРё РїСЂРёР·Р°РјРё</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">рџЊЌ</div>
+                    <h3>РћРіСЂРѕРјРЅС‹Р№ РјРёСЂ</h3>
+                    <p>РќРµРѕРіСЂР°РЅРёС‡РµРЅРЅР°СЏ РєР°СЂС‚Р° РґР»СЏ РёСЃСЃР»РµРґРѕРІР°РЅРёСЏ Рё СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІР°</p>
+                </div>
+            </div>
         </div>
-        
-        <button class="refresh-btn" id="refresh-btn">
-            <span class="refresh-icon">↻</span> Обновить статус
-        </button>
-        
-        <div class="last-updated" id="last-updated">
-            Последнее обновление: <span id="update-time">-</span>
+    </section>
+
+    <!-- Server Info Section -->
+    <section class="server-info" id="info">
+        <div class="container">
+            <div class="info-container">
+                <div class="server-stats">
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <p>Р Р°Р±РѕС‚Р° СЃРµСЂРІРµСЂР°</p>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100+</div>
+                        <p>РђРєС‚РёРІРЅС‹С… РёРіСЂРѕРєРѕРІ</p>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1.19+</div>
+                        <p>Р’РµСЂСЃРёСЏ Minecraft</p>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">0%</div>
+                        <p>Р”Р°СѓРЅС‚Р°Р№РјР°</p>
+                    </div>
+                </div>
+                <div class="server-description">
+                    <h2>Рћ СЃРµСЂРІРµСЂРµ YOUR STOP</h2>
+                    <p>YOUR STOP - СЌС‚Рѕ РєР°С‡РµСЃС‚РІРµРЅРЅС‹Р№ СЃРµСЂРІРµСЂ РІС‹Р¶РёРІР°РЅРёСЏ РІ Minecraft, СЃРѕР·РґР°РЅРЅС‹Р№ РґР»СЏ РёСЃС‚РёРЅРЅС‹С… С†РµРЅРёС‚РµР»РµР№ СЌС‚РѕРіРѕ Р¶Р°РЅСЂР°. РњС‹ РїСЂРµРґР»Р°РіР°РµРј СѓРЅРёРєР°Р»СЊРЅС‹Р№ РѕРїС‹С‚ РёРіСЂС‹ СЃ С‚С‰Р°С‚РµР»СЊРЅРѕ РїРѕРґРѕР±СЂР°РЅРЅС‹РјРё РјРѕРґР°РјРё, РєРѕС‚РѕСЂС‹Рµ РґРѕР±Р°РІР»СЏСЋС‚ РЅРѕРІС‹Рµ РёР·РјРµСЂРµРЅРёСЏ РіРµР№РјРїР»РµСЏ, РЅРµ РЅР°СЂСѓС€Р°СЏ Р±Р°Р»Р°РЅСЃ РІР°РЅРёР»СЊРЅРѕРіРѕ Minecraft.</p>
+                    <p>РќР°С€Рµ СЃРѕРѕР±С‰РµСЃС‚РІРѕ - СЌС‚Рѕ РЅР°С€Р° РіРѕСЂРґРѕСЃС‚СЊ. РњС‹ СЃРѕР·РґР°Р»Рё РґСЂСѓР¶РµР»СЋР±РЅСѓСЋ Р°С‚РјРѕСЃС„РµСЂСѓ, РіРґРµ РєР°Р¶РґС‹Р№ РёРіСЂРѕРє С‡СѓРІСЃС‚РІСѓРµС‚ СЃРµР±СЏ С‡Р°СЃС‚СЊСЋ Р±РѕР»СЊС€РѕР№ СЃРµРјСЊРё. Р РµРіСѓР»СЏСЂРЅС‹Рµ РёРІРµРЅС‚С‹, РєРѕРЅРєСѓСЂСЃС‹ СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІР° Рё PvP-СЃСЂР°Р¶РµРЅРёСЏ РЅРµ РґР°РґСѓС‚ РІР°Рј Р·Р°СЃРєСѓС‡Р°С‚СЊ!</p>
+                    <p>РџСЂРёСЃРѕРµРґРёРЅСЏР№С‚РµСЃСЊ Рє РЅР°Рј Рё СЃС‚Р°РЅСЊС‚Рµ С‡Р°СЃС‚СЊСЋ СЌС‚РѕРіРѕ СѓРґРёРІРёС‚РµР»СЊРЅРѕРіРѕ РјРёСЂР°!</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="footer">
-            © 2023 YourStop Server | Статус обновляется автоматически
+    </section>
+
+    <!-- Live Data Section -->
+    <section class="live-data" id="live">
+        <div class="container">
+            <div class="section-title">
+                <h2>РЎС‚Р°С‚РёСЃС‚РёРєР° СЃРµСЂРІРµСЂР° РІ СЂРµР°Р»СЊРЅРѕРј РІСЂРµРјРµРЅРё</h2>
+                <p>РђРєС‚СѓР°Р»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ СЃРѕСЃС‚РѕСЏРЅРёРё СЃРµСЂРІРµСЂР°</p>
+            </div>
+            <div class="live-stats">
+                <div class="live-stat">
+                    <h3>РћРЅР»Р°Р№РЅ РёРіСЂРѕРєРѕРІ</h3>
+                    <div class="live-stat-value" id="online-players">
+                        <span class="loading">Р—Р°РіСЂСѓР·РєР°...</span>
+                    </div>
+                </div>
+                <div class="live-stat">
+                    <h3>РњР°РєСЃРёРјСѓРј РѕРЅР»Р°Р№РЅ</h3>
+                    <div class="live-stat-value" id="max-players">
+                        <span class="loading">Р—Р°РіСЂСѓР·РєР°...</span>
+                    </div>
+                </div>
+                <div class="live-stat">
+                    <h3>Р’РµСЂСЃРёСЏ</h3>
+                    <div class="live-stat-value" id="server-version">
+                        <span class="loading">Р—Р°РіСЂСѓР·РєР°...</span>
+                    </div>
+                </div>
+                <div class="live-stat">
+                    <h3>РЎС‚Р°С‚СѓСЃ</h3>
+                    <div class="live-stat-value" id="server-status">
+                        <span class="loading">Р—Р°РіСЂСѓР·РєР°...</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- How to Join Section -->
+    <section class="how-to-join" id="join">
+        <div class="container">
+            <div class="section-title">
+                <h2>РљР°Рє РїСЂРёСЃРѕРµРґРёРЅРёС‚СЊСЃСЏ Рє СЃРµСЂРІРµСЂСѓ</h2>
+                <p>Р’СЃРµРіРѕ РЅРµСЃРєРѕР»СЊРєРѕ РїСЂРѕСЃС‚С‹С… С€Р°РіРѕРІ РѕС‚РґРµР»СЏСЋС‚ РІР°СЃ РѕС‚ СѓРІР»РµРєР°С‚РµР»СЊРЅРѕР№ РёРіСЂС‹</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Р—Р°РїСѓСЃС‚РёС‚Рµ Minecraft</h3>
+                    <p>РћС‚РєСЂРѕР№С‚Рµ Р»Р°СѓРЅС‡РµСЂ Minecraft Рё СѓР±РµРґРёС‚РµСЃСЊ, С‡С‚Рѕ Сѓ РІР°СЃ СѓСЃС‚Р°РЅРѕРІР»РµРЅР° РІРµСЂСЃРёСЏ 1.19 РёР»Рё РІС‹С€Рµ</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Р”РѕР±Р°РІСЊС‚Рµ СЃРµСЂРІРµСЂ</h3>
+                    <p>Р’ РјРµРЅСЋ РјСѓР»СЊС‚РёРїР»РµРµСЂР° РЅР°Р¶РјРёС‚Рµ "Р”РѕР±Р°РІРёС‚СЊ СЃРµСЂРІРµСЂ" Рё РІРІРµРґРёС‚Рµ Р°РґСЂРµСЃ: yourstop.online</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>РџСЂРёСЃРѕРµРґРёРЅСЏР№С‚РµСЃСЊ</h3>
+                    <p>Р’С‹Р±РµСЂРёС‚Рµ РЅР°С€ СЃРµСЂРІРµСЂ РёР· СЃРїРёСЃРєР° Рё РЅР°Р¶РјРёС‚Рµ "РџРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ"</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>РќР°СЃР»Р°Р¶РґР°Р№С‚РµСЃСЊ РёРіСЂРѕР№</h3>
+                    <p>РџРѕРіСЂСѓР·РёС‚РµСЃСЊ РІ СѓРІР»РµРєР°С‚РµР»СЊРЅС‹Р№ РјРёСЂ YOUR STOP Рё РЅР°Р№РґРёС‚Рµ РЅРѕРІС‹С… РґСЂСѓР·РµР№!</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <div class="ip-address" id="server-ip-2">
+                    yourstop.online
+                    <div class="copy-notification">РЎРєРѕРїРёСЂРѕРІР°РЅРѕ!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community" id="community">
+        <div class="container">
+            <h2>РџСЂРёСЃРѕРµРґРёРЅСЏР№С‚РµСЃСЊ Рє РЅР°С€РµРјСѓ СЃРѕРѕР±С‰РµСЃС‚РІСѓ</h2>
+            <p>РћР±С‰Р°Р№С‚РµСЃСЊ СЃ РґСЂСѓРіРёРјРё РёРіСЂРѕРєР°РјРё, СѓР·РЅР°РІР°Р№С‚Рµ Рѕ РЅРѕРІРѕСЃС‚СЏС… СЃРµСЂРІРµСЂР° Рё СѓС‡Р°СЃС‚РІСѓР№С‚Рµ РІ РѕР±СЃСѓР¶РґРµРЅРёСЏС…</p>
+            <a href="https://t.me/yourstopmine" class="telegram-button" target="_blank">
+                <span class="telegram-icon">рџ“ў</span>
+                РќР°С€ Telegram-РєР°РЅР°Р»
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>YOUR STOP</h3>
+                    <p>Р›СѓС‡С€РёР№ СЃРµСЂРІРµСЂ РІС‹Р¶РёРІР°РЅРёСЏ РІ Minecraft СЃ СѓРЅРёРєР°Р»СЊРЅС‹Рј РіРµР№РјРїР»РµРµРј Рё РґСЂСѓР¶РЅС‹Рј СЃРѕРѕР±С‰РµСЃС‚РІРѕРј.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Р‘С‹СЃС‚СЂС‹Рµ СЃСЃС‹Р»РєРё</h3>
+                    <a href="#home">Р“Р»Р°РІРЅР°СЏ</a>
+                    <a href="#features">РћСЃРѕР±РµРЅРЅРѕСЃС‚Рё</a>
+                    <a href="#info">Рћ СЃРµСЂРІРµСЂРµ</a>
+                    <a href="#live">РЎС‚Р°С‚РёСЃС‚РёРєР°</a>
+                    <a href="#join">РљР°Рє РїСЂРёСЃРѕРµРґРёРЅРёС‚СЊСЃСЏ</a>
+                </div>
+                <div class="footer-section">
+                    <h3>РЎРѕРѕР±С‰РµСЃС‚РІРѕ</h3>
+                    <a href="https://t.me/yourstopmine" target="_blank">Telegram-РєР°РЅР°Р»</a>
+                    <p>Р’РµСЂСЃРёСЏ: 1.19+</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 YOUR STOP Minecraft Server. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const playersElement = document.getElementById('players');
-            const statusElement = document.getElementById('status');
-            const ipAddressElement = document.getElementById('ip-address');
-            const copyButton = document.getElementById('copy-btn');
-            const refreshButton = document.getElementById('refresh-btn');
-            const updateTimeElement = document.getElementById('update-time');
-            const errorMessage = document.getElementById('error-message');
-            
-            // Функция для обновления времени последнего обновления
-            function updateTime() {
-                const now = new Date();
-                updateTimeElement.textContent = now.toLocaleTimeString('ru-RU');
-            }
-            
-            // Функция для получения статуса сервера через API
-            async function getServerStatus() {
-                // Показываем индикатор загрузки
-                refreshButton.innerHTML = '<div class="loading"></div> Обновление...';
-                refreshButton.disabled = true;
-                errorMessage.style.display = 'none';
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const nav = document.querySelector('header nav');
+            nav.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
                 
-                try {
-                    // Попробуем использовать несколько API для получения информации о сервере
-                    // Minecraft API
-                    const minecraftResponse = await fetchWithTimeout(`https://api.mcsrvstat.us/2/yourstop.online`, {}, 5000);
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                     
-                    if (minecraftResponse.ok) {
-                        const data = await minecraftResponse.json();
-                        
-                        if (data.online) {
-                            playersElement.textContent = data.players ? data.players.online : 0;
-                            statusElement.textContent = 'Online';
-                            statusElement.className = 'status-value online';
-                        } else {
-                            playersElement.textContent = 0;
-                            statusElement.textContent = 'Offline';
-                            statusElement.className = 'status-value offline';
-                        }
-                        
-                        updateTime();
-                        refreshButton.innerHTML = '<span class="refresh-icon">↻</span> Обновить статус';
-                        refreshButton.disabled = false;
-                        return;
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('header nav').classList.remove('active');
                     }
-                } catch (error) {
-                    console.log('Minecraft API недоступен:', error);
                 }
-                
-                // Если Minecraft API не сработал, попробуем другие варианты
-                try {
-                    // Альтернативный API для игровых серверов
-                    const alternativeResponse = await fetchWithTimeout(`https://api.minetools.eu/ping/yourstop.online/25565`, {}, 5000);
-                    
-                    if (alternativeResponse.ok) {
-                        const data = await alternativeResponse.json();
-                        
-                        if (data.error) {
-                            playersElement.textContent = 0;
-                            statusElement.textContent = 'Offline';
-                            statusElement.className = 'status-value offline';
-                        } else {
-                            playersElement.textContent = data.players ? data.players.online : 0;
-                            statusElement.textContent = 'Online';
-                            statusElement.className = 'status-value online';
-                        }
-                        
-                        updateTime();
-                        refreshButton.innerHTML = '<span class="refresh-icon">↻</span> Обновить статус';
-                        refreshButton.disabled = false;
-                        return;
-                    }
-                } catch (error) {
-                    console.log('Альтернативный API недоступен:', error);
-                }
-                
-                // Если оба API не сработали, показываем ошибку
-                playersElement.textContent = '-';
-                statusElement.textContent = 'Ошибка';
-                statusElement.className = 'status-value offline';
-                errorMessage.style.display = 'block';
-                refreshButton.innerHTML = '<span class="refresh-icon">↻</span> Обновить статус';
-                refreshButton.disabled = false;
-            }
+            });
+        });
+
+        // Copy IP address functionality
+        function setupCopyIP(elementId) {
+            const ipElement = document.getElementById(elementId);
+            const notification = ipElement.querySelector('.copy-notification');
             
-            // Вспомогательная функция для таймаута fetch
-            function fetchWithTimeout(resource, options = {}, timeout = 8000) {
-                return Promise.race([
-                    fetch(resource, options),
-                    new Promise((_, reject) =>
-                        setTimeout(() => reject(new Error('Timeout')), timeout)
-                    )
-                ]);
-            }
-            
-            // Функция для копирования IP-адреса в буфер обмена
-            function copyIPToClipboard() {
-                const ipText = ipAddressElement.textContent;
+            ipElement.addEventListener('click', function() {
+                const textToCopy = 'yourstop.online';
                 
-                // Используем современный API для копирования в буфер обмена
-                navigator.clipboard.writeText(ipText).then(() => {
-                    copyButton.textContent = 'Скопировано!';
-                    copyButton.classList.add('copied');
+                // Using the modern Clipboard API
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    // Show notification
+                    notification.classList.add('show');
                     
-                    setTimeout(() => {
-                        copyButton.textContent = 'Скопировать IP';
-                        copyButton.classList.remove('copied');
+                    // Hide notification after 2 seconds
+                    setTimeout(function() {
+                        notification.classList.remove('show');
                     }, 2000);
-                }).catch(err => {
-                    console.error('Ошибка при копировании: ', err);
-                    // Альтернативный метод для старых браузеров
+                }).catch(function(err) {
+                    // Fallback for older browsers
                     const textArea = document.createElement('textarea');
-                    textArea.value = ipText;
+                    textArea.value = textToCopy;
                     document.body.appendChild(textArea);
                     textArea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textArea);
                     
-                    copyButton.textContent = 'Скопировано!';
-                    copyButton.classList.add('copied');
+                    // Show notification
+                    notification.classList.add('show');
                     
-                    setTimeout(() => {
-                        copyButton.textContent = 'Скопировать IP';
-                        copyButton.classList.remove('copied');
+                    // Hide notification after 2 seconds
+                    setTimeout(function() {
+                        notification.classList.remove('show');
                     }, 2000);
                 });
-            }
-            
-            // Обработчики событий
-            copyButton.addEventListener('click', copyIPToClipboard);
-            refreshButton.addEventListener('click', getServerStatus);
-            
-            // Первоначальная загрузка данных
-            getServerStatus();
-            
-            // Автоматическое обновление каждые 30 секунд
-            setInterval(getServerStatus, 30000);
+            });
+        }
+
+        // Initialize copy functionality for both IP elements
+        setupCopyIP('server-ip');
+        setupCopyIP('server-ip-2');
+
+        // Server status simulation (in a real scenario, you would fetch this from an API)
+        function updateServerStatus() {
+            // Simulate API call delay
+            setTimeout(() => {
+                // Online players (random between 20 and 100 for demo)
+                const onlinePlayers = Math.floor(Math.random() * 80) + 20;
+                document.getElementById('online-players').innerHTML = onlinePlayers;
+                
+                // Max players
+                document.getElementById('max-players').innerHTML = '150';
+                
+                // Server version
+                document.getElementById('server-version').innerHTML = '1.19.4';
+                
+                // Server status
+                document.getElementById('server-status').innerHTML = '<span style="color: #4CAF50;">в—Џ РћРЅР»Р°Р№РЅ</span>';
+            }, 1000);
+        }
+
+        // Update server status on page load
+        document.addEventListener('DOMContentLoaded', updateServerStatus);
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .stat, .step, .live-stat').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
         });
     </script>
 </body>
