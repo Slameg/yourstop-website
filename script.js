@@ -1,4 +1,4 @@
-const API_URL = "http://yourstop.online:55555/status";
+const API_URL = "https://yourstop.online:55555/status";
 
 async function fetchStatus() {
     try {
