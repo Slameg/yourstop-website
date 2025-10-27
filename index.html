@@ -767,26 +767,28 @@
             padding: 5rem 0;
             position: relative;
             background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+            overflow: hidden;
         }
 
         .commands-container {
             position: relative;
             margin: 0 auto;
             max-width: 1400px;
-            padding: 0 100px;
+            padding: 0 20px;
         }
         
         .slider-wrapper {
             overflow: hidden;
             position: relative;
             width: 100%;
-            margin: 0 -50px;
-            padding: 2rem 50px;
+            margin: 0 auto;
+            padding: 2rem 0;
         }
 
         .commands-slider {
             display: flex;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            justify-content: center;
         }
 
         .command-category {
@@ -1132,12 +1134,7 @@
         @media (max-width: 1200px) {
             .commands-container {
                 max-width: 1200px;
-                padding: 0 80px;
-            }
-            
-            .slider-wrapper {
-                margin: 0 -40px;
-                padding: 2rem 40px;
+                padding: 0 15px;
             }
         }
 
@@ -1168,12 +1165,7 @@
             }
 
             .commands-container {
-                padding: 0 60px;
-            }
-            
-            .slider-wrapper {
-                margin: 0 -30px;
-                padding: 2rem 30px;
+                padding: 0 15px;
             }
         }
 
@@ -1243,12 +1235,7 @@
             }
 
             .commands-container {
-                padding: 0 50px;
-            }
-            
-            .slider-wrapper {
-                margin: 0 -20px;
-                padding: 2rem 20px;
+                padding: 0 15px;
             }
 
             .command-category {
@@ -1335,12 +1322,7 @@
             }
 
             .commands-container {
-                padding: 0 40px;
-            }
-            
-            .slider-wrapper {
-                margin: 0 -15px;
-                padding: 2rem 15px;
+                padding: 0 10px;
             }
 
             .slider-btn {
@@ -1772,7 +1754,8 @@
         const nextBtn = document.getElementById('next-btn');
         
         const totalOriginalCards = commandsData.length;
-        const cloneCount = 3;
+        const visibleCards = 3; // Показываем только 3 карточки
+        const cloneCount = 1;
         const totalCardsInSlider = totalOriginalCards + 2 * cloneCount;
         let currentIndex = cloneCount; 
         const cardWidth = 380 + 30; // Ширина карточки + отступы
@@ -1845,7 +1828,7 @@
         }
 
         function nextSlide() {
-            if (currentIndex < totalCardsInSlider - 1) {
+            if (currentIndex < totalCardsInSlider - visibleCards) {
                 currentIndex++;
                 updateSlider();
 
@@ -1865,7 +1848,7 @@
 
                 if (currentIndex === cloneCount - 1) {
                     setTimeout(() => {
-                        currentIndex = totalOriginalCards + cloneCount - 1;
+                        currentIndex = totalOriginalCards + cloneCount - visibleCards;
                         updateSlider(false);
                     }, 600);
                 }
