@@ -407,13 +407,12 @@
 
         .commands-container {
             position: relative;
-            /* УДАЛЕНО: overflow: hidden; */ /* Это скрывало кнопки */
             margin: 0 auto;
-            max-width: 1060px; /* Достаточно для 3 карточек + отступы */
+            max-width: 1060px;
         }
         
         .slider-wrapper {
-            overflow: hidden; /* Теперь обрезаем только сам слайдер */
+            overflow: hidden;
         }
 
         .commands-slider {
@@ -467,13 +466,14 @@
             font-size: 14px;
             opacity: 0.8;
         }
-
+        
+        /* НОВЫЕ СТИЛИ ДЛЯ КНОПОК */
         .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(13, 27, 42, 0.9);
-            border: 2px solid var(--primary);
+            background: linear-gradient(145deg, rgba(13, 27, 42, 0.95), rgba(26, 42, 58, 0.95)); /* Темный фон с градиентом */
+            border: none; /* Убираем стандартный бордер */
             color: var(--primary);
             width: 50px;
             height: 50px;
@@ -482,28 +482,31 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 20px;
-            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Плавный переход */
+            font-size: 24px; /* Увеличенная стрелка */
+            font-weight: 900;
             z-index: 10;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6); /* Сильная тень */
+            text-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Эффект свечения */
         }
 
         .slider-btn:hover {
             background-color: var(--primary);
-            color: white;
-            transform: translateY(-50%) scale(1.1);
+            color: var(--light); /* Белая стрелка при наведении */
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.8); /* Зеленая тень при наведении */
+            text-shadow: none;
+        }
+        
+        .slider-btn:active {
+            transform: translateY(-50%) scale(0.95);
         }
 
         .slider-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .slider-btn:disabled:hover {
-            background-color: rgba(13, 27, 42, 0.9);
-            color: var(--primary);
-            transform: translateY(-50%) scale(1);
+            opacity: 1; /* Кнопки не отключаются в режиме карусели */
+            cursor: pointer;
+            background: linear-gradient(145deg, rgba(13, 27, 42, 0.95), rgba(26, 42, 58, 0.95));
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
         }
 
         #prev-btn {
@@ -745,7 +748,7 @@
             .slider-btn {
                 width: 40px;
                 height: 40px;
-                font-size: 16px;
+                font-size: 20px;
             }
 
             #prev-btn {
@@ -1116,25 +1119,37 @@
             }
         ];
 
-        // Slider functionality
+        // Slider functionality for infinite loop (Carousel)
         const slider = document.getElementById('commands-slider');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
-        let currentIndex = 0;
+        
+        // Settings for the infinite loop
+        const totalOriginalCards = commandsData.length;
+        const cloneCount = 3; // Max number of cards visible on desktop, used for safe cloning buffer
+        const totalCardsInSlider = totalOriginalCards + 2 * cloneCount;
+        let currentIndex = cloneCount; // Start index is the first original card
+        const cardWidth = 340 + 20; // 360px per card with margin
 
-        // Create command cards
+        // Create command cards, including clones
         function createCommandCards() {
-            commandsData.forEach(category => {
+            // 1. Clones of the end (to the front)
+            const clonesEnd = commandsData.slice(-cloneCount);
+            // 2. Original data
+            const originalData = commandsData;
+            // 3. Clones of the start (to the end)
+            const clonesStart = commandsData.slice(0, cloneCount);
+
+            const dataWithClones = [...clonesEnd, ...originalData, ...clonesStart];
+
+            dataWithClones.forEach(category => {
                 const categoryElement = document.createElement('div');
                 categoryElement.className = 'command-category';
                 
                 const titleElement = document.createElement('h3');
                 const iconSpan = document.createElement('span');
-                // Extract emoji/icon from the title
                 const iconMatch = category.title.match(/(\p{Emoji})/u);
                 iconSpan.textContent = iconMatch ? iconMatch[0] : '';
-                
-                // Extract text part of the title
                 const textPart = category.title.replace(/(\p{Emoji})\s*/u, '').trim();
 
                 titleElement.appendChild(iconSpan);
@@ -1163,57 +1178,73 @@
             });
         }
 
-        function getVisibleCardsCount() {
-            // Учитываем ширину карточки (340px) и отступы (10px*2=20px). Всего 360px на карточку.
-            const containerWidth = document.querySelector('.commands-container').clientWidth; 
-            
-            if (window.innerWidth <= 768) return 1; // Всегда 1 карточка на мобильных
-            if (containerWidth >= 1060) return 3; // 3 карточки при широком экране
-            if (containerWidth > 360 * 2) return 2; // 2 карточки, если есть место
-            return 1;
-        }
+        // Update slider position
+        function updateSlider(shouldAnimate = true) {
+            if (!shouldAnimate) {
+                slider.style.transition = 'none';
+            } else {
+                slider.style.transition = 'transform 0.5s ease-in-out';
+            }
 
-        function updateSlider() {
-            const cardWidth = 340 + 20; // 360px per card with margin
             const translateX = -currentIndex * cardWidth;
             slider.style.transform = `translateX(${translateX}px)`;
             
-            const visibleCards = getVisibleCardsCount();
-            const maxIndex = Math.max(0, commandsData.length - visibleCards);
-
-            // Disable buttons when at the start/end
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex >= maxIndex;
+            // Re-enable transition after snapback (only needed if disabled)
+            if (!shouldAnimate) {
+                 // Force browser to repaint (needed for transition: none to work)
+                slider.offsetHeight;
+                slider.style.transition = 'transform 0.5s ease-in-out';
+            }
         }
 
         function nextSlide() {
-            const visibleCards = getVisibleCardsCount();
-            const maxIndex = Math.max(0, commandsData.length - visibleCards);
-
-            if (currentIndex < maxIndex) {
+            // Prevent going past the very last clone immediately, to allow the animation to start
+            if (currentIndex < totalCardsInSlider - 1) {
                 currentIndex++;
                 updateSlider();
+
+                // Check if we hit the first clone of the start data
+                if (currentIndex === totalOriginalCards + cloneCount) {
+                    // Instantly snap back to the start of the original data after transition completes
+                    setTimeout(() => {
+                        currentIndex = cloneCount;
+                        updateSlider(false); // No animation on jump
+                    }, 500); // Must match the CSS transition duration
+                }
             }
         }
 
         function prevSlide() {
+            // Prevent going past the very first clone immediately
             if (currentIndex > 0) {
                 currentIndex--;
                 updateSlider();
+
+                // Check if we hit the last clone of the end data
+                if (currentIndex === cloneCount - 1) {
+                    // Instantly snap back to the end of the original data after transition completes
+                    setTimeout(() => {
+                        currentIndex = totalOriginalCards + cloneCount - 1;
+                        updateSlider(false); // No animation on jump
+                    }, 500); // Must match the CSS transition duration
+                }
             }
         }
 
+        // Initial setup
         createCommandCards();
-        updateSlider();
+        updateSlider(false); // Initial positioning without animation
 
         prevBtn.addEventListener('click', prevSlide);
         nextBtn.addEventListener('click', nextSlide);
+        
+        // The carousel logic handles responsiveness for visible card count indirectly by always cloning a fixed safe number (3)
         window.addEventListener('resize', () => {
-             // Сброс индекса при изменении размера для корректного пересчета maxIndex
-            currentIndex = 0;
-            updateSlider();
+             // Reset index to ensure it's always pointing to a "real" card after resize
+            currentIndex = cloneCount; 
+            updateSlider(false);
         });
-
+        
         // Real server status from API
         const APIs = [
             'https://api.mcstatus.io/v2/status/java/yourstop.online', // Priority 1 (often fast and detailed)
