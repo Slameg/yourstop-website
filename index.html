@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YOUR STOP - Классический сервер выживания Minecraft | IP: yourstop.online</title>
-    <!-- Просто вставьте эту строку -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏️</text></svg>">
     <meta name="description" content="Классический сервер выживания Minecraft YOUR STOP. Присоединяйтесь к нашему сообществу и наслаждайтесь ванильным геймплеем с системой защиты построек.">
     <meta name="keywords" content="minecraft сервер, выживание minecraft, ваш стоп, your stop, minecraft выживание, minecraft multiplayer, вашстоп, yourstop.online, классический minecraft">
@@ -756,7 +755,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -780,7 +778,6 @@
         </div>
     </header>
 
-    <!-- Остальной код остается без изменений -->
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
@@ -796,7 +793,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
             <div class="section-title">
@@ -838,7 +834,6 @@
         </div>
     </section>
 
-    <!-- Server Info Section -->
     <section class="server-info" id="info">
         <div class="container">
             <div class="info-container">
@@ -870,7 +865,6 @@
         </div>
     </section>
 
-    <!-- Commands Section -->
     <section class="commands" id="commands">
         <div class="container">
             <div class="section-title">
@@ -880,14 +874,12 @@
             <div class="commands-container">
                 <button class="slider-btn" id="prev-btn">‹</button>
                 <div class="commands-slider" id="commands-slider">
-                    <!-- Карточки будут добавлены через JavaScript -->
-                </div>
+                    </div>
                 <button class="slider-btn" id="next-btn">›</button>
             </div>
         </div>
     </section>
 
-    <!-- Live Data Section -->
     <section class="live-data" id="live">
         <div class="container">
             <div class="section-title">
@@ -927,7 +919,6 @@
         </div>
     </section>
 
-    <!-- How to Join Section -->
     <section class="how-to-join" id="join">
         <div class="container">
             <div class="section-title">
@@ -966,7 +957,6 @@
         </div>
     </section>
 
-    <!-- Community Section -->
     <section class="community" id="community">
         <div class="container">
             <h2>Присоединяйтесь к нашему сообществу</h2>
@@ -978,7 +968,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -1044,26 +1033,36 @@
             copyButton.addEventListener('click', function() {
                 const textToCopy = 'yourstop.online';
                 
+                // Use modern clipboard API first
                 navigator.clipboard.writeText(textToCopy).then(function() {
-                    notification.classList.add('show');
-                    setTimeout(function() {
-                        notification.classList.remove('show');
-                    }, 2000);
+                    showNotification();
                 }).catch(function(err) {
+                    // Fallback for older browsers
                     const textArea = document.createElement('textarea');
                     textArea.value = textToCopy;
                     document.body.appendChild(textArea);
                     textArea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textArea);
-                    notification.classList.add('show');
-                    setTimeout(function() {
-                        notification.classList.remove('show');
-                    }, 2000);
+                    showNotification();
                 });
+
+                function showNotification() {
+                    // Find the closest notification element to the button's parent
+                    const parentContainer = copyButton.closest('.ip-container');
+                    const notificationElement = parentContainer.querySelector('.copy-notification');
+
+                    if (notificationElement) {
+                        notificationElement.classList.add('show');
+                        setTimeout(function() {
+                            notificationElement.classList.remove('show');
+                        }, 2000);
+                    }
+                }
             });
         }
 
+        // Setup both copy buttons
         setupCopyIP('copy-button-main');
         setupCopyIP('copy-button-footer');
 
@@ -1126,9 +1125,15 @@
                 
                 const titleElement = document.createElement('h3');
                 const iconSpan = document.createElement('span');
-                iconSpan.textContent = category.title.split(' ')[0];
+                // Extract emoji/icon from the title
+                const iconMatch = category.title.match(/(\p{Emoji})/u);
+                iconSpan.textContent = iconMatch ? iconMatch[0] : '';
+                
+                // Extract text part of the title
+                const textPart = category.title.replace(/(\p{Emoji})\s*/u, '').trim();
+
                 titleElement.appendChild(iconSpan);
-                titleElement.appendChild(document.createTextNode(' ' + category.title.split(' ').slice(1).join(' ')));
+                titleElement.appendChild(document.createTextNode(textPart));
                 
                 categoryElement.appendChild(titleElement);
                 
@@ -1154,16 +1159,32 @@
         }
 
         function updateSlider() {
-            const cardWidth = 340 + 20;
+            // Card width is 340px + 20px margin (10px on each side)
+            const cardWidth = 340 + 20; 
             const translateX = -currentIndex * cardWidth;
             slider.style.transform = `translateX(${translateX}px)`;
             
+            // Disable buttons when at the start/end
             prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex === commandsData.length - 1;
+            nextBtn.disabled = currentIndex >= commandsData.length - 3 && window.innerWidth > 768; // Show 3 cards on desktop
+            nextBtn.disabled = currentIndex === commandsData.length - 1 && window.innerWidth <= 768; // Show 1 card on mobile
         }
 
         function nextSlide() {
-            if (currentIndex < commandsData.length - 1) {
+            let maxIndex = commandsData.length - 1;
+            if (window.innerWidth > 768) {
+                 // For desktop, allow sliding until the last visible card starts. 
+                 // If 3 cards are visible, the max index is total - 3.
+                 // We use a simplified check here: if there are more than 3 cards, allow slide until the third to last card.
+                 maxIndex = Math.max(0, commandsData.length - Math.floor(document.querySelector('.commands-container').clientWidth / 360));
+                 if (document.querySelector('.commands-container').clientWidth > 700) {
+                    maxIndex = Math.max(0, commandsData.length - 3);
+                 } else if (document.querySelector('.commands-container').clientWidth > 360) {
+                    maxIndex = Math.max(0, commandsData.length - 2);
+                 }
+            }
+            
+            if (currentIndex < maxIndex) {
                 currentIndex++;
                 updateSlider();
             }
@@ -1181,52 +1202,68 @@
 
         prevBtn.addEventListener('click', prevSlide);
         nextBtn.addEventListener('click', nextSlide);
+        window.addEventListener('resize', updateSlider); // Recalculate slider limits on resize
 
         // Real server status from API
+        const APIs = [
+            'https://api.mcstatus.io/v2/status/java/yourstop.online', // Priority 1 (often fast and detailed)
+            'https://api.mcsrvstat.us/3/yourstop.online'             // Priority 2 (fallback)
+        ];
+
         async function fetchServerStatus() {
-            const APIs = [
-                'https://api.mcsrvstat.us/3/yourstop.online',
-                'https://api.mcstatus.io/v2/status/java/yourstop.online'
-            ];
+            document.getElementById('online-players').innerHTML = '<span class="loading">Загрузка...</span>';
+            document.getElementById('max-players').innerHTML = '<span class="loading">Загрузка...</span>';
+            document.getElementById('server-version').innerHTML = '<span class="loading">Загрузка...</span>';
+            document.getElementById('server-status').innerHTML = '<span class="loading">Загрузка...</span>';
+            document.getElementById('last-updated').innerHTML = 'Обновляется...';
 
             for (const api of APIs) {
                 try {
                     const response = await fetch(api, {
                         method: 'GET',
+                        // Optional: Add headers to identify your request
                         headers: {
-                            'User-Agent': 'MinecraftServerStatus/1.0 (YourStop Server Website)'
+                            'User-Agent': 'YOUR-STOP-Website-Checker/1.0'
                         }
                     });
                     
                     if (response.ok) {
                         const data = await response.json();
-                        updateServerUI(data, api);
-                        return;
+                        // Check if the server is reported as online
+                        if (data.online) {
+                            updateServerUI(data, api);
+                            return; // Stop after the first successful, online response
+                        }
                     }
                 } catch (error) {
-                    console.log(`API ${api} failed, trying next...`);
-                    continue;
+                    console.log(`API ${api} failed:`, error.message);
+                    continue; // Try the next API
                 }
             }
             
-            showErrorState();
+            showErrorState(); // If the loop finishes without returning (all failed or reported offline)
         }
 
         function updateServerUI(data, api) {
             let players, maxPlayers, version, online;
             
-            if (api.includes('mcsrvstat.us')) {
+            if (api.includes('mcstatus.io')) {
+                // Data extraction for mcstatus.io
                 online = data.online;
                 players = data.players ? data.players.online : 0;
                 maxPlayers = data.players ? data.players.max : 0;
-                version = data.version ? data.version : 'Неизвестно';
-            } else if (api.includes('mcstatus.io')) {
+                // Get the version name for a clean display
+                version = data.version ? (data.version.name_clean || data.version.name_raw) : 'Неизвестно';
+            } else if (api.includes('mcsrvstat.us')) {
+                // Data extraction for mcsrvstat.us
                 online = data.online;
                 players = data.players ? data.players.online : 0;
                 maxPlayers = data.players ? data.players.max : 0;
-                version = data.version ? data.version.name_raw : 'Неизвестно';
+                // Join the version array into a single string
+                version = data.version ? (Array.isArray(data.version) ? data.version.join(', ') : data.version) : 'Неизвестно';
             }
             
+            // Update UI elements
             document.getElementById('online-players').innerHTML = players;
             document.getElementById('max-players').innerHTML = maxPlayers;
             document.getElementById('server-version').innerHTML = version;
@@ -1234,10 +1271,14 @@
             if (online) {
                 document.getElementById('server-status').innerHTML = '<span class="status-online">● Онлайн</span>';
             } else {
+                // If it reached here, either it was an offline result from an API 
+                // or an offline-like result from the fallback API, which should 
+                // typically be caught by the loop, but as a safety, we update offline.
                 document.getElementById('server-status').innerHTML = '<span class="status-offline">● Офлайн</span>';
             }
             
-            document.getElementById('last-updated').innerHTML = `Обновлено: ${new Date().toLocaleTimeString()} <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
+            // Update timestamp and re-add button
+            document.getElementById('last-updated').innerHTML = `Обновлено: ${new Date().toLocaleTimeString('ru-RU')} <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
             
             // Re-attach refresh button event
             document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
@@ -1250,16 +1291,20 @@
             document.getElementById('server-status').innerHTML = '<span class="status-offline">Ошибка загрузки</span>';
             document.getElementById('last-updated').innerHTML = `Не удалось загрузить данные <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
             
+            // Re-attach refresh button event
             document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
         }
 
         // Initial load and auto-refresh
         document.addEventListener('DOMContentLoaded', function() {
             fetchServerStatus();
-            setInterval(fetchServerStatus, 30000);
+            setInterval(fetchServerStatus, 30000); // Refresh every 30 seconds
             
-            // Initial refresh button
-            document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
+            // Initial refresh button setup (will be overwritten after first fetch)
+            const initialRefreshBtn = document.getElementById('refresh-btn');
+            if (initialRefreshBtn) {
+                initialRefreshBtn.addEventListener('click', fetchServerStatus);
+            }
         });
 
         // Add animation on scroll
