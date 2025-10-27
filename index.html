@@ -785,7 +785,6 @@
         .commands-slider {
             display: flex;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            gap: 20px;
         }
 
         .command-category {
@@ -793,12 +792,12 @@
             border-radius: 20px;
             padding: 2.5rem 2rem;
             border: 2px solid rgba(76, 175, 80, 0.25);
-            width: calc(25% - 15px);
-            min-width: 280px;
+            width: 380px;
             flex-shrink: 0;
             box-shadow: 
                 0 15px 50px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            margin: 0 10px;
             backdrop-filter: blur(15px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 420px;
@@ -1729,34 +1728,27 @@
                 ]
             }
         ];
-
         // Слайдер команд
         const slider = document.getElementById('commands-slider');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         
-        let currentIndex = 0;
-        let cardWidth = 0;
-
-        function getCardsPerView() {
-            if (window.innerWidth >= 1200) return 4;
-            if (window.innerWidth >= 1024) return 3;
-            if (window.innerWidth >= 768) return 2;
-            return 1;
-        }
-
-        function calculateCardWidth() {
-            const cardsPerView = getCardsPerView();
-            const containerWidth = document.querySelector('.commands-container').offsetWidth;
-            const gap = 20;
-            return (containerWidth - (cardsPerView - 1) * gap) / cardsPerView;
-        }
+        const totalOriginalCards = commandsData.length;
+        const cloneCount = 3;
+        const totalCardsInSlider = totalOriginalCards + 2 * cloneCount;
+        let currentIndex = cloneCount; 
+        const cardWidth = 380 + 20; // Ширина карточки + отступ
 
         function createCommandCards() {
             if (!slider) return;
             slider.innerHTML = '';
             
-            commandsData.forEach(category => {
+            const clonesEnd = commandsData.slice(-cloneCount);
+            const originalData = commandsData;
+            const clonesStart = commandsData.slice(0, cloneCount);
+            const dataWithClones = [...clonesEnd, ...originalData, ...clonesStart];
+
+            dataWithClones.forEach(category => {
                 const categoryElement = document.createElement('div');
                 categoryElement.className = 'command-category';
                 
@@ -1795,16 +1787,6 @@
                 categoryElement.appendChild(commandsList);
                 slider.appendChild(categoryElement);
             });
-
-            updateCardWidth();
-        }
-
-        function updateCardWidth() {
-            cardWidth = calculateCardWidth();
-            document.querySelectorAll('.command-category').forEach(card => {
-                card.style.width = cardWidth + 'px';
-            });
-            updateSlider(false);
         }
 
         function updateSlider(shouldAnimate = true) {
@@ -1815,7 +1797,7 @@
                 slider.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             }
 
-            const translateX = -currentIndex * (cardWidth + 20);
+            const translateX = -currentIndex * cardWidth;
             slider.style.transform = `translateX(${translateX}px)`;
             
             if (!shouldAnimate) {
@@ -1825,10 +1807,16 @@
         }
 
         function nextSlide() {
-            const maxIndex = commandsData.length - getCardsPerView();
-            if (currentIndex < maxIndex) {
+            if (currentIndex < totalCardsInSlider - 1) {
                 currentIndex++;
                 updateSlider();
+
+                if (currentIndex === totalOriginalCards + cloneCount) {
+                    setTimeout(() => {
+                        currentIndex = cloneCount;
+                        updateSlider(false);
+                    }, 600);
+                }
             }
         }
 
@@ -1836,8 +1824,29 @@
             if (currentIndex > 0) {
                 currentIndex--;
                 updateSlider();
+
+                if (currentIndex === cloneCount - 1) {
+                    setTimeout(() => {
+                        currentIndex = totalOriginalCards + cloneCount - 1;
+                        updateSlider(false);
+                    }, 600);
+                }
             }
         }
+
+         // Инициализация слайдера
+        document.addEventListener('DOMContentLoaded', function() {
+            createCommandCards();
+            updateSlider(false);
+            
+            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+            
+            window.addEventListener('resize', () => {
+                currentIndex = cloneCount; 
+                updateSlider(false);
+            });
+        });
 
         // Статус сервера - прямой запрос к mcsrvstat.us
         const API_URL = 'https://api.mcsrvstat.us/3/yourstop.online';
