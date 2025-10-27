@@ -407,9 +407,13 @@
 
         .commands-container {
             position: relative;
-            overflow: hidden;
+            /* УДАЛЕНО: overflow: hidden; */ /* Это скрывало кнопки */
             margin: 0 auto;
-            max-width: 1060px;
+            max-width: 1060px; /* Достаточно для 3 карточек + отступы */
+        }
+        
+        .slider-wrapper {
+            overflow: hidden; /* Теперь обрезаем только сам слайдер */
         }
 
         .commands-slider {
@@ -422,10 +426,10 @@
             border-radius: 10px;
             padding: 25px;
             border: 1px solid rgba(76, 175, 80, 0.1);
-            width: 340px;
+            width: 340px; /* Ширина одной карточки */
             flex-shrink: 0;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin: 0 10px;
+            margin: 0 10px; /* Отступы между карточками */
         }
 
         .command-category h3 {
@@ -731,11 +735,11 @@
             }
 
             .command-category {
-                width: 280px;
+                width: 280px; /* Уменьшаем размер для мобильных */
             }
 
             .commands-container {
-                max-width: 300px;
+                max-width: 300px; /* Помещается одна карточка + отступы */
             }
 
             .slider-btn {
@@ -873,8 +877,10 @@
             </div>
             <div class="commands-container">
                 <button class="slider-btn" id="prev-btn">‹</button>
-                <div class="commands-slider" id="commands-slider">
-                    </div>
+                <div class="slider-wrapper">
+                    <div class="commands-slider" id="commands-slider">
+                        </div>
+                </div>
                 <button class="slider-btn" id="next-btn">›</button>
             </div>
         </div>
@@ -1028,7 +1034,6 @@
         // Copy IP address functionality
         function setupCopyIP(buttonId) {
             const copyButton = document.getElementById(buttonId);
-            const notification = copyButton.parentElement.querySelector('.copy-notification');
             
             copyButton.addEventListener('click', function() {
                 const textToCopy = 'yourstop.online';
@@ -1158,32 +1163,33 @@
             });
         }
 
+        function getVisibleCardsCount() {
+            // Учитываем ширину карточки (340px) и отступы (10px*2=20px). Всего 360px на карточку.
+            const containerWidth = document.querySelector('.commands-container').clientWidth; 
+            
+            if (window.innerWidth <= 768) return 1; // Всегда 1 карточка на мобильных
+            if (containerWidth >= 1060) return 3; // 3 карточки при широком экране
+            if (containerWidth > 360 * 2) return 2; // 2 карточки, если есть место
+            return 1;
+        }
+
         function updateSlider() {
-            // Card width is 340px + 20px margin (10px on each side)
-            const cardWidth = 340 + 20; 
+            const cardWidth = 340 + 20; // 360px per card with margin
             const translateX = -currentIndex * cardWidth;
             slider.style.transform = `translateX(${translateX}px)`;
             
+            const visibleCards = getVisibleCardsCount();
+            const maxIndex = Math.max(0, commandsData.length - visibleCards);
+
             // Disable buttons when at the start/end
             prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex >= commandsData.length - 3 && window.innerWidth > 768; // Show 3 cards on desktop
-            nextBtn.disabled = currentIndex === commandsData.length - 1 && window.innerWidth <= 768; // Show 1 card on mobile
+            nextBtn.disabled = currentIndex >= maxIndex;
         }
 
         function nextSlide() {
-            let maxIndex = commandsData.length - 1;
-            if (window.innerWidth > 768) {
-                 // For desktop, allow sliding until the last visible card starts. 
-                 // If 3 cards are visible, the max index is total - 3.
-                 // We use a simplified check here: if there are more than 3 cards, allow slide until the third to last card.
-                 maxIndex = Math.max(0, commandsData.length - Math.floor(document.querySelector('.commands-container').clientWidth / 360));
-                 if (document.querySelector('.commands-container').clientWidth > 700) {
-                    maxIndex = Math.max(0, commandsData.length - 3);
-                 } else if (document.querySelector('.commands-container').clientWidth > 360) {
-                    maxIndex = Math.max(0, commandsData.length - 2);
-                 }
-            }
-            
+            const visibleCards = getVisibleCardsCount();
+            const maxIndex = Math.max(0, commandsData.length - visibleCards);
+
             if (currentIndex < maxIndex) {
                 currentIndex++;
                 updateSlider();
@@ -1202,7 +1208,11 @@
 
         prevBtn.addEventListener('click', prevSlide);
         nextBtn.addEventListener('click', nextSlide);
-        window.addEventListener('resize', updateSlider); // Recalculate slider limits on resize
+        window.addEventListener('resize', () => {
+             // Сброс индекса при изменении размера для корректного пересчета maxIndex
+            currentIndex = 0;
+            updateSlider();
+        });
 
         // Real server status from API
         const APIs = [
@@ -1216,6 +1226,7 @@
             document.getElementById('server-version').innerHTML = '<span class="loading">Загрузка...</span>';
             document.getElementById('server-status').innerHTML = '<span class="loading">Загрузка...</span>';
             document.getElementById('last-updated').innerHTML = 'Обновляется...';
+            document.getElementById('refresh-btn').disabled = true;
 
             for (const api of APIs) {
                 try {
@@ -1282,6 +1293,7 @@
             
             // Re-attach refresh button event
             document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
+            document.getElementById('refresh-btn').disabled = false;
         }
 
         function showErrorState() {
@@ -1293,6 +1305,7 @@
             
             // Re-attach refresh button event
             document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
+            document.getElementById('refresh-btn').disabled = false;
         }
 
         // Initial load and auto-refresh
