@@ -1,78 +1,758 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>YOUR STOP - Классический сервер выживания Minecraft | yourstop.online</title>
-    <meta name="description" content="YOUR STOP - классический сервер выживания Minecraft. Статистика сервера, команды, как присоединиться." />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOUR STOP - Классический сервер выживания Minecraft | IP: yourstop.online</title>
+    <!-- Просто вставьте эту строку -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏️</text></svg>">
+    <meta name="description" content="Классический сервер выживания Minecraft YOUR STOP. Присоединяйтесь к нашему сообществу и наслаждайтесь ванильным геймплеем с системой защиты построек.">
+    <meta name="keywords" content="minecraft сервер, выживание minecraft, ваш стоп, your stop, minecraft выживание, minecraft multiplayer, вашстоп, yourstop.online, классический minecraft">
     <style>
-        :root{
-            --primary:#4CAF50; --primary-dark:#3d8b40; --dark:#0d1b2a; --dark-light:#1a2a3a; --light:#f0f0f0; --accent:#FF9800;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        *{box-sizing:border-box;margin:0;padding:0;font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
-        body{background:linear-gradient(135deg,var(--dark-light) 0%,var(--dark) 100%);color:var(--light);line-height:1.6;overflow-x:hidden;}
-        .container{max-width:1200px;margin:0 auto;padding:0 20px;}
-        header{background:rgba(13,27,42,0.95);padding:15px 0;position:fixed;top:0;width:100%;z-index:1000;backdrop-filter: blur(5px);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-        .header-content{display:flex;align-items:center;justify-content:space-between}
-        .logo{display:flex;align-items:center}
-        .logo-icon{font-size:28px;color:var(--primary)}
-        .logo h1{margin-left:8px;font-size:20px;color:var(--primary)}
-        nav ul{display:flex;gap:12px;list-style:none}
-        nav a{color:var(--light);text-decoration:none;padding:6px 10px;border-radius:6px;font-weight:500}
-        nav a:hover{color:var(--primary)}
-        .mobile-menu{display:none}
-        .hero{height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:70px;background:linear-gradient(rgba(13,27,42,0.7),rgba(13,27,42,0.9));}
-        .hero h2{font-size:40px;margin-bottom:12px;color:var(--primary)}
-        .hero p{font-size:18px;opacity:0.9;max-width:700px;margin:0 auto 20px}
-        .ip-container{display:flex;justify-content:center;align-items:stretch;max-width:420px;margin:20px auto;position:relative}
-        .ip-address{background:rgba(76,175,80,0.15);border:2px solid var(--primary);border-right:none;border-radius:8px 0 0 8px;padding:14px 18px;font-weight:700}
-        .copy-button{background:var(--primary);color:#fff;border:2px solid var(--primary);border-radius:0 8px 8px 0;padding:0 18px;cursor:pointer}
-        .copy-notification{position:absolute;bottom:-45px;left:50%;transform:translateX(-50%);background:var(--primary);padding:8px 14px;border-radius:8px;opacity:0;transition:all .3s}
-        .copy-notification.show{opacity:1;bottom:-50px}
-        .cta-button{background:var(--primary);color:#fff;padding:12px 32px;border-radius:50px;text-decoration:none;font-weight:700;display:inline-block;margin-top:12px}
-        .features{padding:80px 0;background:var(--dark-light)}
-        .section-title{text-align:center;margin-bottom:40px}
-        .section-title h2{color:var(--primary)}
-        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
-        .feature-card{background:rgba(13,27,42,0.7);padding:20px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);text-align:center}
-        .server-info{padding:60px 0}
-        .info-container{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
-        .stat{background:rgba(13,27,42,0.7);padding:18px;border-radius:10px;text-align:center}
-        .stat-number{font-size:28px;color:var(--primary);font-weight:700}
-        .live-data{padding:60px 0;background:var(--dark-light)}
-        .live-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:20px}
-        .live-stat{background:rgba(13,27,42,0.75);padding:16px;border-radius:10px;text-align:center;border:1px solid rgba(76,175,80,0.06)}
-        .live-stat h3{color:var(--primary);margin-bottom:8px}
-        .live-stat-value{font-weight:700;font-size:22px}
-        .last-updated{text-align:center;margin-top:12px;opacity:0.8}
-        .refresh-btn{background:var(--primary);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;margin-left:8px}
-        /* Commands */
-        .commands{padding:60px 0}
-        .commands-controls{display:flex;gap:12px;align-items:center;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
-        .new-cat-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
-        .new-cat-form input,.new-cat-form textarea{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.2);color:var(--light)}
-        .new-cat-form textarea{min-width:280px;min-height:60px;resize:vertical}
-        .btn{background:var(--primary);color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
-        .commands-container{position:relative;overflow:hidden;margin:0 auto;max-width:1060px}
-        .commands-slider{display:flex;transition:transform .45s cubic-bezier(.2,.9,.2,1);padding:6px}
-        .command-category{background:rgba(13,27,42,0.7);border-radius:10px;padding:18px;border:1px solid rgba(76,175,80,0.06);width:340px;flex-shrink:0;margin:0 8px;box-shadow:0 4px 10px rgba(0,0,0,0.3)}
-        .command-category h3{color:var(--primary);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-        .command-item{border-bottom:1px solid rgba(255,255,255,0.04);padding:8px 0}
-        .command{font-weight:700;color:var(--accent)}
-        .command-desc{font-size:13px;opacity:0.85}
-        .slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,27,42,0.9);border:2px solid var(--primary);color:var(--primary);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10}
-        #prev-btn{left:-60px}
-        #next-btn{right:-60px}
-        .slider-btn:hover{background:var(--primary);color:#fff}
-        .slider-btn:disabled{opacity:.3;cursor:not-allowed;background:rgba(13,27,42,0.9);color:var(--primary)}
-        .how-to-join{padding:60px 0;background:var(--dark-light)}
-        .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-        .step{background:rgba(13,27,42,0.7);padding:16px;border-radius:10px;text-align:center}
-        .community{padding:40px 0;text-align:center}
-        footer{background:var(--dark);padding:40px 0;margin-top:20px}
-        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px}
-        @media(max-width:900px){nav ul{display:none}.mobile-menu{display:block}.hero h2{font-size:28px}.command-category{width:280px}.commands-container{max-width:320px}#prev-btn{left:-40px}#next-btn{right:-40px}}
+
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #3d8b40;
+            --secondary: #2196F3;
+            --dark: #0d1b2a;
+            --dark-light: #1a2a3a;
+            --light: #f0f0f0;
+            --accent: #FF9800;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark-light) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: rgba(13, 27, 42, 0.95);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-wrap: nowrap;
+            gap: 15px;
+        }
+
+        nav ul li {
+            margin-left: 0;
+        }
+
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--light);
+            padding: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(13, 27, 42, 0.7), rgba(13, 27, 42, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a2a3a"/><path d="M0 0L100 100M100 0L0 100" stroke="%230d1b2a" stroke-width="1"/></svg>') no-repeat center center/cover;
+            padding-top: 70px;
+        }
+
+        .hero-content h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .ip-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            margin: 20px 0;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .ip-address {
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 2px solid var(--primary);
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            padding: 15px 25px;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .copy-button {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+            padding: 0 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .copy-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .copy-notification {
+            position: absolute;
+            bottom: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+            bottom: -50px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: var(--dark-light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: rgba(76, 175, 80, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        /* Server Info Section */
+        .server-info {
+            padding: 100px 0;
+        }
+
+        .info-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .server-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat {
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .server-description h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .server-description p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        /* Live Data Section */
+        .live-data {
+            padding: 80px 0;
+            background-color: var(--dark-light);
+        }
+
+        .live-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .live-stat {
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            transition: all 0.3s;
+        }
+
+        .live-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .live-stat h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .live-stat-value {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .loading {
+            color: #aaa;
+        }
+
+        .status-online {
+            color: #4CAF50;
+        }
+
+        .status-offline {
+            color: #f44336;
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .refresh-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .refresh-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Commands Section */
+        .commands {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .commands-container {
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 1060px;
+        }
+
+        .commands-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .command-category {
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            width: 340px;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 0 10px;
+        }
+
+        .command-category h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .command-category h3 span {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .command-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .command-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .command {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .command-desc {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(13, 27, 42, 0.9);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 20px;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .slider-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slider-btn:disabled:hover {
+            background-color: rgba(13, 27, 42, 0.9);
+            color: var(--primary);
+            transform: translateY(-50%) scale(1);
+        }
+
+        #prev-btn {
+            left: -70px;
+        }
+
+        #next-btn {
+            right: -70px;
+        }
+
+        /* How to Join Section */
+        .how-to-join {
+            padding: 100px 0;
+            background-color: var(--dark-light);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Community Section */
+        .community {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .community h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .community p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .telegram-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #0088cc;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+        }
+
+        .telegram-button:hover {
+            background-color: #0077b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.6);
+        }
+
+        .telegram-icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-section p, .footer-section a {
+            opacity: 0.8;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--light);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .copyright {
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .commands-container {
+                max-width: 700px;
+            }
+            
+            #prev-btn {
+                left: -50px;
+            }
+
+            #next-btn {
+                right: -50px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            nav ul {
+                gap: 10px;
+            }
+            
+            nav ul li a {
+                font-size: 13px;
+                padding: 5px 10px;
+            }
+            
+            .logo h1 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            nav ul {
+                gap: 8px;
+            }
+            
+            nav ul li a {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark);
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .header-content nav.active {
+                display: block;
+            }
+
+            .header-content nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-content nav ul li {
+                margin: 0;
+            }
+
+            .header-content nav ul li a {
+                font-size: 16px;
+                padding: 10px 15px;
+                display: block;
+                text-align: center;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+
+            .hero-content h2 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 18px;
+            }
+
+            .ip-address {
+                font-size: 18px;
+                padding: 12px 15px;
+            }
+
+            .copy-button {
+                font-size: 14px;
+                padding: 0 15px;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
+            }
+
+            .command-category {
+                width: 280px;
+            }
+
+            .commands-container {
+                max-width: 300px;
+            }
+
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            #prev-btn {
+                left: -40px;
+            }
+
+            #next-btn {
+                right: -40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -80,7 +760,10 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo"><div class="logo-icon">⛏️</div><h1>YOUR STOP</h1></div>
+                <div class="logo">
+                    <div class="logo-icon">⛏️</div>
+                    <h1>YOUR STOP</h1>
+                </div>
                 <nav>
                     <ul>
                         <li><a href="#home">Главная</a></li>
@@ -92,114 +775,206 @@
                         <li><a href="#community">Сообщество</a></li>
                     </ul>
                 </nav>
-                <button class="mobile-menu" aria-label="menu">☰</button>
+                <button class="mobile-menu">☰</button>
             </div>
         </div>
     </header>
 
-    <!-- Hero -->
+    <!-- Остальной код остается без изменений -->
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
                 <h2>Классический выживание в Minecraft</h2>
-                <p>YOUR STOP — сервер с защитой построек и дружным сообществом. IP: yourstop.online</p>
+                <p>YOUR STOP - сервер с системой защиты построек, где вы можете наслаждаться ванильным геймплеем без гриферов</p>
                 <div class="ip-container">
-                    <div class="ip-address" id="ip-main">yourstop.online</div>
+                    <div class="ip-address">yourstop.online</div>
                     <button class="copy-button" id="copy-button-main">Копировать IP</button>
-                    <div class="copy-notification" id="copy-notif-main">IP скопирован в буфер!</div>
+                    <div class="copy-notification" id="copy-notification">IP скопирован в буфер!</div>
                 </div>
-                <a class="cta-button" href="#join">Присоединиться сейчас</a>
+                <a href="#join" class="cta-button">Присоединиться сейчас</a>
             </div>
         </div>
     </section>
 
-    <!-- Features -->
+    <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
             <div class="section-title">
-                <h2>Почему наш сервер?</h2>
-                <p>Ванильный геймплей, защита построек и активное сообщество.</p>
+                <h2>Почему именно наш сервер?</h2>
+                <p>Классический Minecraft с удобной системой защиты ваших построек</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card"><div style="font-size:28px;margin-bottom:10px">🛡️</div><h3>Защита построек</h3><p>Блочная защита с управлением доступом</p></div>
-                <div class="feature-card"><div style="font-size:28px;margin-bottom:10px">👥</div><h3>Сообщество</h3><p>Помогаем новичкам и устраиваем ивенты</p></div>
-                <div class="feature-card"><div style="font-size:28px;margin-bottom:10px">⚔️</div><h3>Классический PvP</h3><p>Честные сражения и соревнования</p></div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Защита построек</h3>
+                    <p>Система защиты блоков от гриферов с возможностью добавлять друзей</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Активное сообщество</h3>
+                    <p>Дружная и активная команда игроков, готовых помочь новичкам</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>Классический геймплей</h3>
+                    <p>Чистый ванильный Minecraft без лишних модификаций</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Высокая производительность</h3>
+                    <p>Мощный хостинг обеспечивает стабильную работу без лагов</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Огромный мир</h3>
+                    <p>Неограниченная карта для исследования и строительства</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏪</div>
+                    <h3>Глобальный рынок</h3>
+                    <p>Торгуйте с другими игроками через удобную систему рынка</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Server Info -->
+    <!-- Server Info Section -->
     <section class="server-info" id="info">
         <div class="container">
             <div class="info-container">
-                <div>
-                    <div class="stat"><div class="stat-number">24/7</div><div>Работа сервера</div></div>
-                    <div style="height:12px"></div>
-                    <div class="stat"><div class="stat-number">1.19+</div><div>Версия</div></div>
+                <div class="server-stats">
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <p>Работа сервера</p>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100+</div>
+                        <p>Активных игроков</p>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1.19+</div>
+                        <p>Версия Minecraft</p>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">0%</div>
+                        <p>Даунтайма</p>
+                    </div>
                 </div>
-                <div>
-                    <h2 style="color:var(--primary)">О сервере YOUR STOP</h2>
-                    <p style="opacity:.9">Классический сервер выживания с защитой построек и активным сообществом.</p>
+                <div class="server-description">
+                    <h2>О сервере YOUR STOP</h2>
+                    <p>YOUR STOP - это качественный сервер выживания в Minecraft, созданный для истинных ценителей этого жанра. Мы предлагаем уникальный опыт игры с тщательно подобранными модами, которые добавляют новые измерения геймплея, не нарушая баланс ванильного Minecraft.</p>
+                    <p>Наше сообщество - это наша гордость. Мы создали дружелюбную атмосферу, где каждый игрок чувствует себя частью большой семьи. Регулярные ивенты, конкурсы строительства и PvP-сражения не дадут вам заскучать!</p>
+                    <p>Присоединяйтесь к нам и станьте частью этого удивительного мира!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Commands -->
+    <!-- Commands Section -->
     <section class="commands" id="commands">
         <div class="container">
-            <div class="section-title"><h2>Команды сервера</h2><p>Все необходимые команды для комфортной игры</p></div>
-
-            <div class="commands-controls">
-                <form class="new-cat-form" id="new-cat-form" onsubmit="return false;">
-                    <input id="cat-title" placeholder="Название категории (пример: 🔨 Защита)" />
-                    <textarea id="cat-commands" placeholder="Команды — по одной в строку. Формат: /команда - описание (или /команда|описание)"></textarea>
-                    <button class="btn" id="add-cat-btn">Добавить категорию</button>
-                </form>
+            <div class="section-title">
+                <h2>Команды сервера</h2>
+                <p>Все необходимые команды для комфортной игры</p>
             </div>
-
             <div class="commands-container">
-                <button class="slider-btn" id="prev-btn" aria-label="prev">‹</button>
+                <button class="slider-btn" id="prev-btn">‹</button>
                 <div class="commands-slider" id="commands-slider">
-                    <!-- карточки добавляются скриптом -->
+                    <!-- Карточки будут добавлены через JavaScript -->
                 </div>
-                <button class="slider-btn" id="next-btn" aria-label="next">›</button>
+                <button class="slider-btn" id="next-btn">›</button>
             </div>
         </div>
     </section>
 
-    <!-- Live Data -->
+    <!-- Live Data Section -->
     <section class="live-data" id="live">
         <div class="container">
-            <div class="section-title"><h2>Статистика сервера в реальном времени</h2><p>Актуальная информация о состоянии сервера</p></div>
-            <div class="live-stats">
-                <div class="live-stat"><h3>Онлайн игроков</h3><div class="live-stat-value" id="online-players"><span class="loading">Загрузка...</span></div></div>
-                <div class="live-stat"><h3>Максимум онлайн</h3><div class="live-stat-value" id="max-players"><span class="loading">Загрузка...</span></div></div>
-                <div class="live-stat"><h3>Версия</h3><div class="live-stat-value" id="server-version"><span class="loading">Загрузка...</span></div></div>
-                <div class="live-stat"><h3>Статус</h3><div class="live-stat-value" id="server-status"><span class="loading">Загрузка...</span></div></div>
+            <div class="section-title">
+                <h2>Статистика сервера в реальном времени</h2>
+                <p>Актуальная информация о состоянии сервера</p>
             </div>
-            <div class="last-updated" id="last-updated">Обновляется... <button class="refresh-btn" id="refresh-btn">Обновить</button></div>
+            <div class="live-stats">
+                <div class="live-stat">
+                    <h3>Онлайн игроков</h3>
+                    <div class="live-stat-value" id="online-players">
+                        <span class="loading">Загрузка...</span>
+                    </div>
+                </div>
+                <div class="live-stat">
+                    <h3>Максимум онлайн</h3>
+                    <div class="live-stat-value" id="max-players">
+                        <span class="loading">Загрузка...</span>
+                    </div>
+                </div>
+                <div class="live-stat">
+                    <h3>Версия</h3>
+                    <div class="live-stat-value" id="server-version">
+                        <span class="loading">Загрузка...</span>
+                    </div>
+                </div>
+                <div class="live-stat">
+                    <h3>Статус</h3>
+                    <div class="live-stat-value" id="server-status">
+                        <span class="loading">Загрузка...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="last-updated" id="last-updated">
+                Обновляется...
+                <button class="refresh-btn" id="refresh-btn">Обновить</button>
+            </div>
         </div>
     </section>
 
-    <!-- How to join -->
+    <!-- How to Join Section -->
     <section class="how-to-join" id="join">
         <div class="container">
-            <div class="section-title"><h2>Как присоединиться</h2><p>Несколько шагов и вы в игре</p></div>
+            <div class="section-title">
+                <h2>Как присоединиться к серверу</h2>
+                <p>Всего несколько простых шагов отделяют вас от увлекательной игры</p>
+            </div>
             <div class="steps">
-                <div class="step"><div style="font-weight:700">1</div><h3>Запустите Minecraft</h3><p>Убедитесь, что версия 1.19+</p></div>
-                <div class="step"><div style="font-weight:700">2</div><h3>Добавьте сервер</h3><p>Адрес: yourstop.online</p></div>
-                <div class="step"><div style="font-weight:700">3</div><h3>Подключитесь</h3><p>Наслаждайтесь!</p></div>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Запустите Minecraft</h3>
+                    <p>Откройте лаунчер Minecraft и убедитесь, что у вас установлена версия 1.19 или выше</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Добавьте сервер</h3>
+                    <p>В меню мультиплеера нажмите "Добавить сервер" и введите адрес: yourstop.online</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Присоединяйтесь</h3>
+                    <p>Выберите наш сервер из списка и нажмите "Подключиться"</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Наслаждайтесь игрой</h3>
+                    <p>Погрузитесь в увлекательный мир YOUR STOP и найдите новых друзей!</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <div class="ip-container">
+                    <div class="ip-address">yourstop.online</div>
+                    <button class="copy-button" id="copy-button-footer">Копировать IP</button>
+                    <div class="copy-notification">IP скопирован в буфер!</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Community -->
+    <!-- Community Section -->
     <section class="community" id="community">
         <div class="container">
-            <h2>Наши сообщества</h2>
-            <p>Подписывайтесь на новости в Telegram</p>
-            <a class="btn" href="https://t.me/yourstopmine" target="_blank">Наш Telegram</a>
+            <h2>Присоединяйтесь к нашему сообществу</h2>
+            <p>Общайтесь с другими игроками, узнавайте о новостях сервера и участвуйте в обсуждениях</p>
+            <a href="https://t.me/yourstopmine" class="telegram-button" target="_blank">
+                <span class="telegram-icon">📢</span>
+                Наш Telegram-канал
+            </a>
         </div>
     </section>
 
@@ -207,324 +982,307 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div><h3 style="color:var(--primary)">YOUR STOP</h3><p style="opacity:.9">Классический сервер выживания. IP: yourstop.online</p></div>
-                <div><h3 style="color:var(--primary)">Ссылки</h3><a href="#home">Главная</a> <br /><a href="#commands">Команды</a></div>
-                <div><h3 style="color:var(--primary)">Сообщество</h3><a href="https://t.me/yourstopmine" target="_blank">Telegram</a></div>
+                <div class="footer-section">
+                    <h3>YOUR STOP</h3>
+                    <p>Классический сервер выживания в Minecraft с системой защиты построек и дружным сообществом.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <a href="#home">Главная</a>
+                    <a href="#features">Особенности</a>
+                    <a href="#info">О сервере</a>
+                    <a href="#commands">Команды</a>
+                    <a href="#live">Статистика</a>
+                    <a href="#join">Как присоединиться</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Сообщество</h3>
+                    <a href="https://t.me/yourstopmine" target="_blank">Telegram-канал</a>
+                    <p>Версия: 1.19+</p>
+                </div>
             </div>
-            <div style="text-align:center;margin-top:14px;opacity:.8">&copy; YOUR STOP</div>
+            <div class="copyright">
+                <p>&copy; 2023 YOUR STOP Minecraft Server. Все права защищены.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Script -->
     <script>
-    (function(){
-        /* ====== Настройки ====== */
-        const SERVER_ADDRESS = "yourstop.online";
-        const REFRESH_INTERVAL = 60 * 1000; // 1 минута
-        const STORAGE_KEY = "ys_commands_v1";
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const nav = document.querySelector('header nav');
+            nav.classList.toggle('active');
+        });
 
-        /* ====== UI элементы ====== */
-        const sliderEl = document.getElementById('commands-slider');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const addCatBtn = document.getElementById('add-cat-btn');
-        const catTitleInput = document.getElementById('cat-title');
-        const catCommandsInput = document.getElementById('cat-commands');
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('header nav').classList.remove('active');
+                    }
+                }
+            });
+        });
 
-        /* ====== Прелоад дефолтных команд ====== */
-        const defaultCommands = [
+        // Copy IP address functionality
+        function setupCopyIP(buttonId) {
+            const copyButton = document.getElementById(buttonId);
+            const notification = copyButton.parentElement.querySelector('.copy-notification');
+            
+            copyButton.addEventListener('click', function() {
+                const textToCopy = 'yourstop.online';
+                
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    notification.classList.add('show');
+                    setTimeout(function() {
+                        notification.classList.remove('show');
+                    }, 2000);
+                }).catch(function(err) {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = textToCopy;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    notification.classList.add('show');
+                    setTimeout(function() {
+                        notification.classList.remove('show');
+                    }, 2000);
+                });
+            });
+        }
+
+        setupCopyIP('copy-button-main');
+        setupCopyIP('copy-button-footer');
+
+        // Commands data
+        const commandsData = [
             {
                 title: "🔨 Защита построек",
                 commands: [
-                    { command: "/build", desc: "Режим строительства. Все поставленные блоки защищены" },
-                    { command: "/repair", desc: "Режим ремонта. ПКМ по блоку восстанавливает HP" },
-                    { command: "/remove", desc: "Снять защиту с блока" },
-                    { command: "/yshelp", desc: "Показать список игровых команд" }
+                    { command: "/build", desc: "Режим строительства. Все поставленные блоки становятся защищёнными" },
+                    { command: "/repair", desc: "Режим ремонта. ПКМ по защищённому блоку восстанавливает его HP" },
+                    { command: "/remove", desc: "Режим снятия защиты. ПКМ по защищённому блоку снимает защиту" },
+                    { command: "/yshelp", desc: "Показать список всех игровых команд" }
                 ]
             },
             {
                 title: "🔐 Пароли и доступ",
                 commands: [
-                    { command: "/password set <код>", desc: "Установить пароль" },
-                    { command: "/password enter <код>", desc: "Ввести пароль" },
-                    { command: "/lock <пароль>", desc: "Защитить дверь" }
+                    { command: "/password set <код>", desc: "Установить пароль на блок" },
+                    { command: "/password enter <код>", desc: "Ввести пароль для доступа к блоку" },
+                    { command: "/password remove", desc: "Снять пароль с блока" },
+                    { command: "/password info", desc: "Информация о блоке" },
+                    { command: "/lock <пароль>", desc: "Защита дверей паролем (включая двойные)" },
+                    { command: "/lock remove", desc: "Снять защиту с двери" }
                 ]
             },
             {
                 title: "🤝 Социальные команды",
                 commands: [
-                    { command: "/friend add <ник>", desc: "Добавить друга" },
-                    { command: "/friend list", desc: "Показать друзей" },
-                    { command: "/tpa <ник>", desc: "Запрос телепорта" }
+                    { command: "/friend add <ник>", desc: "Добавить друга в список доверенных" },
+                    { command: "/friend remove <ник>", desc: "Удалить друга из списка" },
+                    { command: "/friend list", desc: "Показать список доверенных" },
+                    { command: "/tpa <ник>", desc: "Отправить запрос на телепорт к игроку" },
+                    { command: "/tpaccept", desc: "Принять запрос на телепорт" },
+                    { command: "/tpdeny", desc: "Отклонить запрос на телепорт" },
+                    { command: "/market", desc: "Открыть глобальный рынок для торговли" }
+                ]
+            },
+            {
+                title: "ℹ️ Дополнительные команды",
+                commands: [
+                    { command: "ПКМ по защищённому блоку", desc: "Показывает текущее HP блока" },
+                    { command: "/spawn", desc: "Вернуться на спавн" },
+                    { command: "/home", desc: "Телепорт к установленному дому" },
+                    { command: "/sethome", desc: "Установить точку дома" }
                 ]
             }
         ];
 
-        /* ====== Загрузка/сохранение ====== */
-        function loadCommands(){
-            try{
-                const raw = localStorage.getItem(STORAGE_KEY);
-                if(!raw) return defaultCommands.slice();
-                const parsed = JSON.parse(raw);
-                if(!Array.isArray(parsed) || parsed.length===0) return defaultCommands.slice();
-                return parsed;
-            }catch(e){
-                console.warn("Ошибка чтения localStorage, используем дефолт", e);
-                return defaultCommands.slice();
-            }
-        }
-        function saveCommands(data){
-            try{
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-            }catch(e){
-                console.error("Ошибка сохранения localStorage", e);
-            }
-        }
-
-        /* ====== Слайдер ====== */
-        let commandsData = loadCommands();
+        // Slider functionality
+        const slider = document.getElementById('commands-slider');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
         let currentIndex = 0;
 
-        function createCard(category, idx){
-            const card = document.createElement('div');
-            card.className = 'command-category';
-            const h3 = document.createElement('h3');
-            const spanTitle = document.createElement('span');
-            spanTitle.textContent = category.title || 'Без названия';
-            h3.appendChild(spanTitle);
-
-            // delete button
-            const delBtn = document.createElement('button');
-            delBtn.textContent = 'Удалить';
-            delBtn.style.background = 'transparent';
-            delBtn.style.border = 'none';
-            delBtn.style.color = 'rgba(255,255,255,0.7)';
-            delBtn.style.cursor = 'pointer';
-            delBtn.style.fontWeight = '700';
-            delBtn.addEventListener('click', () => {
-                if(confirm('Удалить категорию "' + category.title + '"?')) {
-                    commandsData.splice(idx,1);
-                    saveCommands(commandsData);
-                    renderSlider(Math.max(0, currentIndex - 1));
-                }
+        // Create command cards
+        function createCommandCards() {
+            commandsData.forEach(category => {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'command-category';
+                
+                const titleElement = document.createElement('h3');
+                const iconSpan = document.createElement('span');
+                iconSpan.textContent = category.title.split(' ')[0];
+                titleElement.appendChild(iconSpan);
+                titleElement.appendChild(document.createTextNode(' ' + category.title.split(' ').slice(1).join(' ')));
+                
+                categoryElement.appendChild(titleElement);
+                
+                category.commands.forEach(cmd => {
+                    const commandItem = document.createElement('div');
+                    commandItem.className = 'command-item';
+                    
+                    const commandElement = document.createElement('div');
+                    commandElement.className = 'command';
+                    commandElement.textContent = cmd.command;
+                    
+                    const descElement = document.createElement('div');
+                    descElement.className = 'command-desc';
+                    descElement.textContent = cmd.desc;
+                    
+                    commandItem.appendChild(commandElement);
+                    commandItem.appendChild(descElement);
+                    categoryElement.appendChild(commandItem);
+                });
+                
+                slider.appendChild(categoryElement);
             });
-            h3.appendChild(delBtn);
-            card.appendChild(h3);
-
-            (category.commands || []).forEach(cmd => {
-                const item = document.createElement('div');
-                item.className = 'command-item';
-                const c = document.createElement('div');
-                c.className = 'command';
-                c.textContent = cmd.command;
-                const d = document.createElement('div');
-                d.className = 'command-desc';
-                d.textContent = cmd.desc;
-                item.appendChild(c);
-                item.appendChild(d);
-                card.appendChild(item);
-            });
-
-            return card;
         }
 
-        function renderSlider(newIndex = 0){
-            sliderEl.innerHTML = '';
-            commandsData.forEach((cat, i) => sliderEl.appendChild(createCard(cat,i)));
-            currentIndex = Math.min(Math.max(0, newIndex), Math.max(0, commandsData.length - 1));
-            updateSlider();
-        }
-
-        function updateSlider(){
-            const cardWidth = getCardWidth(); // including gap
+        function updateSlider() {
+            const cardWidth = 340 + 20;
             const translateX = -currentIndex * cardWidth;
-            sliderEl.style.transform = `translateX(${translateX}px)`;
+            slider.style.transform = `translateX(${translateX}px)`;
+            
             prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex >= commandsData.length - 1;
+            nextBtn.disabled = currentIndex === commandsData.length - 1;
         }
 
-        function getCardWidth(){
-            // width + right margin (approx). we use actual computed width of first child if exists
-            const first = sliderEl.querySelector('.command-category');
-            if(first){
-                const style = getComputedStyle(first);
-                const w = first.getBoundingClientRect().width;
-                const mr = parseFloat(style.marginRight || 8);
-                return w + mr;
+        function nextSlide() {
+            if (currentIndex < commandsData.length - 1) {
+                currentIndex++;
+                updateSlider();
             }
-            return 360; // fallback
         }
 
-        prevBtn.addEventListener('click', () => {
-            if(currentIndex>0){ currentIndex--; updateSlider(); }
-        });
-        nextBtn.addEventListener('click', () => {
-            if(currentIndex < commandsData.length - 1){ currentIndex++; updateSlider(); }
-        });
-
-        /* ====== Добавление новой категории ====== */
-        addCatBtn.addEventListener('click', () => {
-            const title = (catTitleInput.value || '').trim();
-            const text = (catCommandsInput.value || '').trim();
-            if(!title || !text){
-                alert('Заполните название категории и команды.');
-                return;
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
             }
-            // parse lines
-            const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-            const cmds = lines.map(line => {
-                // formats: "/cmd - desc" or "/cmd|desc" or just "/cmd"
-                let parts = line.split(/\s*-\s*/);
-                if(parts.length === 1) parts = line.split(/\s*\|\s*/);
-                const command = parts[0].trim();
-                const desc = (parts[1] || '').trim() || '';
-                return { command, desc };
-            });
-            commandsData.push({ title, commands: cmds });
-            saveCommands(commandsData);
-            catTitleInput.value = '';
-            catCommandsInput.value = '';
-            // show newly added
-            renderSlider(commandsData.length - 1);
-            // scroll to commands section on small screens
-            document.querySelector('#commands').scrollIntoView({behavior:'smooth'});
-        });
-
-        /* ====== API Статуса сервера ====== */
-        const onlineEl = document.getElementById('online-players');
-        const maxEl = document.getElementById('max-players');
-        const versionEl = document.getElementById('server-version');
-        const statusEl = document.getElementById('server-status');
-        const updatedEl = document.getElementById('last-updated');
-
-        async function fetchFromMcstatus(address){
-            try{
-                const res = await fetch(`https://api.mcstatus.io/v2/status/java/${address}`);
-                if(!res.ok) throw new Error('mcstatus status ' + res.status);
-                const data = await res.json();
-                return {
-                    api: 'mcstatus.io',
-                    online: !!data.online,
-                    players: data.players?.online ?? 0,
-                    max: data.players?.max ?? 0,
-                    version: (data.version && (data.version.name_clean || data.version.name)) || (data.version?.name_raw) || 'Неизвестно'
-                };
-            }catch(e){ console.warn('mcstatus failed', e); return null; }
         }
 
-        async function fetchFromMcsrvstat(address){
-            try{
-                const res = await fetch(`https://api.mcsrvstat.us/3/${address}`, { headers: { 'User-Agent': 'YourStopWebsite/1.0' }});
-                if(!res.ok) throw new Error('mcsrvstat status ' + res.status);
-                const data = await res.json();
-                return {
-                    api: 'mcsrvstat.us',
-                    online: !!data.online,
-                    players: data.players?.online ?? (data.players && Array.isArray(data.players) ? data.players.length : 0),
-                    max: data.players?.max ?? 0,
-                    version: data.version ?? 'Неизвестно'
-                };
-            }catch(e){ console.warn('mcsrvstat failed', e); return null; }
-        }
+        createCommandCards();
+        updateSlider();
 
-        let lastFetchAbort = null;
-        async function fetchServerStatus(){
-            // show loading
-            onlineEl.innerHTML = '<span class="loading">Загрузка...</span>';
-            maxEl.innerHTML = '<span class="loading">Загрузка...</span>';
-            versionEl.innerHTML = '<span class="loading">Загрузка...</span>';
-            statusEl.innerHTML = '<span class="loading">Загрузка...</span>';
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
 
-            // try primary
-            const primary = await fetchFromMcstatus(SERVER_ADDRESS);
-            if(primary){
-                updateServerUI(primary);
-                return primary;
-            }
-            // fallback
-            const second = await fetchFromMcsrvstat(SERVER_ADDRESS);
-            if(second){
-                updateServerUI(second);
-                return second;
-            }
-            // both failed
-            onlineEl.textContent = 'Ошибка';
-            maxEl.textContent = 'Ошибка';
-            versionEl.textContent = 'Ошибка';
-            statusEl.innerHTML = '<span class="status-offline">Ошибка загрузки</span>';
-            updatedEl.innerHTML = `Не удалось загрузить данные <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
-            document.getElementById('refresh-btn').addEventListener('click', manualRefresh);
-            return null;
-        }
+        // Real server status from API
+        async function fetchServerStatus() {
+            const APIs = [
+                'https://api.mcsrvstat.us/3/yourstop.online',
+                'https://api.mcstatus.io/v2/status/java/yourstop.online'
+            ];
 
-        function updateServerUI(status){
-            onlineEl.textContent = status.players;
-            maxEl.textContent = status.max;
-            versionEl.textContent = status.version;
-            statusEl.innerHTML = status.online ? '<span class="status-online">● Онлайн</span>' : '<span class="status-offline">● Офлайн</span>';
-            const time = new Date().toLocaleTimeString();
-            updatedEl.innerHTML = `Обновлено: ${time} (через ${status.api}) <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
-            document.getElementById('refresh-btn').addEventListener('click', manualRefresh);
-        }
-
-        function manualRefresh(){ fetchServerStatus(); }
-
-        /* ====== Copy IP buttons ====== */
-        function setupCopy(buttonId, notifId, text='yourstop.online'){
-            const btn = document.getElementById(buttonId);
-            const notif = document.getElementById(notifId);
-            btn.addEventListener('click', async ()=> {
-                try{
-                    await navigator.clipboard.writeText(text);
-                    notif.classList.add('show');
-                    setTimeout(()=>notif.classList.remove('show'),2000);
-                }catch(e){
-                    // fallback
-                    const ta = document.createElement('textarea');
-                    ta.value = text; document.body.appendChild(ta); ta.select();
-                    document.execCommand('copy'); document.body.removeChild(ta);
-                    notif.classList.add('show');
-                    setTimeout(()=>notif.classList.remove('show'),2000);
+            for (const api of APIs) {
+                try {
+                    const response = await fetch(api, {
+                        method: 'GET',
+                        headers: {
+                            'User-Agent': 'MinecraftServerStatus/1.0 (YourStop Server Website)'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        updateServerUI(data, api);
+                        return;
+                    }
+                } catch (error) {
+                    console.log(`API ${api} failed, trying next...`);
+                    continue;
                 }
-            });
+            }
+            
+            showErrorState();
         }
 
-        /* ====== Mobile menu & smooth scroll ====== */
-        document.querySelector('.mobile-menu').addEventListener('click', function(){ const nav = document.querySelector('header nav'); nav.classList.toggle('active'); });
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{
-            a.addEventListener('click', function(e){ e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if(target) window.scrollTo({top: target.offsetTop - 70, behavior:'smooth'}); if(window.innerWidth<=768) document.querySelector('header nav').classList.remove('active'); });
+        function updateServerUI(data, api) {
+            let players, maxPlayers, version, online;
+            
+            if (api.includes('mcsrvstat.us')) {
+                online = data.online;
+                players = data.players ? data.players.online : 0;
+                maxPlayers = data.players ? data.players.max : 0;
+                version = data.version ? data.version : 'Неизвестно';
+            } else if (api.includes('mcstatus.io')) {
+                online = data.online;
+                players = data.players ? data.players.online : 0;
+                maxPlayers = data.players ? data.players.max : 0;
+                version = data.version ? data.version.name_raw : 'Неизвестно';
+            }
+            
+            document.getElementById('online-players').innerHTML = players;
+            document.getElementById('max-players').innerHTML = maxPlayers;
+            document.getElementById('server-version').innerHTML = version;
+            
+            if (online) {
+                document.getElementById('server-status').innerHTML = '<span class="status-online">● Онлайн</span>';
+            } else {
+                document.getElementById('server-status').innerHTML = '<span class="status-offline">● Офлайн</span>';
+            }
+            
+            document.getElementById('last-updated').innerHTML = `Обновлено: ${new Date().toLocaleTimeString()} <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
+            
+            // Re-attach refresh button event
+            document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
+        }
+
+        function showErrorState() {
+            document.getElementById('online-players').innerHTML = 'Ошибка';
+            document.getElementById('max-players').innerHTML = 'Ошибка';
+            document.getElementById('server-version').innerHTML = 'Ошибка';
+            document.getElementById('server-status').innerHTML = '<span class="status-offline">Ошибка загрузки</span>';
+            document.getElementById('last-updated').innerHTML = `Не удалось загрузить данные <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
+            
+            document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
+        }
+
+        // Initial load and auto-refresh
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchServerStatus();
+            setInterval(fetchServerStatus, 30000);
+            
+            // Initial refresh button
+            document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
         });
 
-        /* ====== Init ====== */
-        function init(){
-            renderSlider(0);
-            // initial server fetch and schedule loop
-            fetchServerStatus();
-            setInterval(fetchServerStatus, REFRESH_INTERVAL);
-            // copy buttons
-            setupCopy('copy-button-main','copy-notif-main','yourstop.online');
-            // attach manual refresh
-            document.getElementById('refresh-btn').addEventListener('click', manualRefresh);
-            // window resize -> recompute slider
-            window.addEventListener('resize', updateSlider);
-            // prevent text selection on slider buttons touch
-            prevBtn.addEventListener('touchstart', (e)=>e.preventDefault());
-            nextBtn.addEventListener('touchstart', (e)=>e.preventDefault());
-        }
-
-        // render on load
-        document.addEventListener('DOMContentLoaded', init);
-
-        // Expose helper to re-render after changes
-        window.saveAndRender = function(){
-            saveCommands(commandsData);
-            renderSlider(currentIndex);
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        // When page becomes hidden/visible, consider update
-        document.addEventListener('visibilitychange', () => { if(!document.hidden) fetchServerStatus(); });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
-    })();
+        document.querySelectorAll('.feature-card, .stat, .step, .live-stat, .command-category').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
