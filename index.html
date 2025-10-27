@@ -1234,12 +1234,10 @@
 
 
         // Server Status Check
-        const PROXY_URL = 'http://yourstop.fwh.is/api_proxy.php';
-
+        // БЕЗ PHP-ПРОКСИ: Используем только публичные API
         const APIs = [
-            PROXY_URL, // Приоритет 1: PHP Proxy (для обхода CORS)
-            'https://api.mcstatus.io/v2/status/java/yourstop.online', // Fallback 1
-            'https://api.mcsrvstat.us/3/yourstop.online' // Fallback 2
+            'https://api.mcstatus.io/v2/status/java/yourstop.online', // Приоритет 1
+            'https://api.mcsrvstat.us/3/yourstop.online'             // Приоритет 2
         ];
 
         async function fetchServerStatus() {
@@ -1254,12 +1252,10 @@
             
             for (const api of APIs) {
                 try {
+                    // Прямой вызов API. Без PHP-прокси здесь могут возникнуть ошибки CORS.
                     const response = await fetch(api, {
                         method: 'GET',
-                        // Optional: Add headers to identify your request
-                        headers: {
-                            'User-Agent': 'YOUR-STOP-Website-Checker/1.0'
-                        }
+                        // Удалена попытка установить User-Agent, т.к. она не работает в браузере для cross-origin запросов.
                     });
 
                     if (response.ok) {
