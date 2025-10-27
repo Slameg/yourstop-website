@@ -762,7 +762,7 @@
             line-height: 1.2;
         }
 
-        /* Commands Section */
+        /* Commands Section - ИСПРАВЛЕННЫЙ СЛАЙДЕР */
         .commands {
             padding: 5rem 0;
             position: relative;
@@ -772,14 +772,16 @@
         .commands-container {
             position: relative;
             margin: 0 auto;
-            max-width: 1200px;
-            padding: 0 60px;
+            max-width: 1400px;
+            padding: 0 100px;
         }
         
         .slider-wrapper {
             overflow: hidden;
             position: relative;
             width: 100%;
+            margin: 0 -50px;
+            padding: 2rem 50px;
         }
 
         .commands-slider {
@@ -797,7 +799,7 @@
             box-shadow: 
                 0 15px 50px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            margin: 0 10px;
+            margin: 0 15px;
             backdrop-filter: blur(15px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 420px;
@@ -955,11 +957,11 @@
         }
 
         #prev-btn {
-            left: 0;
+            left: 20px;
         }
 
         #next-btn {
-            right: 0;
+            right: 20px;
         }
 
         /* How to Join Section */
@@ -1128,9 +1130,14 @@
 
         /* Responsive Design */
         @media (max-width: 1200px) {
-            .command-category {
-                width: calc(33.333% - 14px);
-                min-width: 300px;
+            .commands-container {
+                max-width: 1200px;
+                padding: 0 80px;
+            }
+            
+            .slider-wrapper {
+                margin: 0 -40px;
+                padding: 2rem 40px;
             }
         }
 
@@ -1160,13 +1167,13 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .command-category {
-                width: calc(50% - 10px);
-                min-width: 280px;
-            }
-
             .commands-container {
-                padding: 0 50px;
+                padding: 0 60px;
+            }
+            
+            .slider-wrapper {
+                margin: 0 -30px;
+                padding: 2rem 30px;
             }
         }
 
@@ -1235,8 +1242,17 @@
                 font-size: 2rem;
             }
 
+            .commands-container {
+                padding: 0 50px;
+            }
+            
+            .slider-wrapper {
+                margin: 0 -20px;
+                padding: 2rem 20px;
+            }
+
             .command-category {
-                width: 280px;
+                width: 320px;
                 min-height: 380px;
                 padding: 2rem 1.5rem;
             }
@@ -1245,6 +1261,14 @@
                 width: 3rem;
                 height: 3rem;
                 font-size: 1.25rem;
+            }
+
+            #prev-btn {
+                left: 10px;
+            }
+
+            #next-btn {
+                right: 10px;
             }
 
             .stats-grid {
@@ -1313,6 +1337,11 @@
             .commands-container {
                 padding: 0 40px;
             }
+            
+            .slider-wrapper {
+                margin: 0 -15px;
+                padding: 2rem 15px;
+            }
 
             .slider-btn {
                 width: 2.5rem;
@@ -1320,8 +1349,16 @@
                 font-size: 1rem;
             }
 
+            #prev-btn {
+                left: 5px;
+            }
+
+            #next-btn {
+                right: 5px;
+            }
+
             .command-category {
-                width: 260px;
+                width: 280px;
                 min-height: 360px;
                 padding: 1.5rem;
             }
@@ -1728,6 +1765,7 @@
                 ]
             }
         ];
+
         // Слайдер команд
         const slider = document.getElementById('commands-slider');
         const prevBtn = document.getElementById('prev-btn');
@@ -1737,7 +1775,7 @@
         const cloneCount = 3;
         const totalCardsInSlider = totalOriginalCards + 2 * cloneCount;
         let currentIndex = cloneCount; 
-        const cardWidth = 380 + 20; // Ширина карточки + отступ
+        const cardWidth = 380 + 30; // Ширина карточки + отступы
 
         function createCommandCards() {
             if (!slider) return;
@@ -1833,20 +1871,6 @@
                 }
             }
         }
-
-         // Инициализация слайдера
-        document.addEventListener('DOMContentLoaded', function() {
-            createCommandCards();
-            updateSlider(false);
-            
-            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-            
-            window.addEventListener('resize', () => {
-                currentIndex = cloneCount; 
-                updateSlider(false);
-            });
-        });
 
         // Статус сервера - прямой запрос к mcsrvstat.us
         const API_URL = 'https://api.mcsrvstat.us/3/yourstop.online';
@@ -1987,13 +2011,13 @@
             setupCopyIP('copy-button-footer');
 
             createCommandCards();
+            updateSlider(false);
             
             if (prevBtn) prevBtn.addEventListener('click', prevSlide);
             if (nextBtn) nextBtn.addEventListener('click', nextSlide);
             
             window.addEventListener('resize', () => {
-                updateCardWidth();
-                currentIndex = Math.min(currentIndex, commandsData.length - getCardsPerView());
+                currentIndex = cloneCount; 
                 updateSlider(false);
             });
 
