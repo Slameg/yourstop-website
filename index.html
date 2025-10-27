@@ -762,29 +762,30 @@
             line-height: 1.2;
         }
 
-        /* Commands Section - ИСПРАВЛЕННЫЙ СЛАЙДЕР */
+        /* Commands Section */
         .commands {
             padding: 5rem 0;
             position: relative;
             background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
-            overflow: hidden;
         }
 
         .commands-container {
             position: relative;
             margin: 0 auto;
             max-width: 1200px;
+            padding: 0 60px;
         }
         
         .slider-wrapper {
-            overflow: visible;
+            overflow: hidden;
             position: relative;
+            width: 100%;
         }
 
         .commands-slider {
             display: flex;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 2rem 0;
+            gap: 20px;
         }
 
         .command-category {
@@ -792,12 +793,12 @@
             border-radius: 20px;
             padding: 2.5rem 2rem;
             border: 2px solid rgba(76, 175, 80, 0.25);
-            width: 380px;
+            width: calc(25% - 15px);
+            min-width: 280px;
             flex-shrink: 0;
             box-shadow: 
                 0 15px 50px rgba(0, 0, 0, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            margin: 0 15px;
             backdrop-filter: blur(15px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 420px;
@@ -955,11 +956,11 @@
         }
 
         #prev-btn {
-            left: -4rem;
+            left: 0;
         }
 
         #next-btn {
-            right: -4rem;
+            right: 0;
         }
 
         /* How to Join Section */
@@ -1128,16 +1129,9 @@
 
         /* Responsive Design */
         @media (max-width: 1200px) {
-            .commands-container {
-                max-width: 1000px;
-            }
-            
-            #prev-btn {
-                left: -3.5rem;
-            }
-
-            #next-btn {
-                right: -3.5rem;
+            .command-category {
+                width: calc(33.333% - 14px);
+                min-width: 300px;
             }
         }
 
@@ -1165,6 +1159,15 @@
 
             .steps {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .command-category {
+                width: calc(50% - 10px);
+                min-width: 280px;
+            }
+
+            .commands-container {
+                padding: 0 50px;
             }
         }
 
@@ -1234,27 +1237,15 @@
             }
 
             .command-category {
-                width: 320px;
+                width: 280px;
                 min-height: 380px;
                 padding: 2rem 1.5rem;
-            }
-
-            .commands-container {
-                max-width: 340px;
             }
 
             .slider-btn {
                 width: 3rem;
                 height: 3rem;
                 font-size: 1.25rem;
-            }
-
-            #prev-btn {
-                left: -2.5rem;
-            }
-
-            #next-btn {
-                right: -2.5rem;
             }
 
             .stats-grid {
@@ -1320,28 +1311,20 @@
                 font-size: 0.8rem;
             }
 
+            .commands-container {
+                padding: 0 40px;
+            }
+
             .slider-btn {
                 width: 2.5rem;
                 height: 2.5rem;
                 font-size: 1rem;
             }
 
-            #prev-btn {
-                left: -2rem;
-            }
-
-            #next-btn {
-                right: -2rem;
-            }
-
             .command-category {
-                width: 280px;
+                width: 260px;
                 min-height: 360px;
                 padding: 1.5rem;
-            }
-
-            .commands-container {
-                max-width: 300px;
             }
 
             .section-title h2 {
@@ -1752,22 +1735,28 @@
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         
-        const totalOriginalCards = commandsData.length;
-        const cloneCount = 3;
-        const totalCardsInSlider = totalOriginalCards + 2 * cloneCount;
-        let currentIndex = cloneCount; 
-        const cardWidth = 380 + 30; // Ширина карточки + отступы
+        let currentIndex = 0;
+        let cardWidth = 0;
+
+        function getCardsPerView() {
+            if (window.innerWidth >= 1200) return 4;
+            if (window.innerWidth >= 1024) return 3;
+            if (window.innerWidth >= 768) return 2;
+            return 1;
+        }
+
+        function calculateCardWidth() {
+            const cardsPerView = getCardsPerView();
+            const containerWidth = document.querySelector('.commands-container').offsetWidth;
+            const gap = 20;
+            return (containerWidth - (cardsPerView - 1) * gap) / cardsPerView;
+        }
 
         function createCommandCards() {
             if (!slider) return;
             slider.innerHTML = '';
             
-            const clonesEnd = commandsData.slice(-cloneCount);
-            const originalData = commandsData;
-            const clonesStart = commandsData.slice(0, cloneCount);
-            const dataWithClones = [...clonesEnd, ...originalData, ...clonesStart];
-
-            dataWithClones.forEach(category => {
+            commandsData.forEach(category => {
                 const categoryElement = document.createElement('div');
                 categoryElement.className = 'command-category';
                 
@@ -1806,6 +1795,16 @@
                 categoryElement.appendChild(commandsList);
                 slider.appendChild(categoryElement);
             });
+
+            updateCardWidth();
+        }
+
+        function updateCardWidth() {
+            cardWidth = calculateCardWidth();
+            document.querySelectorAll('.command-category').forEach(card => {
+                card.style.width = cardWidth + 'px';
+            });
+            updateSlider(false);
         }
 
         function updateSlider(shouldAnimate = true) {
@@ -1816,7 +1815,7 @@
                 slider.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             }
 
-            const translateX = -currentIndex * cardWidth;
+            const translateX = -currentIndex * (cardWidth + 20);
             slider.style.transform = `translateX(${translateX}px)`;
             
             if (!shouldAnimate) {
@@ -1826,16 +1825,10 @@
         }
 
         function nextSlide() {
-            if (currentIndex < totalCardsInSlider - 1) {
+            const maxIndex = commandsData.length - getCardsPerView();
+            if (currentIndex < maxIndex) {
                 currentIndex++;
                 updateSlider();
-
-                if (currentIndex === totalOriginalCards + cloneCount) {
-                    setTimeout(() => {
-                        currentIndex = cloneCount;
-                        updateSlider(false);
-                    }, 600);
-                }
             }
         }
 
@@ -1843,13 +1836,6 @@
             if (currentIndex > 0) {
                 currentIndex--;
                 updateSlider();
-
-                if (currentIndex === cloneCount - 1) {
-                    setTimeout(() => {
-                        currentIndex = totalOriginalCards + cloneCount - 1;
-                        updateSlider(false);
-                    }, 600);
-                }
             }
         }
 
@@ -1992,13 +1978,13 @@
             setupCopyIP('copy-button-footer');
 
             createCommandCards();
-            updateSlider(false);
             
             if (prevBtn) prevBtn.addEventListener('click', prevSlide);
             if (nextBtn) nextBtn.addEventListener('click', nextSlide);
             
             window.addEventListener('resize', () => {
-                currentIndex = cloneCount; 
+                updateCardWidth();
+                currentIndex = Math.min(currentIndex, commandsData.length - getCardsPerView());
                 updateSlider(false);
             });
 
