@@ -874,8 +874,11 @@
                 </div>
                 <div class="server-description">
                     <h2>О сервере YOUR STOP</h2>
-                    <p>YOUR STOP - это качественный сервер выживания в Minecraft, созданный для истинных ценителей этого жанра. Мы предлагаем уникальный опыт игры с тщательно подобранными модами, которые добавляют новые измерения геймплея, не нарушая баланс ванильного Minecraft.</p>
-                    <p>Наше сообщество - это наша гордость. Мы создали дружелюбную атмосферу, где каждый игрок чувствует себя частью большой семьи. Регулярные ивенты, конкурсы строительства и PvP-сражения не дадут вам заскучать!</p>
+                    <p>YOUR STOP - это качественный сервер выживания в Minecraft, созданный для истинных ценителей этого жанра.
+                    Мы предлагаем уникальный опыт игры с тщательно подобранными модами, которые добавляют новые измерения геймплея, не нарушая баланс ванильного Minecraft.</p>
+                    <p>Наше сообщество - это наша гордость.
+                    Мы создали дружелюбную атмосферу, где каждый игрок чувствует себя частью большой семьи.
+                    Регулярные ивенты, конкурсы строительства и PvP-сражения не дадут вам заскучать!</p>
                     <p>Присоединяйтесь к нам и станьте частью этого удивительного мира!</p>
                 </div>
             </div>
@@ -892,7 +895,7 @@
                 <button class="slider-btn" id="prev-btn">‹</button>
                 <div class="slider-wrapper">
                     <div class="commands-slider" id="commands-slider">
-                    </div>
+                        </div>
                 </div>
                 <button class="slider-btn" id="next-btn">›</button>
             </div>
@@ -948,12 +951,12 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Запустите Minecraft</h3>
-                    <p>Откройте лаунчер Minecraft и убедитесь, что у вас установлена версия 1.19 или выше</p>
+                    <p>Откройте лаунчер Minecraft и убедитесь, что у вас установлена версия 1.19+</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3>Добавьте сервер</h3>
-                    <p>В меню мультиплеера нажмите "Добавить сервер" и введите адрес: yourstop.online</p>
+                    <p>В меню мультиплеера нажмите "Добавить сервер" и введите адрес: **yourstop.online**</p>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
@@ -1015,61 +1018,18 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav').classList.toggle('active');
-        });
-
-        // IP Copy Functionality
-        function setupCopyButton(buttonId) {
-            const copyButton = document.getElementById(buttonId);
-            const ipAddress = 'yourstop.online';
-
-            if (copyButton) {
-                copyButton.addEventListener('click', function() {
-                    navigator.clipboard.writeText(ipAddress).then(() => {
-                        const notification = document.getElementById('copy-notification');
-                        if (notification) {
-                            notification.textContent = 'IP скопирован в буфер!';
-                            notification.classList.add('show');
-                            setTimeout(() => {
-                                notification.classList.remove('show');
-                            }, 2000);
-                        }
-                        
-                        // For the footer copy button, we need to show the nearest notification
-                        if (buttonId === 'copy-button-footer') {
-                            const footerNotification = copyButton.nextElementSibling;
-                            if (footerNotification && footerNotification.classList.contains('copy-notification')) {
-                                footerNotification.textContent = 'IP скопирован в буфер!';
-                                footerNotification.classList.add('show');
-                                setTimeout(() => {
-                                    footerNotification.classList.remove('show');
-                                }, 2000);
-                            }
-                        }
-
-                    }).catch(err => {
-                        console.error('Failed to copy text: ', err);
-                        // Fallback for browsers without secure clipboard access
-                        alert('Скопируйте IP вручную: ' + ipAddress);
-                    });
-                });
-            }
-        }
-
-        setupCopyButton('copy-button-main');
-        setupCopyButton('copy-button-footer');
-
-
-        // Commands Data
+        // Commands Data for the Slider
         const commandsData = [
             {
-                title: "🏠 Приват и дом",
+                title: "🛡️ Защита территорий",
                 commands: [
-                    { command: "/claim", desc: "Приватизация территорий с защитой от взрыва и грифа" },
-                    { command: "/unclaim", desc: "Удалить все приваты" },
-                    { command: "/claim remove", desc: "Режим снятия защиты. ПКМ по защищённому блоку снимает защиту" },
+                    { command: "/claim", desc: "Автоматически защищает блок, на который вы смотрите" },
+                    { command: "/unclaim", desc: "Снимает защиту с блока, на который вы смотрите" },
+                    { command: "/claim list", desc: "Показать список ваших защищенных территорий" },
+                    { command: "/claim friend <ник>", desc: "Добавить друга в доверенные" },
+                    { command: "/claim unfriend <ник>", desc: "Удалить друга из доверенных" },
+                    { command: "/claim info", desc: "Информация о текущей территории" },
+                    { command: "/claim mode", desc: "Режим снятия защиты. ПКМ по защищённому блоку снимает защиту" },
                     { command: "/yshelp", desc: "Показать список всех игровых команд" }
                 ]
             },
@@ -1111,23 +1071,67 @@
         const slider = document.getElementById('commands-slider');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
-        const cardWidth = 360; // 340px card + 20px margins (10px on each side)
-        const cloneCount = 2; // Number of clones at start/end
+        let currentIndex = 0;
         const totalOriginalCards = commandsData.length;
-        let currentIndex = cloneCount; // Start at the first real card
+        const cloneCount = 1; // Number of clones at start and end
+        let cardWidth = 360; // Default width + margin (340 + 20)
 
-        function createCommandCard(category) {
+        // Function to clone and inject cards
+        function initializeSlider() {
+            if (!slider) return;
+
+            // Clear previous content
+            slider.innerHTML = '';
+
+            // Clone last card and prepend
+            for (let i = 0; i < cloneCount; i++) {
+                createCommandCard(commandsData[totalOriginalCards - (cloneCount - i)], true);
+            }
+
+            // Inject original cards
+            commandsData.forEach(category => {
+                createCommandCard(category, false);
+            });
+
+            // Clone first card and append
+            for (let i = 0; i < cloneCount; i++) {
+                createCommandCard(commandsData[i], true);
+            }
+
+            // Set initial position to the first original card
+            currentIndex = cloneCount;
+            // Recalculate width based on screen size for correct positioning
+            calculateCardWidth();
+            updateSlider(false); // Snap to start without animation
+        }
+
+        function calculateCardWidth() {
+            const container = document.querySelector('.commands-container');
+            if (container) {
+                // Determine card width based on a calculation or a fixed value
+                // In this setup, we'll rely on the CSS width: 340px and margin: 10px, so 360px
+                cardWidth = 360; 
+                if (window.innerWidth <= 768) {
+                    // For mobile, CSS has width: 280px and margin: 10px, so 300px
+                    cardWidth = 300; 
+                }
+            }
+        }
+        
+        function createCommandCard(category, isClone) {
             const categoryElement = document.createElement('div');
             categoryElement.className = 'command-category';
+            if (isClone) {
+                categoryElement.classList.add('clone');
+            }
             
             const titleElement = document.createElement('h3');
             const iconSpan = document.createElement('span');
-            
-            // Extract emoji and text
-            const iconMatch = category.title.match(/(\p{Emoji})/u);
+            // Using a modern regex to correctly parse Emojis
+            const iconMatch = category.title.match(/(\p{Emoji})/u); 
             iconSpan.textContent = iconMatch ? iconMatch[0] : '';
             const textPart = category.title.replace(/(\p{Emoji})\s*/u, '').trim();
-
+            
             titleElement.appendChild(iconSpan);
             titleElement.appendChild(document.createTextNode(textPart));
             categoryElement.appendChild(titleElement);
@@ -1135,11 +1139,11 @@
             category.commands.forEach(cmd => {
                 const commandItem = document.createElement('div');
                 commandItem.className = 'command-item';
-
+                
                 const commandElement = document.createElement('div');
                 commandElement.className = 'command';
                 commandElement.textContent = cmd.command;
-
+                
                 const descElement = document.createElement('div');
                 descElement.className = 'command-desc';
                 descElement.textContent = cmd.desc;
@@ -1148,33 +1152,13 @@
                 commandItem.appendChild(descElement);
                 categoryElement.appendChild(commandItem);
             });
-
-            return categoryElement;
+            
+            slider.appendChild(categoryElement);
         }
 
-        function populateSlider() {
-            // Clone the last few cards and prepend them (for infinite loop effect)
-            for (let i = 0; i < cloneCount; i++) {
-                const index = totalOriginalCards - cloneCount + i;
-                slider.prepend(createCommandCard(commandsData[index]));
-            }
-
-            // Add original cards
-            commandsData.forEach(category => {
-                slider.appendChild(createCommandCard(category));
-            });
-
-            // Clone the first few cards and append them
-            for (let i = 0; i < cloneCount; i++) {
-                slider.appendChild(createCommandCard(commandsData[i]));
-            }
-        }
-
-        populateSlider();
-        const totalCardsInSlider = slider.children.length;
-
-
+        // Update slider position
         function updateSlider(shouldAnimate = true) {
+            calculateCardWidth();
             if (!shouldAnimate) {
                 slider.style.transition = 'none';
             } else {
@@ -1193,54 +1177,65 @@
         }
 
         function nextSlide() {
-            // Prevent going past the very last clone immediately, to allow the animation to start
-            if (currentIndex < totalCardsInSlider - 1) {
+            if (currentIndex < totalOriginalCards + cloneCount) {
                 currentIndex++;
                 updateSlider();
             }
-
             // Check if we hit the first clone of the start data
             if (currentIndex === totalOriginalCards + cloneCount) {
                 setTimeout(() => {
-                    currentIndex = cloneCount; // Jump back to the first real card
-                    updateSlider(false);
-                }, 500); // Must match CSS transition time
+                    currentIndex = cloneCount; // Jump back to the first original card
+                    updateSlider(false); // Snap back without animation
+                }, 500); // Must wait for the animation duration
             }
         }
 
         function prevSlide() {
-            // Prevent going past the very first clone immediately
             if (currentIndex > 0) {
                 currentIndex--;
                 updateSlider();
             }
-
             // Check if we hit the last clone of the end data
             if (currentIndex === 0) {
                 setTimeout(() => {
-                    currentIndex = totalOriginalCards; // Jump back to the last real card
-                    updateSlider(false);
-                }, 500); // Must match CSS transition time
+                    currentIndex = totalOriginalCards; // Jump back to the last original card
+                    updateSlider(false); // Snap back without animation
+                }, 500); // Must wait for the animation duration
             }
         }
 
-        nextBtn.addEventListener('click', nextSlide);
         prevBtn.addEventListener('click', prevSlide);
-
-        // Set initial position (must be done after populating to ensure totalCardsInSlider is correct)
-        document.addEventListener('DOMContentLoaded', () => {
-            updateSlider(false);
+        nextBtn.addEventListener('click', nextSlide);
+        window.addEventListener('resize', () => {
+             // On resize, recalculate width and snap to current index
+             calculateCardWidth();
+             updateSlider(false); 
         });
 
+        // Copy IP function
+        function setupCopyButton(buttonId, address, notificationId) {
+            const copyButton = document.getElementById(buttonId);
+            const notification = document.getElementById(notificationId);
 
-        // Server Status Check
-        // БЕЗ PHP-ПРОКСИ: Используем только публичные API
-        const APIs = [
-            'https://api.mcstatus.io/v2/status/java/yourstop.online', // Приоритет 1
-            'https://api.mcsrvstat.us/3/yourstop.online'             // Приоритет 2
-        ];
+            if (copyButton) {
+                copyButton.addEventListener('click', () => {
+                    navigator.clipboard.writeText(address).then(() => {
+                        notification.classList.add('show');
+                        setTimeout(() => {
+                            notification.classList.remove('show');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Could not copy text: ', err);
+                    });
+                });
+            }
+        }
 
+        // Server Status Check - Используем API, который успешно сработал при проверке
+        const API_URL = 'https://api.mcsrvstat.us/3/yourstop.online'; 
+        
         async function fetchServerStatus() {
+            // Сброс состояния загрузки
             document.getElementById('online-players').innerHTML = '<span class="loading">Загрузка...</span>';
             document.getElementById('max-players').innerHTML = '<span class="loading">Загрузка...</span>';
             document.getElementById('server-version').innerHTML = '<span class="loading">Загрузка...</span>';
@@ -1248,108 +1243,126 @@
             document.getElementById('last-updated').innerHTML = 'Обновляется...';
             document.getElementById('refresh-btn').disabled = true;
 
-            let successfulFetch = false;
-            
-            for (const api of APIs) {
-                try {
-                    // Прямой вызов API. Без PHP-прокси здесь могут возникнуть ошибки CORS.
-                    const response = await fetch(api, {
-                        method: 'GET',
-                        // Удалена попытка установить User-Agent, т.к. она не работает в браузере для cross-origin запросов.
-                    });
+            try {
+                // Прямой вызов API
+                const response = await fetch(API_URL);
 
-                    if (response.ok) {
-                        const data = await response.json();
-                        
-                        // Check if the server is online (common check for both APIs)
-                        if (data.online === true) {
-                            const onlinePlayers = data.players.online || 0;
-                            const maxPlayers = data.players.max || 0;
-                            let version = data.version.name || data.version.name_clean || '1.19+';
-
-                            // API from mcstatus.io returns version object (data.version.name)
-                            if (version.text) {
-                                version = version.text.replace(/§[0-9a-fklmnor]/g, ''); // Clean formatting codes
-                            }
-                            
-                            // Truncate long version strings (e.g., from mcstatus.io)
-                            if (version.length > 20) {
-                                version = version.substring(0, 17) + '...';
-                            }
-                            
-                            document.getElementById('online-players').textContent = onlinePlayers;
-                            document.getElementById('max-players').textContent = maxPlayers;
-                            document.getElementById('server-version').textContent = version;
-                            
-                            const statusElement = document.getElementById('server-status');
-                            statusElement.textContent = 'Онлайн';
-                            statusElement.className = 'live-stat-value status-online';
-                            
-                            successfulFetch = true;
-                            break; // Stop iterating through APIs if successful
-                        }
-                    }
+                if (response.ok) {
+                    const data = await response.json();
                     
-                } catch (error) {
-                    console.error(`Error fetching from ${api}:`, error);
-                    // Continue to the next API in the list
+                    // Проверка, что сервер действительно онлайн (в API может быть 200 OK, но сервер offline)
+                    if (data.online) {
+                        updateServerStatsDisplay(data);
+                    } else {
+                        displayOffline();
+                    }
+                } else {
+                    displayError(`Ошибка API: ${response.status} ${response.statusText}`);
                 }
+            } catch (error) {
+                displayError(`Ошибка подключения: ${error.message}`);
+            } finally {
+                document.getElementById('last-updated').innerHTML = `Последнее обновление: ${new Date().toLocaleTimeString('ru-RU')}`;
+                document.getElementById('refresh-btn').disabled = false;
             }
-
-            // If all APIs failed or returned offline status
-            if (!successfulFetch) {
-                document.getElementById('online-players').textContent = '0';
-                document.getElementById('max-players').textContent = '—';
-                document.getElementById('server-version').textContent = '—';
-                
-                const statusElement = document.getElementById('server-status');
-                statusElement.textContent = 'Офлайн';
-                statusElement.className = 'live-stat-value status-offline';
-            }
-
-            // Final update time and button re-enable
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            document.getElementById('last-updated').innerHTML = `Обновлено: ${timeString} 
-                <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
-            document.getElementById('refresh-btn').disabled = false;
-            
-            // Re-attach click listener to the newly created button
-            document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
         }
+
+        // Функции для обновления DOM
+        function updateServerStatsDisplay(data) {
+            // API mcsrvstat.us использует 'players.online' и 'players.max'
+            const online = data.players.online || 0;
+            const max = data.players.max || 150;
+            const version = data.version ? data.version.name || data.version : '1.19+';
+            
+            document.getElementById('online-players').textContent = online;
+            document.getElementById('max-players').textContent = max;
+            document.getElementById('server-version').textContent = version;
+            
+            const statusElement = document.getElementById('server-status');
+            statusElement.textContent = 'ОНЛАЙН';
+            statusElement.className = 'live-stat-value status-online';
+        }
+
+        function displayOffline() {
+            document.getElementById('online-players').textContent = '0';
+            document.getElementById('max-players').textContent = '150';
+            document.getElementById('server-version').textContent = '1.19+';
+
+            const statusElement = document.getElementById('server-status');
+            statusElement.textContent = 'ОФФЛАЙН';
+            statusElement.className = 'live-stat-value status-offline';
+        }
+
+        function displayError(message) {
+            document.getElementById('online-players').textContent = '—';
+            document.getElementById('max-players').textContent = '—';
+            document.getElementById('server-version').textContent = '—';
+
+            const statusElement = document.getElementById('server-status');
+            statusElement.textContent = 'ОШИБКА';
+            statusElement.className = 'live-stat-value status-offline';
+        }
+
 
         // Initial load and auto-refresh
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Command Slider
+            initializeSlider();
+            
+            // Fetch Server Status
             fetchServerStatus();
             setInterval(fetchServerStatus, 30000); // Refresh every 30 seconds
             
-            // Initial refresh button setup (will be overwritten after first fetch)
-            const initialRefreshBtn = document.getElementById('refresh-btn');
-            if (initialRefreshBtn) {
-                initialRefreshBtn.addEventListener('click', fetchServerStatus);
+            // Setup refresh button
+            const refreshBtn = document.getElementById('refresh-btn');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', fetchServerStatus);
             }
-        });
 
-        // Add animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+            // Setup Copy Buttons
+            setupCopyButton('copy-button-main', 'yourstop.online', 'copy-notification');
+            setupCopyButton('copy-button-footer', 'yourstop.online', 'copy-notification');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu');
+            const nav = document.querySelector('header nav');
+            const navLinks = document.querySelectorAll('header nav ul li a');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                nav.classList.toggle('active');
             });
-        }, observerOptions);
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                    }
+                });
+            });
 
-        document.querySelectorAll('.feature-card, .stat, .step, .live-stat, .command-category').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(el);
+
+            // Add animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.feature-card, .stat, .step, .live-stat, .command-category').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
         });
     </script>
 </body>
