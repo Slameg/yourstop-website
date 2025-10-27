@@ -973,7 +973,7 @@
                 <div class="ip-container">
                     <div class="ip-address">yourstop.online</div>
                     <button class="copy-button" id="copy-button-footer">Копировать IP</button>
-                    <div class="copy-notification">IP скопирован в буфер!</div>
+                    <div class="copy-notification" id="copy-notification-footer">IP скопирован в буфер!</div>
                 </div>
             </div>
         </div>
@@ -1018,116 +1018,110 @@
     </footer>
 
     <script>
-        // Commands Data for the Slider
-        const commandsData = [
-            {
-                title: "🛡️ Защита территорий",
-                commands: [
-                    { command: "/claim", desc: "Автоматически защищает блок, на который вы смотрите" },
-                    { command: "/unclaim", desc: "Снимает защиту с блока, на который вы смотрите" },
-                    { command: "/claim list", desc: "Показать список ваших защищенных территорий" },
-                    { command: "/claim friend <ник>", desc: "Добавить друга в доверенные" },
-                    { command: "/claim unfriend <ник>", desc: "Удалить друга из доверенных" },
-                    { command: "/claim info", desc: "Информация о текущей территории" },
-                    { command: "/claim mode", desc: "Режим снятия защиты. ПКМ по защищённому блоку снимает защиту" },
-                    { command: "/yshelp", desc: "Показать список всех игровых команд" }
-                ]
-            },
-            {
-                title: "🔐 Пароли и доступ",
-                commands: [
-                    { command: "/password set <код>", desc: "Установить пароль на блок" },
-                    { command: "/password enter <код>", desc: "Ввести пароль для доступа к блоку" },
-                    { command: "/password remove", desc: "Снять пароль с блока" },
-                    { command: "/password info", desc: "Информация о блоке" },
-                    { command: "/lock <пароль>", desc: "Защита дверей паролем (включая двойные)" },
-                    { command: "/lock remove", desc: "Снять защиту с двери" }
-                ]
-            },
-            {
-                title: "🤝 Социальные команды",
-                commands: [
-                    { command: "/friend add <ник>", desc: "Добавить друга в список доверенных" },
-                    { command: "/friend remove <ник>", desc: "Удалить друга из списка" },
-                    { command: "/friend list", desc: "Показать список доверенных" },
-                    { command: "/tpa <ник>", desc: "Отправить запрос на телепорт к игроку" },
-                    { command: "/tpaccept", desc: "Принять запрос на телепорт" },
-                    { command: "/tpdeny", desc: "Отклонить запрос на телепорт" },
-                    { command: "/market", desc: "Открыть глобальный рынок для торговли" }
-                ]
-            },
-            {
-                title: "ℹ️ Дополнительные команды",
-                commands: [
-                    { command: "ПКМ по защищённому блоку", desc: "Показывает текущее HP блока" },
-                    { command: "/spawn", desc: "Вернуться на спавн" },
-                    { command: "/home", desc: "Телепорт к установленному дому" },
-                    { command: "/sethome", desc: "Установить точку дома" }
-                ]
+        // Mobile Menu
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('nav').classList.remove('active');
+            });
+        });
+
+        // IP Copy Functionality
+        function setupCopyButton(buttonId, notificationId, ipAddress) {
+            const copyButton = document.getElementById(buttonId);
+            const copyNotification = document.getElementById(notificationId);
+
+            if (copyButton && copyNotification) {
+                copyButton.addEventListener('click', function() {
+                    navigator.clipboard.writeText(ipAddress)
+                        .then(() => {
+                            copyNotification.textContent = 'IP скопирован в буфер!';
+                            copyNotification.classList.add('show');
+                            setTimeout(() => {
+                                copyNotification.classList.remove('show');
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Не удалось скопировать IP: ', err);
+                            copyNotification.textContent = 'Ошибка копирования!';
+                            copyNotification.classList.add('show');
+                            setTimeout(() => {
+                                copyNotification.classList.remove('show');
+                            }, 2000);
+                        });
+                });
             }
+        }
+
+        // Commands Slider Data
+        const commandCategories = [
+            { 
+                title: "🛡️ Защита территорий", 
+                commands: [ 
+                    { command: "/c public", desc: "Сделать свою защиту общедоступной" }, 
+                    { command: "/c private", desc: "Сделать свою защиту приватной" }, 
+                    { command: "/c trust <ник>", desc: "Добавить друга в защиту" }, 
+                    { command: "/c untrust <ник>", desc: "Удалить друга из защиты" }, 
+                    { command: "/c remove", desc: "Режим снятия защиты. ПКМ по защищённому блоку снимает защиту" }, 
+                    { command: "/yshelp", desc: "Показать список всех игровых команд" } 
+                ] 
+            }, 
+            { 
+                title: "🔐 Пароли и доступ", 
+                commands: [ 
+                    { command: "/password set <код>", desc: "Установить пароль на блок" }, 
+                    { command: "/password enter <код>", desc: "Ввести пароль для доступа к блоку" }, 
+                    { command: "/password remove", desc: "Снять пароль с блока" }, 
+                    { command: "/password info", desc: "Информация о блоке" }, 
+                    { command: "/lock <пароль>", desc: "Защита дверей паролем (включая двойные)" }, 
+                    { command: "/lock remove", desc: "Снять защиту с двери" } 
+                ] 
+            }, 
+            { 
+                title: "🤝 Социальные команды", 
+                commands: [ 
+                    { command: "/friend add <ник>", desc: "Добавить друга в список доверенных" }, 
+                    { command: "/friend remove <ник>", desc: "Удалить друга из списка" }, 
+                    { command: "/friend list", desc: "Показать список доверенных" }, 
+                    { command: "/tpa <ник>", desc: "Отправить запрос на телепорт к игроку" }, 
+                    { command: "/tpaccept", desc: "Принять запрос на телепорт" }, 
+                    { command: "/tpdeny", desc: "Отклонить запрос на телепорт" }, 
+                    { command: "/market", desc: "Открыть глобальный рынок для торговли" } 
+                ] 
+            }, 
+            { 
+                title: "ℹ️ Дополнительные команды", 
+                commands: [ 
+                    { command: "ПКМ по защищённому блоку", desc: "Показывает текущее HP блока" }, 
+                    { command: "/spawn", desc: "Вернуться на спавн" }, 
+                    { command: "/home", desc: "Телепорт к установленному дому" }, 
+                    { command: "/sethome", desc: "Установить точку дома" } 
+                ] 
+            } 
         ];
 
         // Slider functionality for infinite loop (Carousel)
         const slider = document.getElementById('commands-slider');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
-        let currentIndex = 0;
-        const totalOriginalCards = commandsData.length;
-        const cloneCount = 1; // Number of clones at start and end
-        let cardWidth = 360; // Default width + margin (340 + 20)
 
-        // Function to clone and inject cards
-        function initializeSlider() {
-            if (!slider) return;
+        const totalOriginalCards = commandCategories.length;
+        let currentIndex = 1; // Start at the first original card (index 1 after the clone)
+        const cloneCount = 1; // Number of cards to clone for the infinite effect
+        let totalCardsInSlider;
+        let cardWidth = 360; // 340px (card) + 20px (margin)
 
-            // Clear previous content
-            slider.innerHTML = '';
-
-            // Clone last card and prepend
-            for (let i = 0; i < cloneCount; i++) {
-                createCommandCard(commandsData[totalOriginalCards - (cloneCount - i)], true);
-            }
-
-            // Inject original cards
-            commandsData.forEach(category => {
-                createCommandCard(category, false);
-            });
-
-            // Clone first card and append
-            for (let i = 0; i < cloneCount; i++) {
-                createCommandCard(commandsData[i], true);
-            }
-
-            // Set initial position to the first original card
-            currentIndex = cloneCount;
-            // Recalculate width based on screen size for correct positioning
-            calculateCardWidth();
-            updateSlider(false); // Snap to start without animation
-        }
-
-        function calculateCardWidth() {
-            const container = document.querySelector('.commands-container');
-            if (container) {
-                // Determine card width based on a calculation or a fixed value
-                // In this setup, we'll rely on the CSS width: 340px and margin: 10px, so 360px
-                cardWidth = 360; 
-                if (window.innerWidth <= 768) {
-                    // For mobile, CSS has width: 280px and margin: 10px, so 300px
-                    cardWidth = 300; 
-                }
-            }
-        }
-        
-        function createCommandCard(category, isClone) {
+        function createCardElement(category) {
             const categoryElement = document.createElement('div');
             categoryElement.className = 'command-category';
-            if (isClone) {
-                categoryElement.classList.add('clone');
-            }
             
             const titleElement = document.createElement('h3');
             const iconSpan = document.createElement('span');
-            // Using a modern regex to correctly parse Emojis
+            // Simple regex to extract the first emoji
             const iconMatch = category.title.match(/(\p{Emoji})/u); 
             iconSpan.textContent = iconMatch ? iconMatch[0] : '';
             const textPart = category.title.replace(/(\p{Emoji})\s*/u, '').trim();
@@ -1147,18 +1141,60 @@
                 const descElement = document.createElement('div');
                 descElement.className = 'command-desc';
                 descElement.textContent = cmd.desc;
-
+                
                 commandItem.appendChild(commandElement);
                 commandItem.appendChild(descElement);
                 categoryElement.appendChild(commandItem);
             });
             
-            slider.appendChild(categoryElement);
+            return categoryElement;
         }
 
-        // Update slider position
+        function initCommandsSlider() {
+            if (!slider) return;
+
+            // Clone the last card and prepend it
+            const lastCardClone = createCardElement(commandCategories[totalOriginalCards - 1]);
+            lastCardClone.setAttribute('data-clone', 'start');
+            slider.prepend(lastCardClone); // Use prepend to place it before others
+            
+            // Add original cards (already appended in the loop below, but let's re-add for clarity)
+            // Note: The structure in the HTML body must be empty for this logic to fully control insertion.
+            // Since the HTML body is empty in the template, we'll iterate and append:
+            commandCategories.forEach(category => {
+                slider.appendChild(createCardElement(category));
+            });
+            
+            // Clone the first card and append it
+            const firstCardClone = createCardElement(commandCategories[0]);
+            firstCardClone.setAttribute('data-clone', 'end');
+            slider.appendChild(firstCardClone);
+
+            // Update the total card count including clones
+            totalCardsInSlider = slider.children.length; 
+            
+            // Initial setup to show the first real card
+            // Calculate the card width dynamically if possible, or use the fixed 360px (340 + 20 margin)
+            const firstRealCard = slider.children[1];
+            if (firstRealCard) {
+                // Get actual width + margin if layout is complex, otherwise use fixed value
+                const style = window.getComputedStyle(firstRealCard);
+                // Calculate width by taking the original width + margin from one side, then checking full width.
+                // For simplicity and based on CSS: 340px width + 10px left margin + 10px right margin = 360px
+                cardWidth = 360; 
+                if (window.innerWidth <= 768) {
+                    cardWidth = 300; // 280px width + 20px margin
+                }
+            }
+
+            updateSlider(false); // Initial snap to the first real card (index 1)
+            
+            // Setup buttons
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+        }
+
         function updateSlider(shouldAnimate = true) {
-            calculateCardWidth();
             if (!shouldAnimate) {
                 slider.style.transition = 'none';
             } else {
@@ -1167,7 +1203,7 @@
 
             const translateX = -currentIndex * cardWidth;
             slider.style.transform = `translateX(${translateX}px)`;
-
+            
             // Re-enable transition after snapback (only needed if disabled)
             if (!shouldAnimate) {
                 // Force browser to repaint (needed for transition: none to work)
@@ -1177,65 +1213,85 @@
         }
 
         function nextSlide() {
-            if (currentIndex < totalOriginalCards + cloneCount) {
+            if (currentIndex < totalCardsInSlider) { // Allow one step past the last real card (to the end clone)
                 currentIndex++;
                 updateSlider();
-            }
-            // Check if we hit the first clone of the start data
-            if (currentIndex === totalOriginalCards + cloneCount) {
-                setTimeout(() => {
-                    currentIndex = cloneCount; // Jump back to the first original card
-                    updateSlider(false); // Snap back without animation
-                }, 500); // Must wait for the animation duration
+                
+                // Check if we hit the clone at the end
+                if (currentIndex === totalOriginalCards + cloneCount) {
+                    setTimeout(() => {
+                        currentIndex = cloneCount; // Snap back to the first original card (index 1)
+                        updateSlider(false); 
+                    }, 500); // Time needs to match transition time
+                }
             }
         }
 
         function prevSlide() {
-            if (currentIndex > 0) {
+            if (currentIndex > 0) { // Allow one step past the first real card (to the start clone)
                 currentIndex--;
                 updateSlider();
-            }
-            // Check if we hit the last clone of the end data
-            if (currentIndex === 0) {
-                setTimeout(() => {
-                    currentIndex = totalOriginalCards; // Jump back to the last original card
-                    updateSlider(false); // Snap back without animation
-                }, 500); // Must wait for the animation duration
-            }
-        }
-
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
-        window.addEventListener('resize', () => {
-             // On resize, recalculate width and snap to current index
-             calculateCardWidth();
-             updateSlider(false); 
-        });
-
-        // Copy IP function
-        function setupCopyButton(buttonId, address, notificationId) {
-            const copyButton = document.getElementById(buttonId);
-            const notification = document.getElementById(notificationId);
-
-            if (copyButton) {
-                copyButton.addEventListener('click', () => {
-                    navigator.clipboard.writeText(address).then(() => {
-                        notification.classList.add('show');
-                        setTimeout(() => {
-                            notification.classList.remove('show');
-                        }, 2000);
-                    }).catch(err => {
-                        console.error('Could not copy text: ', err);
-                    });
-                });
+                
+                // Check if we hit the clone at the start
+                if (currentIndex === 0) {
+                    setTimeout(() => {
+                        currentIndex = totalOriginalCards; // Snap back to the last original card
+                        updateSlider(false); 
+                    }, 500); // Time needs to match transition time
+                }
             }
         }
-
-        // Server Status Check - Используем API, который успешно сработал при проверке
-        const API_URL = 'https://api.mcsrvstat.us/3/yourstop.online'; 
         
+        // --- ИСПРАВЛЕННАЯ ЛОГИКА СТАТУСА СЕРВЕРА ---
+        
+        // Используем ваш рабочий API-прокси
+        const API_PROXY = 'http://yourstop.fwh.is/api_proxy.php?i=1';
+
+        function updateServerUI(data) {
+            const isOnline = data.online === true;
+            
+            // Обновление онлайна и максимума
+            const onlinePlayers = isOnline && data.players && data.players.online !== undefined ? data.players.online : 0;
+            const maxPlayers = data.players && data.players.max !== undefined ? data.players.max : 150; 
+
+            document.getElementById('online-players').textContent = onlinePlayers;
+            document.getElementById('max-players').textContent = maxPlayers;
+
+            // Обновление версии (используем data.version из вашего JSON)
+            document.getElementById('server-version').textContent = data.version || '1.19+';
+            
+            // Обновление статуса
+            const statusElement = document.getElementById('server-status');
+            
+            if (isOnline) {
+                statusElement.innerHTML = 'ОНЛАЙН';
+                statusElement.className = 'live-stat-value status-online';
+            } else {
+                statusElement.innerHTML = 'ОФЛАЙН';
+                statusElement.className = 'live-stat-value status-offline';
+            }
+            
+            // Обновление времени
+            const now = new Date();
+            document.getElementById('last-updated').innerHTML = `Последнее обновление: ${now.toLocaleTimeString('ru-RU')}`;
+            
+            // Включение кнопки
+            document.getElementById('refresh-btn').disabled = false;
+        }
+
+        function handleFetchError() {
+            // В случае ошибки (прокси недоступен, неверный JSON и т.д.)
+            document.getElementById('online-players').textContent = '—';
+            document.getElementById('max-players').textContent = '—';
+            document.getElementById('server-version').textContent = '—';
+            document.getElementById('server-status').innerHTML = 'Ошибка';
+            document.getElementById('server-status').className = 'live-stat-value status-offline';
+            document.getElementById('last-updated').innerHTML = 'Последнее обновление: Недоступно';
+            document.getElementById('refresh-btn').disabled = false;
+        }
+
         async function fetchServerStatus() {
-            // Сброс состояния загрузки
+            // Установка состояния загрузки
             document.getElementById('online-players').innerHTML = '<span class="loading">Загрузка...</span>';
             document.getElementById('max-players').innerHTML = '<span class="loading">Загрузка...</span>';
             document.getElementById('server-version').innerHTML = '<span class="loading">Загрузка...</span>';
@@ -1244,103 +1300,42 @@
             document.getElementById('refresh-btn').disabled = true;
 
             try {
-                // Прямой вызов API
-                const response = await fetch(API_URL);
-
+                const response = await fetch(API_PROXY);
+                
                 if (response.ok) {
                     const data = await response.json();
                     
-                    // Проверка, что сервер действительно онлайн (в API может быть 200 OK, но сервер offline)
-                    if (data.online) {
-                        updateServerStatsDisplay(data);
-                    } else {
-                        displayOffline();
+                    // Проверяем, что получили валидный статус
+                    if (data && data.online !== undefined) {
+                        updateServerUI(data);
+                        return;
                     }
-                } else {
-                    displayError(`Ошибка API: ${response.status} ${response.statusText}`);
                 }
+                
+                // Если ответ не OK или нет нужных полей
+                handleFetchError();
+
             } catch (error) {
-                displayError(`Ошибка подключения: ${error.message}`);
-            } finally {
-                document.getElementById('last-updated').innerHTML = `Последнее обновление: ${new Date().toLocaleTimeString('ru-RU')}`;
-                document.getElementById('refresh-btn').disabled = false;
+                console.error('Error fetching status from proxy:', error);
+                handleFetchError();
             }
         }
 
-        // Функции для обновления DOM
-        function updateServerStatsDisplay(data) {
-            // API mcsrvstat.us использует 'players.online' и 'players.max'
-            const online = data.players.online || 0;
-            const max = data.players.max || 150;
-            const version = data.version ? data.version.name || data.version : '1.19+';
-            
-            document.getElementById('online-players').textContent = online;
-            document.getElementById('max-players').textContent = max;
-            document.getElementById('server-version').textContent = version;
-            
-            const statusElement = document.getElementById('server-status');
-            statusElement.textContent = 'ОНЛАЙН';
-            statusElement.className = 'live-stat-value status-online';
-        }
-
-        function displayOffline() {
-            document.getElementById('online-players').textContent = '0';
-            document.getElementById('max-players').textContent = '150';
-            document.getElementById('server-version').textContent = '1.19+';
-
-            const statusElement = document.getElementById('server-status');
-            statusElement.textContent = 'ОФФЛАЙН';
-            statusElement.className = 'live-stat-value status-offline';
-        }
-
-        function displayError(message) {
-            document.getElementById('online-players').textContent = '—';
-            document.getElementById('max-players').textContent = '—';
-            document.getElementById('server-version').textContent = '—';
-
-            const statusElement = document.getElementById('server-status');
-            statusElement.textContent = 'ОШИБКА';
-            statusElement.className = 'live-stat-value status-offline';
-        }
-
-
-        // Initial load and auto-refresh
+        // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Command Slider
-            initializeSlider();
+            // Инициализация кнопки "Копировать IP"
+            setupCopyButton('copy-button-main', 'copy-notification', 'yourstop.online');
+            setupCopyButton('copy-button-footer', 'copy-notification-footer', 'yourstop.online');
+
+            // Инициализация слайдера команд
+            initCommandsSlider();
             
-            // Fetch Server Status
+            // Инициализация и автообновление статуса сервера
             fetchServerStatus();
-            setInterval(fetchServerStatus, 30000); // Refresh every 30 seconds
+            setInterval(fetchServerStatus, 30000); // Обновление каждые 30 секунд
             
-            // Setup refresh button
-            const refreshBtn = document.getElementById('refresh-btn');
-            if (refreshBtn) {
-                refreshBtn.addEventListener('click', fetchServerStatus);
-            }
-
-            // Setup Copy Buttons
-            setupCopyButton('copy-button-main', 'yourstop.online', 'copy-notification');
-            setupCopyButton('copy-button-footer', 'yourstop.online', 'copy-notification');
-
-
-            // Mobile Menu Toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu');
-            const nav = document.querySelector('header nav');
-            const navLinks = document.querySelectorAll('header nav ul li a');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                nav.classList.toggle('active');
-            });
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (nav.classList.contains('active')) {
-                        nav.classList.remove('active');
-                    }
-                });
-            });
-
+            // Обработчик кнопки "Обновить"
+            document.getElementById('refresh-btn').addEventListener('click', fetchServerStatus);
 
             // Add animation on scroll
             const observerOptions = {
