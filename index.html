@@ -762,210 +762,6 @@
             line-height: 1.2;
         }
 
-        /* Commands Section - ИСПРАВЛЕННЫЙ СЛАЙДЕР */
-        .commands {
-            padding: 5rem 0;
-            position: relative;
-            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
-            overflow: hidden;
-        }
-
-        .commands-container {
-            position: relative;
-            margin: 0 auto;
-            max-width: 1400px;
-            padding: 0 20px;
-        }
-        
-        .slider-wrapper {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            margin: 0 auto;
-            padding: 2rem 0;
-        }
-
-        .commands-slider {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            justify-content: center;
-        }
-
-        .command-category {
-            background: linear-gradient(145deg, rgba(13, 27, 42, 0.95), rgba(26, 42, 58, 0.85));
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            border: 2px solid rgba(76, 175, 80, 0.25);
-            width: 380px;
-            flex-shrink: 0;
-            box-shadow: 
-                0 15px 50px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            margin: 0 15px;
-            backdrop-filter: blur(15px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 420px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .command-category::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .command-category:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(76, 175, 80, 0.5);
-            box-shadow: 
-                0 25px 60px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(76, 175, 80, 0.3);
-        }
-
-        .command-category:hover::before {
-            transform: scaleX(1);
-        }
-
-        .command-category h3 {
-            font-size: 1.375rem;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            text-shadow: 0 2px 12px rgba(76, 175, 80, 0.4);
-            font-weight: 700;
-        }
-
-        .command-category h3 span {
-            margin-right: 0.75rem;
-            font-size: 1.5rem;
-            filter: drop-shadow(0 2px 8px rgba(76, 175, 80, 0.5));
-        }
-
-        .commands-list {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .command-item {
-            padding: 1.25rem;
-            border-radius: 12px;
-            background: rgba(76, 175, 80, 0.05);
-            border: 1px solid rgba(76, 175, 80, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .command-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.08), transparent);
-            transition: left 0.6s;
-        }
-
-        .command-item:hover {
-            background: rgba(76, 175, 80, 0.1);
-            border-color: rgba(76, 175, 80, 0.3);
-            transform: translateX(8px);
-        }
-
-        .command-item:hover::before {
-            left: 100%;
-        }
-
-        .command {
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            text-shadow: 0 0 8px rgba(255, 152, 0, 0.3);
-            font-family: 'Courier New', monospace;
-        }
-
-        .command-desc {
-            font-size: 0.8rem;
-            opacity: 0.9;
-            line-height: 1.4;
-            color: rgba(255, 255, 255, 0.85);
-        }
-        
-        /* Кнопки слайдера */
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border: 2px solid rgba(76, 175, 80, 0.4);
-            color: white;
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 1.5rem;
-            font-weight: 700;
-            z-index: 10;
-            box-shadow: 0 8px 30px rgba(76, 175, 80, 0.5);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .slider-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .slider-btn:hover {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 12px 40px rgba(76, 175, 80, 0.7);
-            border-color: rgba(76, 175, 80, 0.8);
-        }
-
-        .slider-btn:hover::before {
-            opacity: 1;
-        }
-        
-        .slider-btn:active {
-            transform: translateY(-50%) scale(0.95);
-            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
-        }
-
-        #prev-btn {
-            left: 20px;
-        }
-
-        #next-btn {
-            right: 20px;
-        }
-
         /* How to Join Section */
         .how-to-join {
             padding: 6rem 0;
@@ -1131,13 +927,6 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 1200px) {
-            .commands-container {
-                max-width: 1200px;
-                padding: 0 15px;
-            }
-        }
-
         @media (max-width: 1024px) {
             nav ul {
                 gap: 0.25rem;
@@ -1162,10 +951,6 @@
 
             .steps {
                 grid-template-columns: repeat(2, 1fr);
-            }
-
-            .commands-container {
-                padding: 0 15px;
             }
         }
 
@@ -1234,30 +1019,6 @@
                 font-size: 2rem;
             }
 
-            .commands-container {
-                padding: 0 15px;
-            }
-
-            .command-category {
-                width: 320px;
-                min-height: 380px;
-                padding: 2rem 1.5rem;
-            }
-
-            .slider-btn {
-                width: 3rem;
-                height: 3rem;
-                font-size: 1.25rem;
-            }
-
-            #prev-btn {
-                left: 10px;
-            }
-
-            #next-btn {
-                right: 10px;
-            }
-
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -1321,30 +1082,6 @@
                 font-size: 0.8rem;
             }
 
-            .commands-container {
-                padding: 0 10px;
-            }
-
-            .slider-btn {
-                width: 2.5rem;
-                height: 2.5rem;
-                font-size: 1rem;
-            }
-
-            #prev-btn {
-                left: 5px;
-            }
-
-            #next-btn {
-                right: 5px;
-            }
-
-            .command-category {
-                width: 280px;
-                min-height: 360px;
-                padding: 1.5rem;
-            }
-
             .section-title h2 {
                 font-size: 1.75rem;
             }
@@ -1368,7 +1105,6 @@
                         <li><a href="#home">Главная</a></li>
                         <li><a href="#features">Особенности</a></li>
                         <li><a href="#info">О сервере</a></li>
-                        <li><a href="#commands">Команды</a></li>
                         <li><a href="#live">Статистика</a></li>
                         <li><a href="#join">Как присоединиться</a></li>
                         <li><a href="#community">Сообщество</a></li>
@@ -1470,24 +1206,6 @@
                     <p>Наше сообщество - это наша гордость. Мы создали дружелюбную атмосферу, где каждый игрок чувствует себя частью большой семьи. Регулярные ивенты, конкурсы строительства и PvP-сражения не дадут вам заскучать!</p>
                     <p>Присоединяйтесь к нам и станьте частью этого удивительного мира!</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="commands" id="commands">
-        <div class="container">
-            <div class="section-title">
-                <h2>Команды сервера</h2>
-                <p>Все необходимые команды для комфортной игры</p>
-            </div>
-            <div class="commands-container">
-                <button class="slider-btn" id="prev-btn">‹</button>
-                <div class="slider-wrapper">
-                    <div class="commands-slider" id="commands-slider">
-                        <!-- Слайды будут добавлены через JavaScript -->
-                    </div>
-                </div>
-                <button class="slider-btn" id="next-btn">›</button>
             </div>
         </div>
     </section>
@@ -1604,7 +1322,6 @@
                     <a href="#home">Главная</a>
                     <a href="#features">Особенности</a>
                     <a href="#info">О сервере</a>
-                    <a href="#commands">Команды</a>
                     <a href="#live">Статистика</a>
                     <a href="#join">Как присоединиться</a>
                 </div>
@@ -1701,158 +1418,6 @@
             copyButton.addEventListener('click', function() {
                 copyToClipboard('yourstop.online', 'IP адрес скопирован! 🎮');
             });
-        }
-
-        // Данные команд
-        const commandsData = [
-            {
-                title: "🔨 Защита построек",
-                commands: [
-                    { command: "/build", desc: "Режим строительства. Все поставленные блоки становятся защищёнными" },
-                    { command: "/repair", desc: "Режим ремонта. ПКМ по защищённому блоку восстанавливает его HP" },
-                    { command: "/remove", desc: "Режим снятия защиты. ПКМ по защищённому блоку снимает защиту" },
-                    { command: "/yshelp", desc: "Показать список всех игровых команд" }
-                ]
-            },
-            {
-                title: "🔐 Пароли и доступ",
-                commands: [
-                    { command: "/password set <код>", desc: "Установить пароль на блок" },
-                    { command: "/password enter <код>", desc: "Ввести пароль для доступа к блоку" },
-                    { command: "/password remove", desc: "Снять пароль с блока" },
-                    { command: "/password info", desc: "Информация о блоке" },
-                    { command: "/lock <пароль>", desc: "Защита дверей паролем (включая двойные)" },
-                    { command: "/lock remove", desc: "Снять защиту с двери" }
-                ]
-            },
-            {
-                title: "🤝 Социальные команды",
-                commands: [
-                    { command: "/friend add <ник>", desc: "Добавить друга в список доверенных" },
-                    { command: "/friend remove <ник>", desc: "Удалить друга из списка" },
-                    { command: "/friend list", desc: "Показать список доверенных" },
-                    { command: "/tpa <ник>", desc: "Отправить запрос на телепорт к игроку" },
-                    { command: "/tpaccept", desc: "Принять запрос на телепорт" },
-                    { command: "/tpdeny", desc: "Отклонить запрос на телепорт" },
-                    { command: "/market", desc: "Открыть глобальный рынок для торговли" }
-                ]
-            },
-            {
-                title: "📋 Дополнительные команды",
-                commands: [
-                    { command: "ПКМ по защищённому блоку", desc: "Показывает текущее HP блока" },
-                    { command: "/spawn", desc: "Вернуться на спавн" },
-                    { command: "/home", desc: "Телепорт к установленному дому" },
-                    { command: "/sethome", desc: "Установить точку дома" }
-                ]
-            }
-        ];
-
-        // Слайдер команд
-        const slider = document.getElementById('commands-slider');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        
-        const totalOriginalCards = commandsData.length;
-        const visibleCards = 3; // Показываем только 3 карточки
-        const cloneCount = 1;
-        const totalCardsInSlider = totalOriginalCards + 2 * cloneCount;
-        let currentIndex = cloneCount; 
-        const cardWidth = 380 + 30; // Ширина карточки + отступы
-
-        function createCommandCards() {
-            if (!slider) return;
-            slider.innerHTML = '';
-            
-            const clonesEnd = commandsData.slice(-cloneCount);
-            const originalData = commandsData;
-            const clonesStart = commandsData.slice(0, cloneCount);
-            const dataWithClones = [...clonesEnd, ...originalData, ...clonesStart];
-
-            dataWithClones.forEach(category => {
-                const categoryElement = document.createElement('div');
-                categoryElement.className = 'command-category';
-                
-                const titleElement = document.createElement('h3');
-                const iconSpan = document.createElement('span');
-
-                const iconMatch = category.title.match(/(\p{Emoji})/u);
-                iconSpan.textContent = iconMatch ? iconMatch[0] : '';
-                const textPart = category.title.replace(/(\p{Emoji})\s*/u, '').trim();
-
-                titleElement.appendChild(iconSpan);
-                titleElement.appendChild(document.createTextNode(textPart));
-                
-                categoryElement.appendChild(titleElement);
-                
-                const commandsList = document.createElement('div');
-                commandsList.className = 'commands-list';
-                
-                category.commands.forEach(cmd => {
-                    const commandItem = document.createElement('div');
-                    commandItem.className = 'command-item';
-                    
-                    const commandElement = document.createElement('div');
-                    commandElement.className = 'command';
-                    commandElement.textContent = cmd.command;
-                    
-                    const descElement = document.createElement('div');
-                    descElement.className = 'command-desc';
-                    descElement.textContent = cmd.desc;
-                    
-                    commandItem.appendChild(commandElement);
-                    commandItem.appendChild(descElement);
-                    commandsList.appendChild(commandItem);
-                });
-                
-                categoryElement.appendChild(commandsList);
-                slider.appendChild(categoryElement);
-            });
-        }
-
-        function updateSlider(shouldAnimate = true) {
-            if (!slider) return;
-            if (!shouldAnimate) {
-                slider.style.transition = 'none';
-            } else {
-                slider.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-            }
-
-            const translateX = -currentIndex * cardWidth;
-            slider.style.transform = `translateX(${translateX}px)`;
-            
-            if (!shouldAnimate) {
-                slider.offsetHeight;
-                slider.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-            }
-        }
-
-        function nextSlide() {
-            if (currentIndex < totalCardsInSlider - visibleCards) {
-                currentIndex++;
-                updateSlider();
-
-                if (currentIndex === totalOriginalCards + cloneCount) {
-                    setTimeout(() => {
-                        currentIndex = cloneCount;
-                        updateSlider(false);
-                    }, 600);
-                }
-            }
-        }
-
-        function prevSlide() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateSlider();
-
-                if (currentIndex === cloneCount - 1) {
-                    setTimeout(() => {
-                        currentIndex = totalOriginalCards + cloneCount - visibleCards;
-                        updateSlider(false);
-                    }, 600);
-                }
-            }
         }
 
         // Статус сервера - прямой запрос к mcsrvstat.us
@@ -1993,17 +1558,6 @@
             setupCopyIP('copy-button-main');
             setupCopyIP('copy-button-footer');
 
-            createCommandCards();
-            updateSlider(false);
-            
-            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-            
-            window.addEventListener('resize', () => {
-                currentIndex = cloneCount; 
-                updateSlider(false);
-            });
-
             fetchServerStatus();
             setInterval(fetchServerStatus, 30000);
 
@@ -2017,7 +1571,7 @@
                 });
             }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-            document.querySelectorAll('.feature-card, .stat, .step, .live-stat, .command-category').forEach(el => {
+            document.querySelectorAll('.feature-card, .stat, .step, .live-stat').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
