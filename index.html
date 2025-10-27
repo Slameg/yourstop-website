@@ -399,6 +399,35 @@
             background-color: var(--primary-dark);
         }
 
+        /* Players List Styles */
+        .players-list-section {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            background: rgba(13, 27, 42, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .player-item {
+            background: rgba(76, 175, 80, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            font-size: 14px;
+            color: var(--light);
+        }
+
         /* Commands Section */
         .commands {
             padding: 100px 0;
@@ -426,11 +455,9 @@
             padding: 25px;
             border: 1px solid rgba(76, 175, 80, 0.1);
             width: 340px;
-            /* Ширина одной карточки */
             flex-shrink: 0;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             margin: 0 10px;
-            /* Отступы между карточками */
         }
 
         .command-category h3 {
@@ -469,15 +496,13 @@
             opacity: 0.8;
         }
         
-        /* НОВЫЕ СТИЛИ ДЛЯ КНОПОК */
+        /* Slider buttons */
         .slider-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             background: linear-gradient(145deg, rgba(13, 27, 42, 0.95), rgba(26, 42, 58, 0.95));
-            /* Темный фон с градиентом */
             border: none;
-            /* Убираем стандартный бордер */
             color: var(--primary);
             width: 50px;
             height: 50px;
@@ -487,21 +512,18 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            /* Плавный переход */
             font-size: 24px;
-            /* Увеличенная стрелка */
             font-weight: 900;
             z-index: 10;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6); /* Сильная тень */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
             text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-            /* Эффект свечения */
         }
 
         .slider-btn:hover {
             background-color: var(--primary);
-            color: var(--light); /* Белая стрелка при наведении */
+            color: var(--light);
             transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 0 25px rgba(76, 175, 80, 0.8); /* Зеленая тень при наведении */
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.8);
             text-shadow: none;
         }
         
@@ -511,7 +533,6 @@
 
         .slider-btn:disabled {
             opacity: 1;
-            /* Кнопки не отключаются в режиме карусели */
             cursor: pointer;
             background: linear-gradient(145deg, rgba(13, 27, 42, 0.95), rgba(26, 42, 58, 0.95));
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
@@ -747,12 +768,10 @@
 
             .command-category {
                 width: 280px;
-                /* Уменьшаем размер для мобильных */
             }
 
             .commands-container {
                 max-width: 300px;
-                /* Помещается одна карточка + отступы */
             }
 
             .slider-btn {
@@ -767,6 +786,52 @@
 
             #next-btn {
                 right: -40px;
+            }
+
+            .players-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                max-height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h2 {
+                font-size: 28px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .ip-container {
+                flex-direction: column;
+                max-width: 300px;
+            }
+
+            .ip-address {
+                border-right: 2px solid var(--primary);
+                border-radius: 8px 8px 0 0;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .copy-button {
+                border-radius: 0 0 8px 8px;
+                padding: 12px;
+                justify-content: center;
+            }
+
+            .server-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .live-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .players-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+                font-size: 12px;
             }
         }
     </style>
@@ -864,7 +929,7 @@
                         <p>Активных игроков</p>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">1.19+</div>
+                        <div class="stat-number">1.21+</div>
                         <p>Версия Minecraft</p>
                     </div>
                     <div class="stat">
@@ -874,11 +939,8 @@
                 </div>
                 <div class="server-description">
                     <h2>О сервере YOUR STOP</h2>
-                    <p>YOUR STOP - это качественный сервер выживания в Minecraft, созданный для истинных ценителей этого жанра.
-                    Мы предлагаем уникальный опыт игры с тщательно подобранными модами, которые добавляют новые измерения геймплея, не нарушая баланс ванильного Minecraft.</p>
-                    <p>Наше сообщество - это наша гордость.
-                    Мы создали дружелюбную атмосферу, где каждый игрок чувствует себя частью большой семьи.
-                    Регулярные ивенты, конкурсы строительства и PvP-сражения не дадут вам заскучать!</p>
+                    <p>YOUR STOP - это качественный сервер выживания в Minecraft, созданный для истинных ценителей этого жанра. Мы предлагаем уникальный опыт игры с тщательно подобранными модами, которые добавляют новые измерения геймплея, не нарушая баланс ванильного Minecraft.</p>
+                    <p>Наше сообщество - это наша гордость. Мы создали дружелюбную атмосферу, где каждый игрок чувствует себя частью большой семьи. Регулярные ивенты, конкурсы строительства и PvP-сражения не дадут вам заскучать!</p>
                     <p>Присоединяйтесь к нам и станьте частью этого удивительного мира!</p>
                 </div>
             </div>
@@ -895,7 +957,8 @@
                 <button class="slider-btn" id="prev-btn">‹</button>
                 <div class="slider-wrapper">
                     <div class="commands-slider" id="commands-slider">
-                        </div>
+                        <!-- Слайды будут добавлены через JavaScript -->
+                    </div>
                 </div>
                 <button class="slider-btn" id="next-btn">›</button>
             </div>
@@ -933,6 +996,7 @@
                         <span class="loading">Загрузка...</span>
                     </div>
                 </div>
+                <!-- Контейнер для списка игроков будет добавлен автоматически -->
             </div>
             <div class="last-updated" id="last-updated">
                 Обновляется...
@@ -951,7 +1015,7 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Запустите Minecraft</h3>
-                    <p>Откройте лаунчер Minecraft и убедитесь, что у вас установлена версия 1.19 или выше</p>
+                    <p>Откройте лаунчер Minecraft и убедитесь, что у вас установлена версия 1.21 или выше</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
@@ -1009,7 +1073,7 @@
                 <div class="footer-section">
                     <h3>Сообщество</h3>
                     <a href="https://t.me/yourstopmine" target="_blank">Telegram-канал</a>
-                    <p>Версия: 1.19+</p>
+                    <p>Версия: 1.21+</p>
                 </div>
             </div>
             <div class="copyright">
@@ -1019,434 +1083,367 @@
     </footer>
 
     <script>
-    // Mobile menu toggle
-    document.querySelector('.mobile-menu').addEventListener('click', function() {
-        const nav = document.querySelector('header nav');
-        nav.classList.toggle('active');
-    });
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const nav = document.querySelector('header nav');
+            nav.classList.toggle('active');
+        });
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 70, // header height offset
-                    behavior: 'smooth'
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu on click
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('header nav').classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Функция копирования IP
+        function setupCopyIP(buttonId, notificationId) {
+            const copyButton = document.getElementById(buttonId);
+            const notificationElement = document.getElementById(notificationId);
+
+            if (!copyButton || !notificationElement) return;
+
+            copyButton.addEventListener('click', function() {
+                const textToCopy = 'yourstop.online';
+                
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    notificationElement.textContent = 'IP скопирован в буфер!';
+                    notificationElement.classList.add('show');
+                    setTimeout(function() {
+                        notificationElement.classList.remove('show');
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Ошибка копирования: ', err);
+                    notificationElement.textContent = 'Ошибка!';
+                    notificationElement.classList.add('show');
+                    setTimeout(function() {
+                        notificationElement.classList.remove('show');
+                    }, 2000);
                 });
+            });
+        }
+
+        // Данные команд
+        const commandsData = [
+            {
+                title: "🔨 Защита построек",
+                commands: [
+                    { command: "/build", desc: "Режим строительства. Все поставленные блоки становятся защищёнными" },
+                    { command: "/repair", desc: "Режим ремонта. ПКМ по защищённому блоку восстанавливает его HP" },
+                    { command: "/remove", desc: "Режим снятия защиты. ПКМ по защищённому блоку снимает защиту" },
+                    { command: "/yshelp", desc: "Показать список всех игровых команд" }
+                ]
+            },
+            {
+                title: "🔐 Пароли и доступ",
+                commands: [
+                    { command: "/password set <код>", desc: "Установить пароль на блок" },
+                    { command: "/password enter <код>", desc: "Ввести пароль для доступа к блоку" },
+                    { command: "/password remove", desc: "Снять пароль с блока" },
+                    { command: "/password info", desc: "Информация о блоке" },
+                    { command: "/lock <пароль>", desc: "Защита дверей паролем (включая двойные)" },
+                    { command: "/lock remove", desc: "Снять защиту с двери" }
+                ]
+            },
+            {
+                title: "🤝 Социальные команды",
+                commands: [
+                    { command: "/friend add <ник>", desc: "Добавить друга в список доверенных" },
+                    { command: "/friend remove <ник>", desc: "Удалить друга из списка" },
+                    { command: "/friend list", desc: "Показать список доверенных" },
+                    { command: "/tpa <ник>", desc: "Отправить запрос на телепорт к игроку" },
+                    { command: "/tpaccept", desc: "Принять запрос на телепорт" },
+                    { command: "/tpdeny", desc: "Отклонить запрос на телепорт" },
+                    { command: "/market", desc: "Открыть глобальный рынок для торговли" }
+                ]
+            },
+            {
+                title: "ℹ️ Дополнительные команды",
+                commands: [
+                    { command: "ПКМ по защищённому блоку", desc: "Показывает текущее HP блока" },
+                    { command: "/spawn", desc: "Вернуться на спавн" },
+                    { command: "/home", desc: "Телепорт к установленному дому" },
+                    { command: "/sethome", desc: "Установить точку дома" }
+                ]
+            }
+        ];
+
+        // Слайдер команд
+        const slider = document.getElementById('commands-slider');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        const totalOriginalCards = commandsData.length;
+        const cloneCount = 3;
+        const totalCardsInSlider = totalOriginalCards + 2 * cloneCount;
+        let currentIndex = cloneCount; 
+        const cardWidth = 340 + 20;
+
+        function createCommandCards() {
+            if (!slider) return;
+            slider.innerHTML = '';
+            
+            const clonesEnd = commandsData.slice(-cloneCount);
+            const originalData = commandsData;
+            const clonesStart = commandsData.slice(0, cloneCount);
+            const dataWithClones = [...clonesEnd, ...originalData, ...clonesStart];
+
+            dataWithClones.forEach(category => {
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'command-category';
                 
-                // Close mobile menu on click
-                if (window.innerWidth <= 768) {
-                    document.querySelector('header nav').classList.remove('active');
+                const titleElement = document.createElement('h3');
+                const iconSpan = document.createElement('span');
+
+                const iconMatch = category.title.match(/(\p{Emoji})/u);
+                iconSpan.textContent = iconMatch ? iconMatch[0] : '';
+                const textPart = category.title.replace(/(\p{Emoji})\s*/u, '').trim();
+
+                titleElement.appendChild(iconSpan);
+                titleElement.appendChild(document.createTextNode(textPart));
+                
+                categoryElement.appendChild(titleElement);
+                
+                category.commands.forEach(cmd => {
+                    const commandItem = document.createElement('div');
+                    commandItem.className = 'command-item';
+                    
+                    const commandElement = document.createElement('div');
+                    commandElement.className = 'command';
+                    commandElement.textContent = cmd.command;
+                    
+                    const descElement = document.createElement('div');
+                    descElement.className = 'command-desc';
+                    descElement.textContent = cmd.desc;
+                    
+                    commandItem.appendChild(commandElement);
+                    commandItem.appendChild(descElement);
+                    categoryElement.appendChild(commandItem);
+                });
+                slider.appendChild(categoryElement);
+            });
+        }
+
+        function updateSlider(shouldAnimate = true) {
+            if (!slider) return;
+            if (!shouldAnimate) {
+                slider.style.transition = 'none';
+            } else {
+                slider.style.transition = 'transform 0.5s ease-in-out';
+            }
+
+            const translateX = -currentIndex * cardWidth;
+            slider.style.transform = `translateX(${translateX}px)`;
+            
+            if (!shouldAnimate) {
+                slider.offsetHeight;
+                slider.style.transition = 'transform 0.5s ease-in-out';
+            }
+        }
+
+        function nextSlide() {
+            if (currentIndex < totalCardsInSlider - 1) {
+                currentIndex++;
+                updateSlider();
+
+                if (currentIndex === totalOriginalCards + cloneCount) {
+                    setTimeout(() => {
+                        currentIndex = cloneCount;
+                        updateSlider(false);
+                    }, 500);
                 }
             }
-        });
-    });
-
-    // ИСПРАВЛЕНО: Улучшенная функция копирования IP
-    function setupCopyIP(buttonId, notificationId) {
-        const copyButton = document.getElementById(buttonId);
-        const notificationElement = document.getElementById(notificationId);
-
-        if (!copyButton || !notificationElement) {
-            console.warn(`Элементы для копирования (кнопка: ${buttonId} или уведомление: ${notificationId}) не найдены.`);
-            return;
         }
 
-        copyButton.addEventListener('click', function() {
-            const textToCopy = 'yourstop.online';
-            
-            navigator.clipboard.writeText(textToCopy).then(function() {
-                notificationElement.textContent = 'IP скопирован в буфер!';
-                notificationElement.classList.add('show');
-                setTimeout(function() {
-                    notificationElement.classList.remove('show');
-                }, 2000);
-            }).catch(function(err) {
-                console.error('Ошибка копирования: ', err);
-                notificationElement.textContent = 'Ошибка!';
-                notificationElement.classList.add('show');
-                setTimeout(function() {
-                    notificationElement.classList.remove('show');
-                }, 2000);
-            });
-        });
-    }
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
 
-    // --- Commands data ---
-    const commandsData = [
-        {
-            title: "🔨 Защита построек",
-            commands: [
-                { command: "/build", desc: "Режим строительства. Все поставленные блоки становятся защищёнными" },
-                { command: "/repair", desc: "Режим ремонта. ПКМ по защищённому блоку восстанавливает его HP" },
-                { command: "/remove", desc: "Режим снятия защиты. ПКМ по защищённому блоку снимает защиту" },
-                { command: "/yshelp", desc: "Показать список всех игровых команд" }
-            ]
-        },
-        {
-            title: "🔐 Пароли и доступ",
-            commands: [
-                { command: "/password set <код>", desc: "Установить пароль на блок" },
-                { command: "/password enter <код>", desc: "Ввести пароль для доступа к блоку" },
-                { command: "/password remove", desc: "Снять пароль с блока" },
-                { command: "/password info", desc: "Информация о блоке" },
-                { command: "/lock <пароль>", desc: "Защита дверей паролем (включая двойные)" },
-                { command: "/lock remove", desc: "Снять защиту с двери" }
-            ]
-        },
-        {
-            title: "🤝 Социальные команды",
-            commands: [
-                { command: "/friend add <ник>", desc: "Добавить друга в список доверенных" },
-                { command: "/friend remove <ник>", desc: "Удалить друга из списка" },
-                { command: "/friend list", desc: "Показать список доверенных" },
-                { command: "/tpa <ник>", desc: "Отправить запрос на телепорт к игроку" },
-                { command: "/tpaccept", desc: "Принять запрос на телепорт" },
-                { command: "/tpdeny", desc: "Отклонить запрос на телепорт" },
-                { command: "/market", desc: "Открыть глобальный рынок для торговли" }
-            ]
-        },
-        {
-            title: "ℹ️ Дополнительные команды",
-            commands: [
-                { command: "ПКМ по защищённому блоку", desc: "Показывает текущее HP блока" },
-                { command: "/spawn", desc: "Вернуться на спавн" },
-                { command: "/home", desc: "Телепорт к установленному дому" },
-                { command: "/sethome", desc: "Установить точку дома" }
-            ]
-        }
-    ];
-
-    // --- Slider functionality ---
-    const slider = document.getElementById('commands-slider');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    
-    const totalOriginalCards = commandsData.length;
-    const cloneCount = 3;
-    const totalCardsInSlider = totalOriginalCards + 2 * cloneCount;
-    let currentIndex = cloneCount; 
-    const cardWidth = 340 + 20; // 360px
-
-    function createCommandCards() {
-        if (!slider) return;
-        slider.innerHTML = ''; // Очистка на случай повторного вызова
-        
-        const clonesEnd = commandsData.slice(-cloneCount);
-        const originalData = commandsData;
-        const clonesStart = commandsData.slice(0, cloneCount);
-        const dataWithClones = [...clonesEnd, ...originalData, ...clonesStart];
-
-        dataWithClones.forEach(category => {
-            const categoryElement = document.createElement('div');
-            categoryElement.className = 'command-category';
-            
-            const titleElement = document.createElement('h3');
-            const iconSpan = document.createElement('span');
-
-            const iconMatch = category.title.match(/(\p{Emoji})/u);
-            iconSpan.textContent = iconMatch ? iconMatch[0] : '';
-            const textPart = category.title.replace(/(\p{Emoji})\s*/u, '').trim();
-
-            titleElement.appendChild(iconSpan);
-            titleElement.appendChild(document.createTextNode(textPart));
-            
-            categoryElement.appendChild(titleElement);
-            
-            category.commands.forEach(cmd => {
-                const commandItem = document.createElement('div');
-                commandItem.className = 'command-item';
-                
-                const commandElement = document.createElement('div');
-                commandElement.className = 'command';
-                commandElement.textContent = cmd.command;
-                
-                const descElement = document.createElement('div');
-                descElement.className = 'command-desc';
-                descElement.textContent = cmd.desc;
-                
-                commandItem.appendChild(commandElement);
-                commandItem.appendChild(descElement);
-                categoryElement.appendChild(commandItem);
-            });
-            slider.appendChild(categoryElement);
-        });
-    }
-
-    function updateSlider(shouldAnimate = true) {
-        if (!slider) return;
-        if (!shouldAnimate) {
-            slider.style.transition = 'none';
-        } else {
-            slider.style.transition = 'transform 0.5s ease-in-out';
-        }
-
-        const translateX = -currentIndex * cardWidth;
-        slider.style.transform = `translateX(${translateX}px)`;
-        
-        if (!shouldAnimate) {
-            slider.offsetHeight; // Force reflow
-            slider.style.transition = 'transform 0.5s ease-in-out';
-        }
-    }
-
-    function nextSlide() {
-        if (currentIndex < totalCardsInSlider - 1) {
-            currentIndex++;
-            updateSlider();
-
-            if (currentIndex === totalOriginalCards + cloneCount) {
-                setTimeout(() => {
-                    currentIndex = cloneCount;
-                    updateSlider(false); // Snap back
-                }, 500); // Must match CSS transition
+                if (currentIndex === cloneCount - 1) {
+                    setTimeout(() => {
+                        currentIndex = totalOriginalCards + cloneCount - 1;
+                        updateSlider(false);
+                    }, 500);
+                }
             }
         }
-    }
 
-    function prevSlide() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateSlider();
+        // Статус сервера
+        const API_URL = 'http://yourstop.fwh.is/api_proxy.php?i=1';
 
-            if (currentIndex === cloneCount - 1) {
-                setTimeout(() => {
-                    currentIndex = totalOriginalCards + cloneCount - 1;
-                    updateSlider(false); // Snap back
-                }, 500); // Must match CSS transition
-            }
-        }
-    }
-    
-    // --- ИСПРАВЛЕННЫЙ КОД СТАТУСА СЕРВЕРА ---
-    
-    // Используем CORS прокси для обхода ограничений
-    const API_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('http://yourstop.fwh.is/api_proxy.php?i=1');
-
-    async function fetchServerStatus() {
-        // Устанавливаем UI в режим загрузки
-        document.getElementById('online-players').innerHTML = '<span class="loading">Загрузка...</span>';
-        document.getElementById('max-players').innerHTML = '<span class="loading">Загрузка...</span>';
-        document.getElementById('server-version').innerHTML = '<span class="loading">Загрузка...</span>';
-        document.getElementById('server-status').innerHTML = '<span class="loading">Загрузка...</span>';
-        document.getElementById('last-updated').innerHTML = 'Обновляется...';
-        
-        const refreshBtn = document.getElementById('refresh-btn');
-        if (refreshBtn) refreshBtn.disabled = true;
-
-        try {
-            // Используем CORS прокси
-            const response = await fetch(API_URL, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                },
-                mode: 'cors'
-            });
+        async function fetchServerStatus() {
+            document.getElementById('online-players').innerHTML = '<span class="loading">Загрузка...</span>';
+            document.getElementById('max-players').innerHTML = '<span class="loading">Загрузка...</span>';
+            document.getElementById('server-version').innerHTML = '<span class="loading">Загрузка...</span>';
+            document.getElementById('server-status').innerHTML = '<span class="loading">Загрузка...</span>';
+            document.getElementById('last-updated').innerHTML = 'Обновляется...';
             
-            if (!response.ok) {
-                throw new Error(`Ошибка сети! Статус: ${response.status}`);
-            }
+            const refreshBtn = document.getElementById('refresh-btn');
+            if (refreshBtn) refreshBtn.disabled = true;
 
-            const data = await response.json();
+            try {
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP! Статус: ${response.status}`);
+                }
 
-            // Проверяем, что получены корректные данные
-            if (data && data.online !== undefined) {
-                if (data.online === true) {
-                    updateServerUI(data); // Сервер онлайн
+                const data = await response.json();
+
+                if (data && data.online !== undefined) {
+                    if (data.online === true) {
+                        updateServerUI(data);
+                    } else {
+                        showOfflineState(data);
+                    }
                 } else {
-                    showOfflineState(data); // Сервер оффлайн
+                    throw new Error('Получены некорректные данные от сервера.');
                 }
-            } else {
-                throw new Error('Получены некорректные данные от сервера.');
-            }
 
-        } catch (error) {
-            console.error('Ошибка при загрузке статуса:', error.message);
-            showErrorState(); // Показываем ошибку
-        }
-    }
-
-    // Функция для обновления UI, когда сервер ОНЛАЙН
-    function updateServerUI(data) {
-        // Обновляем основную статистику
-        document.getElementById('online-players').innerHTML = data.players.online || 0;
-        document.getElementById('max-players').innerHTML = data.players.max || 150;
-        document.getElementById('server-version').innerHTML = data.version || 'N/A';
-        document.getElementById('server-status').innerHTML = '<span class="status-online">● Онлайн</span>';
-        
-        // Добавляем список игроков, если есть данные
-        updatePlayersList(data.players.list || []);
-        
-        updateTimestamp();
-    }
-
-    // Функция для обновления UI, когда сервер ОФФЛАЙН
-    function showOfflineState(data) {
-        document.getElementById('online-players').innerHTML = 0;
-        document.getElementById('max-players').innerHTML = data.players ? data.players.max : 150;
-        document.getElementById('server-version').innerHTML = data.version || 'N/A';
-        document.getElementById('server-status').innerHTML = '<span class="status-offline">● Офлайн</span>';
-        
-        // Очищаем список игроков
-        updatePlayersList([]);
-        
-        updateTimestamp();
-    }
-    
-    // Функция для обновления UI, когда произошла ОШИБКА
-    function showErrorState() {
-        document.getElementById('online-players').innerHTML = 'Ошибка';
-        document.getElementById('max-players').innerHTML = 'Ошибка';
-        document.getElementById('server-version').innerHTML = 'Ошибка';
-        document.getElementById('server-status').innerHTML = '<span class="status-offline">Ошибка загрузки</span>';
-        document.getElementById('last-updated').innerHTML = `Не удалось загрузить данные <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
-        
-        // Очищаем список игроков
-        updatePlayersList([]);
-        
-        const refreshBtn = document.getElementById('refresh-btn');
-        if(refreshBtn) {
-            refreshBtn.addEventListener('click', fetchServerStatus);
-            refreshBtn.disabled = false;
-        }
-    }
-
-    // Функция для обновления списка игроков
-    function updatePlayersList(players) {
-        // Находим или создаем контейнер для списка игроков
-        let playersContainer = document.getElementById('players-list-container');
-        
-        if (!playersContainer) {
-            // Создаем новый контейнер если его нет
-            const liveStats = document.querySelector('.live-stats');
-            if (liveStats) {
-                playersContainer = document.createElement('div');
-                playersContainer.id = 'players-list-container';
-                playersContainer.className = 'players-list-section';
-                playersContainer.style.gridColumn = '1 / -1';
-                playersContainer.style.marginTop = '20px';
-                playersContainer.style.background = 'rgba(13, 27, 42, 0.7)';
-                playersContainer.style.borderRadius = '10px';
-                playersContainer.style.padding = '20px';
-                playersContainer.style.border = '1px solid rgba(76, 175, 80, 0.1)';
-                
-                liveStats.appendChild(playersContainer);
+            } catch (error) {
+                console.error('Ошибка при загрузке статуса:', error.message);
+                showErrorState();
             }
         }
+
+        function updateServerUI(data) {
+            document.getElementById('online-players').innerHTML = data.players.online || 0;
+            document.getElementById('max-players').innerHTML = data.players.max || 150;
+            document.getElementById('server-version').innerHTML = data.version || 'N/A';
+            document.getElementById('server-status').innerHTML = '<span class="status-online">● Онлайн</span>';
+            
+            updatePlayersList(data.players.list || []);
+            updateTimestamp();
+        }
+
+        function showOfflineState(data) {
+            document.getElementById('online-players').innerHTML = 0;
+            document.getElementById('max-players').innerHTML = data.players ? data.players.max : 150;
+            document.getElementById('server-version').innerHTML = data.version || 'N/A';
+            document.getElementById('server-status').innerHTML = '<span class="status-offline">● Офлайн</span>';
+            
+            updatePlayersList([]);
+            updateTimestamp();
+        }
         
-        if (playersContainer) {
-            if (players.length > 0) {
-                playersContainer.innerHTML = `
-                    <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;">
-                        🎮 Игроки онлайн (${players.length})
-                    </h3>
-                    <div class="players-grid" style="
-                        display: grid;
-                        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                        gap: 10px;
-                        max-height: 200px;
-                        overflow-y: auto;
-                        padding: 10px;
-                    ">
-                        ${players.map(player => `
-                            <div class="player-item" style="
-                                background: rgba(76, 175, 80, 0.1);
-                                padding: 8px 12px;
-                                border-radius: 6px;
-                                text-align: center;
-                                border: 1px solid rgba(76, 175, 80, 0.2);
-                                font-size: 14px;
-                            ">
-                                ${player.name}
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            } else {
-                playersContainer.innerHTML = `
-                    <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;">
-                        🎮 Игроки онлайн
-                    </h3>
-                    <div style="text-align: center; color: #aaa; padding: 20px;">
-                        На сервере нет игроков
-                    </div>
-                `;
+        function showErrorState() {
+            document.getElementById('online-players').innerHTML = 'Ошибка';
+            document.getElementById('max-players').innerHTML = 'Ошибка';
+            document.getElementById('server-version').innerHTML = 'Ошибка';
+            document.getElementById('server-status').innerHTML = '<span class="status-offline">Ошибка загрузки</span>';
+            document.getElementById('last-updated').innerHTML = `Не удалось загрузить данные <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
+            
+            updatePlayersList([]);
+            
+            const refreshBtn = document.getElementById('refresh-btn');
+            if(refreshBtn) {
+                refreshBtn.addEventListener('click', fetchServerStatus);
+                refreshBtn.disabled = false;
             }
         }
-    }
 
-    // Вспомогательная функция для обновления времени
-    function updateTimestamp() {
-        document.getElementById('last-updated').innerHTML = `Обновлено: ${new Date().toLocaleTimeString('ru-RU')} <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
-        
-        const refreshBtn = document.getElementById('refresh-btn');
-        if(refreshBtn) {
-            refreshBtn.addEventListener('click', fetchServerStatus);
-            refreshBtn.disabled = false;
+        function updatePlayersList(players) {
+            let playersContainer = document.getElementById('players-list-container');
+            
+            if (!playersContainer) {
+                const liveStats = document.querySelector('.live-stats');
+                if (liveStats) {
+                    playersContainer = document.createElement('div');
+                    playersContainer.id = 'players-list-container';
+                    playersContainer.className = 'players-list-section';
+                    liveStats.appendChild(playersContainer);
+                }
+            }
+            
+            if (playersContainer) {
+                if (players && players.length > 0) {
+                    playersContainer.innerHTML = `
+                        <h3>🎮 Игроки онлайн (${players.length})</h3>
+                        <div class="players-grid">
+                            ${players.map(player => `
+                                <div class="player-item">${player.name}</div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    playersContainer.innerHTML = `
+                        <h3>🎮 Игроки онлайн</h3>
+                        <div style="text-align: center; color: #aaa; padding: 20px;">
+                            На сервере нет игроков
+                        </div>
+                    `;
+                }
+            }
         }
-    }
 
-    // --- Инициализация страницы ---
-    document.addEventListener('DOMContentLoaded', function() {
-        
-        // Настройка кнопок "Копировать"
-        setupCopyIP('copy-button-main', 'copy-notification');
-        setupCopyIP('copy-button-footer', 'copy-notification-footer');
+        function updateTimestamp() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ru-RU');
+            const dateString = now.toLocaleDateString('ru-RU');
+            
+            document.getElementById('last-updated').innerHTML = 
+                `Обновлено: ${dateString} ${timeString} <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
+            
+            const refreshBtn = document.getElementById('refresh-btn');
+            if(refreshBtn) {
+                refreshBtn.addEventListener('click', fetchServerStatus);
+                refreshBtn.disabled = false;
+            }
+        }
 
-        // Инициализация слайдера команд
-        createCommandCards();
-        updateSlider(false); // Установка начальной позиции
-        
-        // Подключение кнопок слайдера
-        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-        
-        // Ресайз слайдера
-        window.addEventListener('resize', () => {
-            currentIndex = cloneCount; 
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCopyIP('copy-button-main', 'copy-notification');
+            setupCopyIP('copy-button-footer', 'copy-notification-footer');
+
+            createCommandCards();
             updateSlider(false);
-        });
-
-        // Загрузка статуса сервера при входе
-        fetchServerStatus();
-        // Авто-обновление каждые 30 секунд
-        setInterval(fetchServerStatus, 30000); 
-        
-        // Настройка кнопки "Обновить" (первоначальная)
-        const initialRefreshBtn = document.getElementById('refresh-btn');
-        if (initialRefreshBtn) {
-            initialRefreshBtn.addEventListener('click', fetchServerStatus);
-        }
-
-        // Анимации при прокрутке
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+            
+            if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+            if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+            
+            window.addEventListener('resize', () => {
+                currentIndex = cloneCount; 
+                updateSlider(false);
             });
-        }, observerOptions);
 
-        document.querySelectorAll('.feature-card, .stat, .step, .live-stat, .command-category').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(el);
+            fetchServerStatus();
+            setInterval(fetchServerStatus, 30000);
+
+            // Анимации при прокрутке
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.feature-card, .stat, .step, .live-stat, .command-category').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
         });
-    });
-</script>
+    </script>
 </body>
 </html>
