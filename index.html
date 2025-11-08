@@ -5,23 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YOUR STOP - Классический сервер выживания Minecraft | IP: yourstop.online</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏️</text></svg>">
-    <meta name="description" content="Классический сервер выживания Minecraft YOUR STOP. Присоединяйтесь к нашему сообществу и наслаждайтесь ванильным геймплеем с системой защиты построек.">
-    <meta name="keywords" content="minecraft сервер, выживание minecraft, ваш стоп, your stop, minecraft выживание, minecraft multiplayer, вашстоп, yourstop.online, классический minecraft">
-    <!-- После meta keywords добавьте: -->
+    <meta name="description" content="YOUR STOP - современный сервер выживания Minecraft с системой защиты, работой, аукционом, улучшенными зачарованиями и интерактивной картой.">
+    <meta name="keywords" content="minecraft сервер, выживание minecraft, ваш стоп, your stop, minecraft выживание, minecraft multiplayer, вашстоп, yourstop.online, карта minecraft">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     <link rel="canonical" href="https://yourstop.ru/">
     
     <!-- Open Graph для соцсетей -->
-    <meta property="og:title" content="YOUR STOP - Классический сервер выживания Minecraft">
-    <meta property="og:description" content="Присоединяйтесь к нашему майнкрафт серверу YOUR STOP! Классическое выживание с защитой построек, активным сообществом и ванильным геймплеем.">
+    <meta property="og:title" content="YOUR STOP - Современный сервер выживания Minecraft">
+    <meta property="og:description" content="Присоединяйтесь к нашему майнкрафт серверу YOUR STOP! Система работы, аукцион, улучшенные зачарования, интерактивная карта и активное сообщество.">
     <meta property="og:url" content="https://yourstop.ru/">
     <meta property="og:type" content="website">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="YOUR STOP - Minecraft Server">
-    <meta name="twitter:description" content="Классический сервер выживания Minecraft с защитой построек">
+    <meta name="twitter:description" content="Современный сервер выживания Minecraft с работой, аукционом и улучшенными зачарованиями">
     <style>
         * {
             margin: 0;
@@ -207,6 +206,14 @@
             font-weight: 400;
         }
 
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
         .ip-container {
             display: flex;
             justify-content: center;
@@ -347,6 +354,47 @@
         }
 
         .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .map-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-top: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+
+        .map-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .map-button:hover {
+            background: linear-gradient(135deg, #F57C00, #FF9800);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(255, 152, 0, 0.6);
+        }
+
+        .map-button:hover::before {
             left: 100%;
         }
 
@@ -1059,6 +1107,11 @@
             .steps {
                 grid-template-columns: 1fr;
             }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1142,13 +1195,16 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <h2>Классическое выживание в Minecraft</h2>
-                <p>YOUR STOP - сервер с системой защиты построек, где вы можете наслаждаться ванильным геймплеем без гриферов</p>
+                <h2>Современное выживание в Minecraft</h2>
+                <p>YOUR STOP - сервер с системой работы, аукционом, улучшенными зачарованиями и интерактивной картой</p>
                 <div class="ip-container">
                     <div class="ip-address">yourstop.online</div>
                     <button class="copy-button" id="copy-button-main">Копировать IP</button>
                 </div>
-                <a href="#join" class="cta-button">Присоединиться сейчас</a>
+                <div class="hero-buttons">
+                    <a href="#join" class="cta-button">Присоединиться сейчас</a>
+                    <a href="http://map.yourstop.ru:8100/" class="map-button" target="_blank">🗺️ Открыть карту</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1157,9 +1213,39 @@
         <div class="container">
             <div class="section-title">
                 <h2>Почему именно наш сервер?</h2>
-                <p>Классический Minecraft с удобной системой защиты ваших построек</p>
+                <p>Современный Minecraft с расширенным функционалом для комфортной игры</p>
             </div>
             <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Система работы</h3>
+                    <p>Зарабатывайте деньги, выполняя различные профессии с плагином Jobs</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏪</div>
+                    <h3>Глобальный рынок</h3>
+                    <p>Торгуйте с другими игроками через удобную систему Global Marketplace</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>Улучшенные зачарования</h3>
+                    <p>Мощные и уникальные зачарования с плагином ExcellentEnchants</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Интерактивная карта</h3>
+                    <p>Следите за миром сервера в реальном времени через BlueMap</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎁</div>
+                    <h3>Боевой пропуск</h3>
+                    <p>Получайте награды за выполнение заданий с BattlePass</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎰</div>
+                    <h3>Лотерея</h3>
+                    <p>Участвуйте в регулярных лотереях с ценными призами</p>
+                </div>
                 <div class="feature-card">
                     <div class="feature-icon">🛡️</div>
                     <h3>Защита построек</h3>
@@ -1169,26 +1255,6 @@
                     <div class="feature-icon">👥</div>
                     <h3>Активное сообщество</h3>
                     <p>Дружная и активная команда игроков, готовых помочь новичкам</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚔️</div>
-                    <h3>Классический геймплей</h3>
-                    <p>Чистый ванильный Minecraft без лишних модификаций</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Высокая производительность</h3>
-                    <p>Мощный хостинг обеспечивает стабильную работу без лагов</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3>Огромный мир</h3>
-                    <p>Неограниченная карта для исследования и строительства</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏪</div>
-                    <h3>Глобальный рынок</h3>
-                    <p>Торгуйте с другими игроками через удобную систему рынка</p>
                 </div>
             </div>
         </div>
@@ -1211,13 +1277,14 @@
                         <p>Версия Minecraft</p>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">0%</div>
-                        <p>Даунтайма</p>
+                        <div class="stat-number">30+</div>
+                        <p>Плагинов</p>
                     </div>
                 </div>
                 <div class="server-description">
                     <h2>О сервере YOUR STOP</h2>
-                    <p>YOUR STOP - это качественный сервер выживания в Minecraft, созданный для истинных ценителей этого жанра. Мы предлагаем уникальный опыт игры с тщательно подобранными модами, которые добавляют новые измерения геймплея, не нарушая баланс ванильного Minecraft.</p>
+                    <p>YOUR STOP - это современный сервер выживания в Minecraft, созданный для истинных ценителей этого жанра. Мы предлагаем уникальный опыт игры с тщательно подобранными плагинами, которые добавляют новые измерения геймплея, не нарушая баланс ванильного Minecraft.</p>
+                    <p>На сервере доступны: система профессий для заработка, глобальный рынок для торговли, улучшенные зачарования, боевой пропуск с наградами, регулярные лотереи и многое другое. Также у нас есть интерактивная карта, где вы можете следить за миром в реальном времени.</p>
                     <p>Наше сообщество - это наша гордость. Мы создали дружелюбную атмосферу, где каждый игрок чувствует себя частью большой семьи. Регулярные ивенты, конкурсы строительства и PvP-сражения не дадут вам заскучать!</p>
                     <p>Присоединяйтесь к нам и станьте частью этого удивительного мира!</p>
                 </div>
@@ -1310,6 +1377,9 @@
                     <div class="ip-address">yourstop.online</div>
                     <button class="copy-button" id="copy-button-footer">Копировать IP</button>
                 </div>
+                <div style="margin-top: 20px;">
+                    <a href="http://map.yourstop.ru:8100/" class="map-button" target="_blank">🗺️ Открыть интерактивную карту</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1330,7 +1400,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>YOUR STOP</h3>
-                    <p>Классический сервер выживания в Minecraft с системой защиты построек и дружным сообществом.</p>
+                    <p>Современный сервер выживания в Minecraft с системой работы, аукционом, улучшенными зачарованиями и дружным сообществом.</p>
                 </div>
                 <div class="footer-section">
                     <h3>Быстрые ссылки</h3>
@@ -1339,11 +1409,13 @@
                     <a href="#info">О сервере</a>
                     <a href="#live">Статистика</a>
                     <a href="#join">Как присоединиться</a>
+                    <a href="http://map.yourstop.ru:8100/" target="_blank">Интерактивная карта</a>
                 </div>
                 <div class="footer-section">
                     <h3>Сообщество</h3>
                     <a href="https://t.me/yourstopmine" target="_blank">Telegram-канал</a>
                     <p>Версия: 1.21+</p>
+                    <p>IP: yourstop.online</p>
                 </div>
             </div>
             <div class="copyright">
