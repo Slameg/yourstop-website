@@ -717,112 +717,27 @@
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
 
-        /* Players List Styles */
-        .players-list-section {
-            background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(26, 42, 58, 0.7));
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            border: 1px solid rgba(76, 175, 80, 0.15);
-            margin-top: 2rem;
-            backdrop-filter: blur(10px);
+        /* Online Indicator */
+        .online-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
         }
 
-        .players-list-section h3 {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-size: 1.375rem;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(76, 175, 80, 0.3);
-        }
-
-        .players-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 0.875rem;
-            max-height: 280px;
-            overflow-y: auto;
-            padding: 0.5rem;
-        }
-
-        .players-grid::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .players-grid::-webkit-scrollbar-track {
-            background: rgba(76, 175, 80, 0.1);
-            border-radius: 3px;
-        }
-
-        .players-grid::-webkit-scrollbar-thumb {
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
             background: var(--primary);
-            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            animation: pulse 2s infinite;
         }
 
-        .player-item {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.12), rgba(76, 175, 80, 0.08));
-            padding: 1rem 0.75rem;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            font-size: 0.875rem;
-            color: var(--light);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-
-        .player-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.15), transparent);
-            transition: left 0.6s;
-        }
-
-        .player-item:hover {
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.15));
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.25);
-            border-color: rgba(76, 175, 80, 0.4);
-        }
-
-        .player-item:hover::before {
-            left: 100%;
-        }
-
-        .player-item::after {
-            content: '📋';
-            position: absolute;
-            top: 4px;
-            right: 6px;
-            font-size: 0.7rem;
-            opacity: 0;
-            transition: all 0.3s ease;
-            transform: scale(0.8);
-        }
-
-        .player-item:hover::after {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .player-name {
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            font-size: 0.9rem;
-        }
-
-        .player-hint {
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 0.25rem;
-            line-height: 1.2;
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         /* How to Join Section */
@@ -1086,11 +1001,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .players-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                max-height: 200px;
-            }
-
             .scroll-to-top {
                 bottom: 1.5rem;
                 right: 1.5rem;
@@ -1143,11 +1053,6 @@
 
             .server-stats {
                 grid-template-columns: 1fr;
-            }
-
-            .players-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                font-size: 0.8rem;
             }
 
             .section-title h2 {
@@ -1321,7 +1226,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>Статистика сервера в реальном времени</h2>
-                <p>Актуальная информация о состоянии сервера и игроках онлайн</p>
+                <p>Актуальная информация о состоянии сервера</p>
             </div>
             
             <div class="stats-grid">
@@ -1329,6 +1234,10 @@
                     <h3>Онлайн игроков</h3>
                     <div class="live-stat-value" id="online-players">
                         <span class="loading">Загрузка...</span>
+                    </div>
+                    <div class="online-indicator" id="online-indicator">
+                        <span class="online-dot"></span>
+                        <span>В сети</span>
                     </div>
                 </div>
                 <div class="live-stat">
@@ -1350,6 +1259,13 @@
                     </div>
                 </div>
             </div>
+
+            <div class="last-updated" id="last-updated">
+                <span>Обновление каждые 30 секунд</span>
+                <button class="refresh-btn" id="refresh-btn">Обновить сейчас</button>
+            </div>
+        </div>
+    </section>
 
     <section class="how-to-join" id="join">
         <div class="container">
@@ -1519,15 +1435,23 @@
             });
         }
 
-        // Статус сервера - прямой запрос к mcsrvstat.us
+        // Статус сервера
         const API_URL = 'https://api.mcsrvstat.us/3/yourstop.online';
 
         async function fetchServerStatus() {
-            document.getElementById('online-players').innerHTML = '<span class="loading">Загрузка...</span>';
-            document.getElementById('max-players').innerHTML = '<span class="loading">Загрузка...</span>';
-            document.getElementById('server-version').innerHTML = '<span class="loading">Загрузка...</span>';
-            document.getElementById('server-status').innerHTML = '<span class="loading">Загрузка...</span>';
-            
+            const elements = {
+                onlinePlayers: document.getElementById('online-players'),
+                maxPlayers: document.getElementById('max-players'),
+                serverVersion: document.getElementById('server-version'),
+                serverStatus: document.getElementById('server-status'),
+                onlineIndicator: document.getElementById('online-indicator')
+            };
+
+            // Устанавливаем состояние загрузки
+            Object.values(elements).forEach(el => {
+                if (el) el.innerHTML = '<span class="loading">Загрузка...</span>';
+            });
+
             const refreshBtn = document.getElementById('refresh-btn');
             if (refreshBtn) refreshBtn.disabled = true;
 
@@ -1545,95 +1469,68 @@
                 }
 
                 const data = await response.json();
-                console.log('Получены данные:', data);
-
-                // Преобразуем данные в нужный формат
-                const formattedData = {
-                    online: data.online || false,
-                    players: {
-                        online: data.players?.online || 0,
-                        max: data.players?.max || 150,
-                        list: data.players?.list || []
-                    },
-                    version: data.version || 'N/A',
-                    motd: {
-                        html: data.motd?.html || []
+                
+                if (data.online === true) {
+                    // Сервер онлайн
+                    elements.onlinePlayers.innerHTML = data.players?.online || 0;
+                    elements.maxPlayers.innerHTML = data.players?.max || 150;
+                    elements.serverVersion.innerHTML = data.version || '1.21+';
+                    elements.serverStatus.innerHTML = '<span class="status-online">● Онлайн</span>';
+                    
+                    if (elements.onlineIndicator) {
+                        elements.onlineIndicator.style.display = 'flex';
                     }
-                };
-
-                if (formattedData.online === true) {
-                    updateServerUI(formattedData);
                 } else {
-                    showOfflineState(formattedData);
+                    // Сервер офлайн
+                    elements.onlinePlayers.innerHTML = 0;
+                    elements.maxPlayers.innerHTML = data.players?.max || 150;
+                    elements.serverVersion.innerHTML = data.version || 'N/A';
+                    elements.serverStatus.innerHTML = '<span class="status-offline">● Офлайн</span>';
+                    
+                    if (elements.onlineIndicator) {
+                        elements.onlineIndicator.style.display = 'none';
+                    }
                 }
 
             } catch (error) {
-                console.error('Ошибка при загрузке статуса:', error.message);
-                // Используем fallback данные
+                console.error('Ошибка при загрузке статуса:', error);
+                // Fallback данные
                 const fallbackData = getFallbackData();
-                updateServerUI(fallbackData);
+                updateUIWithData(fallbackData, elements);
             }
+
+            updateTimestamp();
+            if (refreshBtn) refreshBtn.disabled = false;
         }
 
         function getFallbackData() {
             return {
                 online: true,
                 players: {
-                    online: 3,
-                    max: 150,
-                    list: [
-                        { name: "Timurjke", uuid: "67700949-43a1-3a8f-9fba-554de27a44b4" },
-                        { name: "Alex_Miner", uuid: "12345678-1234-1234-1234-123456789012" },
-                        { name: "SteveBuilder", uuid: "87654321-4321-4321-4321-210987654321" }
-                    ]
+                    online: Math.floor(Math.random() * 10) + 1,
+                    max: 150
                 },
-                version: "1.21.10",
-                motd: {
-                    html: [
-                        "<span style=\"color: #55FF55;\">⛵ <\/span><span style=\"color: #55FF55;\"><span style=\"font-weight: bold;\">Your Stop <\/span><\/span><span style=\"color: #AAAAAA;\"> — классическое выживание!<\/span>",
-                        "<span style=\"color: #FFFFFF;\">Вайпы, пиратка+лицензия, авторизация на входе <\/span><span style=\"color: #FFFF55;\">✔<\/span>"
-                    ]
-                }
+                version: "1.21+"
             };
         }
 
-        function updateServerUI(data) {
-            document.getElementById('online-players').innerHTML = data.players.online || 0;
-            document.getElementById('max-players').innerHTML = data.players.max || 150;
-            document.getElementById('server-version').innerHTML = data.version || 'N/A';
-            document.getElementById('server-status').innerHTML = '<span class="status-online">● Онлайн</span>';
-            
-            updatePlayersList(data.players.list || []);
-            updateTimestamp();
-        }
-
-        function showOfflineState(data) {
-            document.getElementById('online-players').innerHTML = 0;
-            document.getElementById('max-players').innerHTML = data.players ? data.players.max : 150;
-            document.getElementById('server-version').innerHTML = data.version || 'N/A';
-            document.getElementById('server-status').innerHTML = '<span class="status-offline">● Офлайн</span>';
-            
-            updatePlayersList([]);
-            updateTimestamp();
-        }
-
-        function updatePlayersList(players) {
-            const playersGrid = document.getElementById('players-grid');
-            if (!playersGrid) return;
-            
-            if (players && players.length > 0) {
-                playersGrid.innerHTML = players.map(player => `
-                    <div class="player-item" onclick="copyToClipboard('${player.uuid}', 'UUID игрока ${player.name} скопирован! 👤')">
-                        <div class="player-name">${player.name}</div>
-                        <div class="player-hint">Кликните для копирования UUID</div>
-                    </div>
-                `).join('');
+        function updateUIWithData(data, elements) {
+            if (data.online) {
+                elements.onlinePlayers.innerHTML = data.players.online;
+                elements.maxPlayers.innerHTML = data.players.max;
+                elements.serverVersion.innerHTML = data.version;
+                elements.serverStatus.innerHTML = '<span class="status-online">● Онлайн</span>';
+                if (elements.onlineIndicator) {
+                    elements.onlineIndicator.style.display = 'flex';
+                }
             } else {
-                playersGrid.innerHTML = `
-                    <div style="text-align: center; color: #aaa; padding: 40px; grid-column: 1 / -1;">
-                        На сервере нет игроков
-                    </div>
-                `;
+                elements.onlinePlayers.innerHTML = 0;
+                elements.maxPlayers.innerHTML = data.players.max;
+                elements.serverVersion.innerHTML = data.version;
+                elements.serverStatus.innerHTML = '<span class="status-offline">● Офлайн</span>';
+                if (elements.onlineIndicator) {
+                    elements.onlineIndicator.style.display = 'none';
+                }
             }
         }
 
@@ -1642,13 +1539,15 @@
             const timeString = now.toLocaleTimeString('ru-RU');
             const dateString = now.toLocaleDateString('ru-RU');
             
-            document.getElementById('last-updated').innerHTML = 
-                `Обновлено: ${dateString} ${timeString} <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
-            
-            const refreshBtn = document.getElementById('refresh-btn');
-            if(refreshBtn) {
-                refreshBtn.addEventListener('click', fetchServerStatus);
-                refreshBtn.disabled = false;
+            const lastUpdatedElement = document.getElementById('last-updated');
+            if (lastUpdatedElement) {
+                lastUpdatedElement.innerHTML = 
+                    `Обновлено: ${dateString} ${timeString} <button class="refresh-btn" id="refresh-btn">Обновить</button>`;
+                
+                const refreshBtn = document.getElementById('refresh-btn');
+                if(refreshBtn) {
+                    refreshBtn.addEventListener('click', fetchServerStatus);
+                }
             }
         }
 
