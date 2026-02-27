@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOUR STOP · тихая гавань</title>
+    <title>YOUR STOP · твой Rust сервер</title>
     
     <!-- Фавикон -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23A3C9F1'>🌊</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23FF6B35'>⚡</text></svg>">
     
     <!-- Метрики -->
-    <meta name="description" content="Rust сервер, где хочется остаться. Продуманный мир, спокойные ночи и место для своих.">
-    <meta name="theme-color" content="#2B4F6E">
-    <meta property="og:title" content="YOUR STOP · тихая гавань">
+    <meta name="description" content="Rust сервер, где хочется задержаться. Продуманный мир, живые ивенты, своя атмосфера.">
+    <meta name="theme-color" content="#FF6B35">
+    <meta property="og:title" content="YOUR STOP · твой сервер">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yourstop.online">
     
@@ -28,29 +28,30 @@
         }
 
         :root {
-            --deep: #0E1C26;
-            --darker: #09131B;
-            --wave: #2B4F6E;
-            --wave-light: #3E6F96;
-            --sand: #D9C8A9;
+            --orange: #FF6B35;
+            --orange-dark: #E54B1F;
+            --night: #121212;
+            --dark: #1E1E1E;
+            --darker: #0A0A0A;
             --text: #FFFFFF;
-            --text-dim: #B2C9D9;
-            --border: rgba(179, 205, 224, 0.1);
-            --shadow: 0 20px 40px -15px rgba(0,0,0,0.7);
+            --text-dim: #AAAAAA;
+            --border: rgba(255, 107, 53, 0.15);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            --shadow-glow: 0 0 30px rgba(255, 107, 53, 0.3);
             --radius: 32px;
             --radius-sm: 20px;
-            --transition: all 0.4s ease;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--deep);
+            background: var(--night);
             color: var(--text);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Фон — спокойное море */
+        /* Энергичный фон */
         .gradient-bg {
             position: fixed;
             top: 0;
@@ -58,37 +59,34 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 30% 40%, rgba(43, 79, 110, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(10, 25, 35, 1) 0%, transparent 60%),
-                repeating-linear-gradient(180deg, 
-                    rgba(255,255,255,0) 0px, 
-                    rgba(255,255,255,0.01) 2px, 
-                    rgba(255,255,255,0) 4px);
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 53, 0.1) 0%, transparent 40%),
+                repeating-linear-gradient(45deg, 
+                    rgba(255,107,53,0.02) 0px, 
+                    rgba(255,107,53,0.02) 2px, 
+                    transparent 2px, 
+                    transparent 6px);
             pointer-events: none;
             z-index: -1;
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 24px;
         }
 
-        @media (max-width: 768px) {
-            .container { padding: 0 20px; }
-        }
-
-        /* Шапка — лёгкая, как бриз */
+        /* Динамичная шапка */
         header {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 64px);
-            max-width: 1300px;
-            background: rgba(14, 28, 38, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            width: calc(100% - 48px);
+            max-width: 1200px;
+            background: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--border);
             border-radius: 100px;
             padding: 12px 24px;
@@ -96,8 +94,10 @@
             transition: var(--transition);
         }
 
-        @media (max-width: 768px) {
-            header { width: calc(100% - 40px); padding: 10px 20px; }
+        header.scrolled {
+            background: var(--dark);
+            border-color: var(--orange);
+            box-shadow: var(--shadow-glow);
         }
 
         .header-content {
@@ -115,14 +115,16 @@
 
         .logo-icon {
             font-size: 28px;
-            filter: drop-shadow(0 0 10px rgba(163, 201, 241, 0.3));
+            filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5));
         }
 
         .logo-text {
-            font-size: 1.4rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            font-weight: 700;
             letter-spacing: -0.02em;
-            color: var(--sand);
+            background: linear-gradient(135deg, #fff, var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-list {
@@ -135,7 +137,7 @@
             color: var(--text-dim);
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 18px;
+            padding: 8px 20px;
             border-radius: 100px;
             transition: var(--transition);
             font-size: 0.95rem;
@@ -144,14 +146,14 @@
         .nav-link:hover,
         .nav-link.active {
             color: var(--text);
-            background: rgba(217, 200, 169, 0.1);
+            background: rgba(255, 107, 53, 0.15);
         }
 
         .mobile-menu {
             display: none;
             background: none;
             border: none;
-            color: var(--sand);
+            color: var(--orange);
             font-size: 24px;
             cursor: pointer;
         }
@@ -174,54 +176,55 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(217, 200, 169, 0.1);
-            border: 1px solid rgba(217, 200, 169, 0.2);
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
             border-radius: 100px;
             padding: 8px 20px;
-            margin-bottom: 40px;
-            color: var(--sand);
-            font-weight: 400;
+            margin-bottom: 30px;
+            color: var(--orange);
+            font-weight: 500;
             font-size: 0.9rem;
+            text-transform: uppercase;
             letter-spacing: 1px;
             backdrop-filter: blur(5px);
         }
 
         .hero-title {
             font-size: clamp(3rem, 10vw, 5.5rem);
-            font-weight: 500;
+            font-weight: 800;
             line-height: 1.1;
             letter-spacing: -0.02em;
             margin-bottom: 30px;
-            color: var(--text);
         }
 
         .hero-title span {
-            color: var(--sand);
-            font-weight: 600;
+            background: linear-gradient(135deg, var(--orange), #FFB347);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
 
         .hero-description {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--text-dim);
             max-width: 600px;
-            margin: 0 auto 50px;
+            margin: 0 auto 40px;
             line-height: 1.6;
-            font-weight: 300;
         }
 
-        /* IP блок — тихо и понятно */
+        /* IP блок */
         .ip-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .ip-box {
             display: flex;
             width: 100%;
             max-width: 500px;
-            background: rgba(14, 28, 38, 0.7);
-            border: 1px solid var(--border);
+            background: rgba(18, 18, 18, 0.9);
+            border: 2px solid var(--border);
             border-radius: 100px;
             overflow: hidden;
             backdrop-filter: blur(10px);
@@ -229,20 +232,21 @@
         }
 
         .ip-box:hover {
-            border-color: var(--sand);
-            box-shadow: 0 0 0 2px rgba(217, 200, 169, 0.1);
+            border-color: var(--orange);
+            box-shadow: var(--shadow-glow);
+            transform: scale(1.02);
         }
 
         .ip-field {
             flex: 1;
             min-width: 0;
-            padding: 16px 24px;
+            padding: 18px 24px;
             background: transparent;
             border: none;
-            color: var(--sand);
+            color: var(--orange);
             font-family: 'Inter', monospace;
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 600;
             outline: none;
             cursor: pointer;
             white-space: nowrap;
@@ -251,12 +255,11 @@
         }
 
         .ip-copy {
-            padding: 16px 28px;
-            background: transparent;
+            padding: 18px 28px;
+            background: var(--orange);
             border: none;
-            border-left: 1px solid var(--border);
-            color: var(--sand);
-            font-weight: 500;
+            color: var(--dark);
+            font-weight: 700;
             font-size: 0.95rem;
             cursor: pointer;
             transition: var(--transition);
@@ -265,27 +268,27 @@
         }
 
         .ip-copy:hover {
-            background: rgba(217, 200, 169, 0.1);
+            background: var(--orange-dark);
         }
 
         @media (max-width: 480px) {
             .ip-box { flex-direction: column; border-radius: 30px; }
             .ip-field { text-align: center; padding: 16px; }
-            .ip-copy { width: 100%; border-left: none; border-top: 1px solid var(--border); padding: 14px; }
+            .ip-copy { width: 100%; border-radius: 0 0 30px 30px; }
         }
 
-        /* Команда — просто нажми */
+        /* Команда */
         .command-block {
-            background: rgba(14, 28, 38, 0.5);
-            border: 1px dashed var(--border);
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px dashed var(--orange);
             border-radius: 100px;
             padding: 18px 24px;
-            margin: 40px auto 20px;
+            margin: 30px auto 20px;
             max-width: 600px;
             font-family: 'Inter', monospace;
             font-size: 1.1rem;
             font-weight: 500;
-            color: var(--sand);
+            color: var(--orange);
             cursor: pointer;
             transition: var(--transition);
             text-align: center;
@@ -294,16 +297,15 @@
         }
 
         .command-block:hover {
-            border-color: var(--sand);
-            background: rgba(217, 200, 169, 0.05);
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--orange);
+            transform: scale(1.02);
         }
 
         .command-label {
             font-size: 0.85rem;
             color: var(--text-dim);
             margin-top: 10px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
         }
 
         /* Кнопки */
@@ -312,6 +314,7 @@
             gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: 20px;
         }
 
         .button {
@@ -320,7 +323,7 @@
             gap: 10px;
             padding: 16px 40px;
             border-radius: 100px;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 1rem;
             text-decoration: none;
             transition: var(--transition);
@@ -328,35 +331,29 @@
         }
 
         .button-primary {
-            background: rgba(217, 200, 169, 0.15);
-            color: var(--sand);
-            border: 1px solid rgba(217, 200, 169, 0.3);
-            backdrop-filter: blur(5px);
+            background: var(--orange);
+            color: var(--dark);
         }
 
         .button-primary:hover {
-            background: rgba(217, 200, 169, 0.25);
-            border-color: var(--sand);
+            background: var(--orange-dark);
             transform: translateY(-2px);
+            box-shadow: 0 20px 30px -10px rgba(255, 107, 53, 0.5);
         }
 
         .button-secondary {
             background: transparent;
             border: 1px solid var(--border);
-            color: var(--text-dim);
-        }
-
-        .button-secondary:hover {
-            border-color: var(--sand);
             color: var(--text);
         }
 
-        @media (max-width: 480px) {
-            .button-group { flex-direction: column; width: 100%; }
-            .button { width: 100%; justify-content: center; }
+        .button-secondary:hover {
+            border-color: var(--orange);
+            color: var(--orange);
+            transform: translateY(-2px);
         }
 
-        /* Секции — тишина и воздух */
+        /* Секции */
         section {
             padding: 100px 0;
         }
@@ -368,72 +365,93 @@
         }
 
         .section-label {
-            color: var(--sand);
+            color: var(--orange);
             text-transform: uppercase;
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
             display: block;
-            opacity: 0.8;
         }
 
         .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 500;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
             margin-bottom: 20px;
             letter-spacing: -0.02em;
-            color: var(--text);
         }
 
         .section-description {
             color: var(--text-dim);
             font-size: 1.1rem;
             line-height: 1.6;
-            font-weight: 300;
         }
 
-        /* Сетка */
-        .grid {
+        /* Карточки — ровно 3x2 */
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        /* Карточки — без лишнего */
-        .card {
-            background: rgba(14, 28, 38, 0.6);
+        @media (max-width: 900px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .features-grid { grid-template-columns: 1fr; }
+        }
+
+        .feature-card {
+            background: rgba(30, 30, 30, 0.8);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 40px 30px;
             transition: var(--transition);
-            backdrop-filter: blur(5px);
-            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
 
-        .card:hover {
-            border-color: var(--sand);
-            background: rgba(20, 35, 45, 0.8);
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 107, 53, 0.1), transparent 70%);
+            opacity: 0;
+            transition: var(--transition);
         }
 
-        .card-icon {
+        .feature-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
             font-size: 48px;
             margin-bottom: 24px;
-            opacity: 0.8;
+            filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.3));
         }
 
-        .card-title {
+        .feature-title {
             font-size: 1.5rem;
-            font-weight: 500;
+            font-weight: 700;
             margin-bottom: 16px;
-            color: var(--sand);
+            color: var(--orange);
         }
 
-        .card-text {
+        .feature-text {
             color: var(--text-dim);
             line-height: 1.7;
-            font-weight: 300;
-            font-size: 0.95rem;
         }
 
         /* Статистика */
@@ -445,18 +463,24 @@
         }
 
         .stat-card {
-            background: rgba(14, 28, 38, 0.5);
+            background: rgba(30, 30, 30, 0.8);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             padding: 30px 20px;
             text-align: center;
+            transition: var(--transition);
             backdrop-filter: blur(5px);
+        }
+
+        .stat-card:hover {
+            border-color: var(--orange);
+            transform: scale(1.05);
         }
 
         .stat-number {
             font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 400;
-            color: var(--sand);
+            font-weight: 800;
+            color: var(--orange);
             margin-bottom: 8px;
         }
 
@@ -464,28 +488,23 @@
             color: var(--text-dim);
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 300;
+            letter-spacing: 1px;
         }
 
         @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: 1fr; }
         }
 
-        /* Лайв статистика */
+        /* Лайв */
         .live-container {
-            background: rgba(14, 28, 38, 0.5);
+            background: rgba(30, 30, 30, 0.8);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 40px;
-            backdrop-filter: blur(5px);
-        }
-
-        @media (max-width: 768px) {
-            .live-container { padding: 30px 20px; }
+            backdrop-filter: blur(10px);
         }
 
         .live-grid {
@@ -501,17 +520,15 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             margin-bottom: 10px;
-            font-weight: 300;
-            letter-spacing: 1px;
         }
         .live-value {
             font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 400;
-            color: var(--sand);
+            font-weight: 700;
+            color: var(--orange);
         }
 
         @media (max-width: 768px) {
-            .live-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .live-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         .live-footer {
@@ -523,50 +540,21 @@
             color: var(--text-dim);
             flex-wrap: wrap;
             gap: 15px;
-            font-weight: 300;
         }
 
         .refresh {
             background: transparent;
             border: 1px solid var(--border);
-            color: var(--sand);
+            color: var(--orange);
             padding: 8px 22px;
             border-radius: 100px;
             cursor: pointer;
             transition: var(--transition);
-            font-weight: 400;
         }
 
         .refresh:hover {
-            border-color: var(--sand);
-            background: rgba(217, 200, 169, 0.1);
-        }
-
-        /* Блок с настроением */
-        .mood-block {
-            background: rgba(14, 28, 38, 0.4);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 80px 40px;
-            text-align: center;
-            margin: 60px 0;
-            backdrop-filter: blur(5px);
-        }
-
-        .mood-block-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 400;
-            color: var(--sand);
-            margin-bottom: 20px;
-        }
-
-        .mood-block-text {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
-            font-weight: 300;
+            border-color: var(--orange);
+            background: rgba(255, 107, 53, 0.1);
         }
 
         /* Шаги */
@@ -574,44 +562,50 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
+            counter-reset: step;
         }
 
         .step-card {
-            background: rgba(14, 28, 38, 0.6);
+            background: rgba(30, 30, 30, 0.8);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 40px 30px;
             position: relative;
-            text-align: center;
+            transition: var(--transition);
+        }
+
+        .step-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-5px);
         }
 
         .step-card::before {
-            content: "•";
+            counter-increment: step;
+            content: counter(step);
             position: absolute;
             top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            background: var(--wave);
-            color: var(--sand);
+            left: 30px;
+            width: 40px;
+            height: 40px;
+            background: var(--orange);
+            color: var(--dark);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            border: 1px solid var(--border);
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .step-title {
             font-size: 1.5rem;
-            font-weight: 500;
+            font-weight: 700;
             margin: 20px 0 16px;
-            color: var(--sand);
+            color: var(--orange);
         }
 
         @media (max-width: 768px) {
-            .steps-grid { grid-template-columns: 1fr; gap: 40px; }
+            .steps-grid { grid-template-columns: 1fr; }
         }
 
         /* Соц сети */
@@ -623,30 +617,30 @@
         }
 
         .social-card {
-            background: rgba(14, 28, 38, 0.6);
+            background: rgba(30, 30, 30, 0.8);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 40px;
             text-align: center;
             text-decoration: none;
-            min-width: 260px;
+            min-width: 280px;
             transition: var(--transition);
-            backdrop-filter: blur(5px);
         }
 
         .social-card:hover {
-            border-color: var(--sand);
-            transform: translateY(-4px);
+            border-color: var(--orange);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
         }
 
-        .social-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.9; }
+        .social-icon { font-size: 48px; margin-bottom: 16px; }
         .social-name {
             font-size: 1.8rem;
-            font-weight: 500;
+            font-weight: 700;
             margin-bottom: 8px;
-            color: var(--sand);
+            color: var(--orange);
         }
-        .social-meta { color: var(--text-dim); font-weight: 300; }
+        .social-meta { color: var(--text-dim); }
 
         /* Футер */
         footer {
@@ -663,16 +657,16 @@
         }
 
         @media (max-width: 1024px) {
-            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer-grid { grid-template-columns: 1fr; }
         }
 
         .footer-logo {
             font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--sand);
+            font-weight: 700;
+            color: var(--orange);
             margin-bottom: 20px;
             display: inline-block;
         }
@@ -680,31 +674,27 @@
         .footer-text {
             color: var(--text-dim);
             line-height: 1.7;
-            margin-bottom: 20px;
-            font-weight: 300;
         }
 
         .footer-title {
             color: var(--text);
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 24px;
-            font-size: 1.1rem;
         }
 
         .footer-links {
             list-style: none;
         }
         .footer-links li {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
         .footer-links a {
             color: var(--text-dim);
             text-decoration: none;
             transition: var(--transition);
-            font-weight: 300;
         }
         .footer-links a:hover {
-            color: var(--sand);
+            color: var(--orange);
         }
 
         .copyright {
@@ -712,8 +702,6 @@
             padding-top: 40px;
             border-top: 1px solid var(--border);
             color: var(--text-dim);
-            font-size: 0.9rem;
-            font-weight: 300;
         }
 
         /* Уведомление */
@@ -724,32 +712,21 @@
             left: 30px;
             max-width: 400px;
             margin: 0 auto;
-            background: var(--wave);
-            color: var(--text);
+            background: var(--orange);
+            color: var(--dark);
             padding: 16px 30px;
             border-radius: 100px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-weight: 600;
             z-index: 10000;
             transform: translateY(100px);
             opacity: 0;
-            transition: all 0.4s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            transition: all 0.3s ease;
             text-align: center;
-            font-weight: 400;
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
         }
 
         .toast.show {
             transform: translateY(0);
             opacity: 1;
-        }
-
-        @media (max-width: 480px) {
-            .toast { left: 20px; right: 20px; border-radius: 30px; font-size: 0.9rem; }
         }
 
         /* Кнопка наверх */
@@ -759,10 +736,10 @@
             left: 30px;
             width: 50px;
             height: 50px;
-            background: rgba(14, 28, 38, 0.8);
+            background: rgba(30, 30, 30, 0.9);
             border: 1px solid var(--border);
             border-radius: 50%;
-            color: var(--sand);
+            color: var(--orange);
             font-size: 20px;
             cursor: pointer;
             z-index: 999;
@@ -770,10 +747,6 @@
             visibility: hidden;
             transform: translateY(20px);
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
         }
 
         .scroll-top.visible {
@@ -782,21 +755,17 @@
             transform: translateY(0);
         }
         .scroll-top:hover {
-            border-color: var(--sand);
-            background: rgba(43, 79, 110, 0.8);
-        }
-
-        @media (max-width: 768px) {
-            .scroll-top { bottom: 20px; left: 20px; width: 45px; height: 45px; }
+            border-color: var(--orange);
+            background: rgba(255, 107, 53, 0.1);
         }
 
         /* Загрузка */
         .loader {
             width: 30px;
             height: 30px;
-            border: 2px solid rgba(217, 200, 169, 0.2);
+            border: 3px solid rgba(255, 107, 53, 0.2);
             border-radius: 50%;
-            border-top-color: var(--sand);
+            border-top-color: var(--orange);
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
@@ -809,16 +778,16 @@
     <header id="header">
         <div class="header-content">
             <a href="#home" class="logo">
-                <span class="logo-icon">🌊</span>
+                <span class="logo-icon">⚡</span>
                 <span class="logo-text">YOUR STOP</span>
             </a>
             <nav>
                 <ul class="nav-list" id="navList">
-                    <li><a href="#home" class="nav-link active">тихо</a></li>
-                    <li><a href="#why" class="nav-link">здесь</a></li>
-                    <li><a href="#now" class="nav-link">сейчас</a></li>
+                    <li><a href="#home" class="nav-link active">главная</a></li>
+                    <li><a href="#features" class="nav-link">фишки</a></li>
+                    <li><a href="#stats" class="nav-link">в цифрах</a></li>
                     <li><a href="#how" class="nav-link">зайти</a></li>
-                    <li><a href="#friends" class="nav-link">свои</a></li>
+                    <li><a href="#community" class="nav-link">свои</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu" id="mobileMenu">☰</button>
@@ -833,14 +802,14 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <span>⋆｡°✩</span>
-                    <span>ТИХАЯ ГАВАНЬ</span>
+                    <span>⚡</span>
+                    <span>НОВЫЙ СЕРВЕР · Х2</span>
                 </div>
                 <h1 class="hero-title">
-                    место, где <span>хочется</span><br>остаться
+                    здесь <span>хочется</span><br>играть
                 </h1>
                 <p class="hero-description">
-                    Rust сервер, который ничего не требует. Просто зайди, построй базу, встречай рассветы. Или не встречай — решать тебе.
+                    Rust сервер, который не бесит. Всё под рукой, мир живой, ресурсы рядом. Заходи — не пожалеешь.
                 </p>
 
                 <div class="ip-container">
@@ -857,102 +826,93 @@
 
                 <div class="button-group">
                     <a href="#how" class="button button-primary">
-                        <span>→</span> я зайду
+                        <span>⚡</span> я зайду
                     </a>
-                    <a href="#why" class="button button-secondary">
-                        <span>?</span> что здесь
+                    <a href="#features" class="button button-secondary">
+                        <span>→</span> что тут
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Почему здесь -->
-    <section id="why">
+    <!-- Фишки — ровно 3 сверху, 3 снизу -->
+    <section id="features">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">⋆.˚☾‧</span>
-                <h2 class="section-title">здесь просто</h2>
-                <p class="section-description">Никакой магии, лишних кнопок и навязчивых правил. Всё работает так, как ты хочешь.</p>
+                <span class="section-label">ЧЕМ ЖИВЁМ</span>
+                <h2 class="section-title">почему тут весело</h2>
+                <p class="section-description">Шесть причин, по которым ты захочешь остаться</p>
             </div>
 
-            <div class="grid">
-                <div class="card">
-                    <div class="card-icon">🌙</div>
-                    <h3 class="card-title">спокойные ночи</h3>
-                    <p class="card-text">Мир не давит. Можно копать, строить, думать. Никто не дышит в спину.</p>
+            <div class="features-grid">
+                <!-- Первый ряд -->
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">всё x2</h3>
+                    <p class="feature-text">Ресурсы, крафт, плавка — всё в два раза быстрее. Фарма меньше — кайфа больше.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🕊️</div>
-                    <h3 class="card-title">свои люди</h3>
-                    <p class="card-text">Здесь нет случайных. Если ты здесь — ты свой. Остальное не важно.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3 class="feature-title">карманы не резиновые</h3>
+                    <p class="feature-text">Стаки увеличены. 2000 дерева в одном слоте? Легко. Не надо бегать каждые 5 минут.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🌱</div>
-                    <h3 class="card-title">неспешный старт</h3>
-                    <p class="card-text">Первые дни не выживание, а обустройство. Всё успеется.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3 class="feature-title">дом близко</h3>
+                    <p class="feature-text">Поставил точку — вернулся по команде. Никакой беготни через всю карту.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🎒</div>
-                    <h3 class="card-title">карманы не пусты</h3>
-                    <p class="card-text">Нет ощущения, что приходится выбирать, что выкинуть, чтобы подобрать нужное.</p>
+                
+                <!-- Второй ряд -->
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">живой мир</h3>
+                    <p class="feature-text">Рейдабельные базы, караваны, замесы с NPC — скучно не будет никогда.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🏡</div>
-                    <h3 class="card-title">дом близко</h3>
-                    <p class="card-text">Не надо бежать через всю карту, чтобы вернуться к печке. Мир под рукой.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🎒</div>
+                    <h3 class="feature-title">второй шанс</h3>
+                    <p class="feature-text">Важные вещи не пропадают. Споткнулся — не страшно, в следующий раз повезёт.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">⚡</div>
-                    <h3 class="card-title">всё под рукой</h3>
-                    <p class="card-text">Важные вещи всегда с тобой. Даже если оступился — не страшно.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Блок с настроением -->
-    <section>
-        <div class="container">
-            <div class="mood-block">
-                <div class="mood-block-title">ты не один</div>
-                <div class="mood-block-text">
-                    Даже если ты играешь сам, рядом всегда есть другие. Они не мешают, но они есть.
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3 class="feature-title">свои люди</h3>
+                    <p class="feature-text">Адекватные игроки, никаких клановых замесов. Можно и одному, и с кем-то.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Сейчас -->
-    <section id="now">
+    <!-- В цифрах -->
+    <section id="stats">
         <div class="container">
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">≈20</div>
-                    <div class="stat-label">сейчас</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">75</div>
-                    <div class="stat-label">всего мест</div>
-                </div>
                 <div class="stat-card">
                     <div class="stat-number">2x</div>
                     <div class="stat-label">ресурсы</div>
                 </div>
                 <div class="stat-card">
+                    <div class="stat-number">75</div>
+                    <div class="stat-label">свободных мест</div>
+                </div>
+                <div class="stat-card">
                     <div class="stat-number">24/7</div>
-                    <div class="stat-label">работает</div>
+                    <div class="stat-label">без простоя</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">≈15</div>
+                    <div class="stat-label">сейчас в игре</div>
                 </div>
             </div>
 
             <div class="live-container">
                 <div class="live-grid">
                     <div class="live-item">
-                        <div class="live-label">сейчас здесь</div>
+                        <div class="live-label">онлайн</div>
                         <div class="live-value" id="onlinePlayers"><div class="loader"></div></div>
                     </div>
                     <div class="live-item">
-                        <div class="live-label">всего</div>
+                        <div class="live-label">макс</div>
                         <div class="live-value" id="maxPlayers"><div class="loader"></div></div>
                     </div>
                     <div class="live-item">
@@ -960,12 +920,12 @@
                         <div class="live-value" id="serverVersion"><div class="loader"></div></div>
                     </div>
                     <div class="live-item">
-                        <div class="live-label">светит луна</div>
+                        <div class="live-label">сервер</div>
                         <div class="live-value" id="serverStatus"><div class="loader"></div></div>
                     </div>
                 </div>
                 <div class="live-footer">
-                    <span>🔄 обновляется само</span>
+                    <span>🔄 обновляется каждые 30 секунд</span>
                     <button class="refresh" onclick="fetchStats()">обновить</button>
                 </div>
             </div>
@@ -976,78 +936,70 @@
     <section id="how">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">☾ ⋆*･ﾟ</span>
+                <span class="section-label">ПОДКЛЮЧЕНИЕ</span>
                 <h2 class="section-title">чтобы зайти</h2>
-                <p class="section-description">Никаких танцев с бубном. Три шага — и ты внутри.</p>
+                <p class="section-description">Три шага — и ты внутри</p>
             </div>
 
             <div class="steps-grid">
                 <div class="step-card">
-                    <h3 class="step-title">открой игру</h3>
-                    <p class="card-text">Rust уже есть? Отлично. Если нет — не проблема.</p>
+                    <h3 class="step-title">есть Rust?</h3>
+                    <p class="feature-text">Купил или нашёл — неважно. Сервер открыт для всех.</p>
                 </div>
                 <div class="step-card">
                     <h3 class="step-title">скопируй</h3>
-                    <p class="card-text">Нажми на команду вверху страницы — она уже в буфере.</p>
+                    <p class="feature-text">Нажми на команду вверху — она уже в буфере обмена.</p>
                 </div>
                 <div class="step-card">
-                    <h3 class="step-title">вставь (F1)</h3>
-                    <p class="card-text">В консоли (F1) вставь команду и нажми Enter. Готово.</p>
+                    <h3 class="step-title">F1 → вставить</h3>
+                    <p class="feature-text">В консоли (F1) вставь команду и нажми Enter. Готово!</p>
                 </div>
             </div>
 
-            <div style="text-align: center; margin: 60px 0 20px;">
-                <div class="ip-container" style="justify-content: center;">
-                    <div class="ip-box" style="max-width: 380px;">
-                        <input type="text" class="ip-field" value="yourstop.online:28015" readonly>
-                        <button class="ip-copy" onclick="copyIP()">копировать</button>
-                    </div>
-                </div>
-                <div style="margin-top: 30px;">
-                    <a href="#home" class="button button-secondary">↑ наверх</a>
-                </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="#home" class="button button-secondary">↑ наверх</a>
             </div>
         </div>
     </section>
 
     <!-- Свои -->
-    <section id="friends">
+    <section id="community">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">⋆˙⟡</span>
-                <h2 class="section-title">свои</h2>
-                <p class="section-description">Не чат, а так — посидеть рядом</p>
+                <span class="section-label">КОМЬЮНИТИ</span>
+                <h2 class="section-title">будь на связи</h2>
+                <p class="section-description">общайся, договаривайся, делиcь эмоциями</p>
             </div>
 
             <div class="social-grid">
                 <a href="https://t.me/yourstoprust" class="social-card" target="_blank">
-                    <div class="social-icon">📄</div>
+                    <div class="social-icon">📢</div>
                     <div class="social-name">telegram</div>
-                    <div class="social-meta">редко, но метко</div>
+                    <div class="social-meta">новости и флуд</div>
                 </a>
                 <a href="#" class="social-card" target="_blank">
-                    <div class="social-icon">💭</div>
+                    <div class="social-icon">💬</div>
                     <div class="social-name">discord</div>
-                    <div class="social-meta">посидеть у костра</div>
+                    <div class="social-meta">голос и общение</div>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Подвал -->
+    <!-- Футер -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div>
                     <span class="footer-logo">YOUR STOP</span>
-                    <p class="footer-text">Rust сервер для тех, кто устал от суеты. Тихо, спокойно, без лишнего.</p>
+                    <p class="footer-text">Rust сервер для тех, кто хочет кайфовать, а не страдать.</p>
                 </div>
                 <div>
                     <h4 class="footer-title">навигация</h4>
                     <ul class="footer-links">
-                        <li><a href="#home">тихо</a></li>
-                        <li><a href="#why">здесь</a></li>
-                        <li><a href="#now">сейчас</a></li>
+                        <li><a href="#home">главная</a></li>
+                        <li><a href="#features">фишки</a></li>
+                        <li><a href="#stats">цифры</a></li>
                         <li><a href="#how">зайти</a></li>
                     </ul>
                 </div>
@@ -1068,7 +1020,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>© 2025 YOUR STOP · просто сервер</p>
+                <p>© 2025 YOUR STOP · твой сервер</p>
             </div>
         </div>
     </footer>
@@ -1086,23 +1038,18 @@
             navigator.clipboard.writeText('client.connect yourstop.online:28015').then(() => showToast('команда для F1 скопирована'));
         }
 
-        // Мобильное меню
         const mobileMenu = document.getElementById('mobileMenu');
         const navList = document.getElementById('navList');
         mobileMenu?.addEventListener('click', () => navList.classList.toggle('show'));
-
         document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => navList.classList.remove('show')));
 
-        // Хедер при скролле
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
 
-        // Кнопка наверх
         const scrollTop = document.getElementById('scrollTop');
         window.addEventListener('scroll', () => scrollTop.classList.toggle('visible', window.scrollY > 300));
         scrollTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        // Активная ссылка
         const sections = document.querySelectorAll('section[id]');
         window.addEventListener('scroll', () => {
             let current = '';
@@ -1114,14 +1061,12 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${current}`));
         });
 
-        // Плавный скролл
         document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
             e.preventDefault();
             const t = document.querySelector(this.getAttribute('href'));
             if (t) t.scrollIntoView({ behavior: 'smooth' });
         }));
 
-        // Статистика
         async function fetchStats() {
             const onlineEl = document.getElementById('onlinePlayers');
             const maxEl = document.getElementById('maxPlayers');
@@ -1135,25 +1080,24 @@
                     onlineEl.textContent = data.players?.online || '0';
                     maxEl.textContent = data.players?.max || '75';
                     versionEl.textContent = data.version?.split(' ')[0] || 'latest';
-                    statusEl.innerHTML = '🌕';
+                    statusEl.innerHTML = '✅ онлайн';
                 } else {
                     onlineEl.textContent = '0';
                     maxEl.textContent = '75';
                     versionEl.textContent = 'latest';
-                    statusEl.innerHTML = '🌑';
+                    statusEl.innerHTML = '⏳ офлайн';
                 }
             } catch {
                 onlineEl.textContent = Math.floor(Math.random()*15)+5;
                 maxEl.textContent = '75';
                 versionEl.textContent = 'latest';
-                statusEl.innerHTML = '🌕';
+                statusEl.innerHTML = '✅ онлайн';
             }
         }
 
         fetchStats();
         setInterval(fetchStats, 30000);
 
-        // Анимация появления
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if (e.isIntersecting) {
@@ -1163,17 +1107,14 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.card, .stat-card, .step-card, .social-card, .mood-block').forEach(el => {
+        document.querySelectorAll('.feature-card, .stat-card, .step-card, .social-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
 
-        // Клик по IP полям
         document.querySelectorAll('.ip-field').forEach(f => f.addEventListener('click', function() { this.select(); copyIP(); }));
-
-        // Закрытие меню при ресайзе
         window.addEventListener('resize', () => { if (window.innerWidth > 768) navList.classList.remove('show'); });
     </script>
 </body>
