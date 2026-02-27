@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YOUR STOP — ванильный Rust сервер | PvPvE | Кланы | Экономика</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23D4AF37' stroke='%238B4513' stroke-width='2'>💀</text></svg>">
     <meta name="description" content="YOUR STOP — ванильный Rust сервер с активным PvP, PvE контентом, экономикой, клановой системой и регулярными ивентами. Присоединяйся!">
     <meta name="keywords" content="rust сервер, rust pvp, rust pve, your stop rust, rust server, ванильный rust, выживание">
     <meta name="robots" content="index, follow">
@@ -37,7 +37,6 @@
             --dark: #0A0A0A;
             --dark-light: #1F1F1F;
             --light: #F5F5F5;
-            --gray: #6c757d;
             --success: #28a745;
             --danger: #dc3545;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -62,7 +61,6 @@
         header {
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             padding: 16px 0;
             position: fixed;
             width: 100%;
@@ -177,17 +175,6 @@
             padding-top: 80px;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><text x="50" y="50" font-size="20" fill="%23D4AF37" text-anchor="middle" dy=".3em">⚡</text></svg>') repeat;
-            pointer-events: none;
-        }
-
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
@@ -240,7 +227,6 @@
             display: flex;
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 2px solid rgba(212, 175, 55, 0.3);
             border-radius: 16px;
             overflow: hidden;
@@ -402,7 +388,6 @@
         .feature-card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.1);
             border-radius: 24px;
             padding: 40px 30px;
@@ -886,12 +871,11 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header id="header">
         <div class="container">
             <div class="header-content">
                 <a href="#home" class="logo">
-                    <span class="logo-icon">🔫</span>
+                    <span class="logo-icon">💀</span>
                     <h1>YOUR STOP</h1>
                 </a>
                 
@@ -911,16 +895,13 @@
         </div>
     </header>
 
-    <!-- Notifications -->
     <div class="notification" id="notification">
         <span class="notification-icon">✅</span>
         <span class="notification-text"></span>
     </div>
 
-    <!-- Scroll to top -->
     <button class="scroll-top" id="scroll-top" aria-label="Наверх">↑</button>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
@@ -949,7 +930,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section id="features">
         <div class="container">
             <div class="section-header">
@@ -1003,7 +983,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about">
         <div class="container">
             <div class="section-header">
@@ -1035,14 +1014,12 @@
                 <p style="font-size: 1.2rem; color: rgba(255,255,255,0.8); line-height: 1.8;">
                     YOUR STOP — это ванильный Rust сервер, созданный для тех, кто ценит честную игру 
                     и дружное сообщество. Мы предлагаем классический опыт выживания с продуманной 
-                    экономикой, клановой системой и регулярными ивентами. Администрация всегда на связи, 
-                    помогает новичкам и следит за порядком.
+                    экономикой, клановой системой и регулярными ивентами.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Live Stats -->
     <section id="stats">
         <div class="container">
             <div class="section-header">
@@ -1087,7 +1064,6 @@
         </div>
     </section>
 
-    <!-- How to Join -->
     <section id="join">
         <div class="container">
             <div class="section-header">
@@ -1122,7 +1098,6 @@
         </div>
     </section>
 
-    <!-- Community -->
     <section id="community">
         <div class="container">
             <div class="section-header">
@@ -1151,7 +1126,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -1190,13 +1164,12 @@
             </div>
 
             <div class="copyright">
-                <p>&copy; 2025 YOUR STOP Rust Server. Все права защищены. Rust — торговая марка Facepunch Studios.</p>
+                <p>&copy; 2025 YOUR STOP Rust Server. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Уведомления
         function showNotification(message, icon = '✅') {
             const notification = document.getElementById('notification');
             const textElement = notification.querySelector('.notification-text');
@@ -1211,7 +1184,6 @@
             }, 3000);
         }
 
-        // Копирование IP
         function copyIP() {
             const ip = 'yourstop.online:28015';
             navigator.clipboard.writeText(ip).then(() => {
@@ -1221,19 +1193,16 @@
             });
         }
 
-        // Мобильное меню
         document.getElementById('mobile-menu').addEventListener('click', function() {
             document.getElementById('nav-menu').classList.toggle('show');
         });
 
-        // Закрытие меню при клике на ссылку
         document.querySelectorAll('#nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('nav-menu').classList.remove('show');
             });
         });
 
-        // Header scroll effect
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -1243,7 +1212,6 @@
             }
         });
 
-        // Scroll to top button
         const scrollTop = document.getElementById('scroll-top');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -1257,7 +1225,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Активная ссылка в меню
         const sections = document.querySelectorAll('section[id]');
         window.addEventListener('scroll', () => {
             let current = '';
@@ -1277,7 +1244,6 @@
             });
         });
 
-        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1288,7 +1254,6 @@
             });
         });
 
-        // Статистика сервера
         async function fetchServerStatus() {
             const elements = {
                 online: document.getElementById('online-players'),
@@ -1313,7 +1278,6 @@
                     elements.status.innerHTML = '<span class="status-offline">● Офлайн</span>';
                 }
             } catch (error) {
-                // Fallback данные
                 elements.online.innerHTML = Math.floor(Math.random() * 20) + 1;
                 elements.max.innerHTML = '100';
                 elements.version.innerHTML = 'Latest';
@@ -1321,11 +1285,9 @@
             }
         }
 
-        // Запуск обновления статистики
         fetchServerStatus();
         setInterval(fetchServerStatus, 30000);
 
-        // Анимация при скролле
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1333,7 +1295,7 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px' });
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.feature-card, .stat-card, .step-card, .live-stat, .social-card').forEach(el => {
             el.style.opacity = '0';
@@ -1342,7 +1304,6 @@
             observer.observe(el);
         });
 
-        // Обработка кликов по IP полю
         document.querySelectorAll('.ip-address').forEach(field => {
             field.addEventListener('click', function() {
                 this.select();
@@ -1350,7 +1311,6 @@
             });
         });
 
-        // Предотвращение случайного закрытия меню при ресайзе
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) {
                 document.getElementById('nav-menu').classList.remove('show');
