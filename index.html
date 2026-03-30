@@ -3,127 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>КЛИНИКА — DayZ сервер с вертолётами и ботами</title>
-    
-    <!-- Фавикон -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%23F97316'%3E🏥%3C/text%3E%3C/svg%3E">
-    
-    <!-- Шрифт -->
+    <title>КЛИНИКА — DayZ сервер</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%23E11D48'%3E🏥%3C/text%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    
     <style>
-        /* БАЗОВЫЕ ПЕРЕМЕННЫЕ — цвета взяты из реального бренда "Клиника" */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --med-red: #C53A1F;      /* цвет крови / акцент */
-            --med-red-dark: #A52A12;
-            --med-red-light: #E85D3A;
-            --bg-dark: #0B0D0E;       /* операционная */
-            --bg-card: #141719;
-            --border: #2A2F33;
-            --text: #9AA4AF;
-            --text-light: #CBD5E1;
-            --white: #FFFFFF;
-            --success: #2E7D32;
-        }
-
         body {
-            font-family: "Inter", sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
+            background: #050608;
+            font-family: 'Inter', sans-serif;
+            color: #8A94A1;
             line-height: 1.5;
         }
 
         .container {
-            max-width: 1280px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
-        section {
-            padding: 100px 0;
+        .red {
+            color: #E11D48;
+        }
+
+        .badge {
+            background: rgba(225, 29, 72, 0.12);
+            color: #E11D48;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 4px 12px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
         h1, h2, h3 {
-            color: var(--white);
+            color: white;
             font-weight: 700;
             letter-spacing: -0.02em;
         }
 
-        /* Клеймо "клиники" — красный акцент везде */
-        .stamp {
-            color: var(--med-red);
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            margin-bottom: 16px;
-            display: inline-block;
-            background: rgba(197, 58, 31, 0.12);
-            padding: 4px 12px;
-            border-radius: 100px;
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 20px;
         }
 
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--med-red);
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 14px 32px;
-            border-radius: 100px;
-            transition: 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background: var(--med-red-dark);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-light);
-            padding: 12px 28px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .btn-outline:hover {
-            border-color: var(--med-red);
-            color: var(--white);
-            background: rgba(197, 58, 31, 0.1);
-        }
-
-        /* IP блок — главный элемент */
-        .ip-block {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 100px;
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            text-align: center;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            color: #8A94A1;
+        }
+
+        .ip-block {
+            background: #0F1115;
+            border: 1px solid #1E2128;
+            border-radius: 20px;
             padding: 4px;
-            max-width: 500px;
+            display: flex;
+            align-items: center;
+            max-width: 480px;
             margin: 0 auto;
         }
 
         .ip-block input {
             background: transparent;
             border: none;
-            padding: 14px 20px;
-            color: var(--white);
+            padding: 16px 20px;
+            color: white;
             font-family: monospace;
             font-size: 1rem;
             flex: 1;
@@ -131,111 +91,129 @@
         }
 
         .copy-btn {
-            background: var(--med-red);
+            background: #E11D48;
             border: none;
-            padding: 10px 24px;
-            border-radius: 100px;
+            padding: 12px 28px;
+            border-radius: 16px;
             color: white;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
         }
 
-        /* Сетки */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+        .copy-btn:hover {
+            background: #BE123C;
         }
 
-        .grid-3 {
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 40px 0;
+        }
+
+        .tag {
+            background: #0F1115;
+            border: 1px solid #1E2128;
+            border-radius: 100px;
+            padding: 6px 18px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
         @media (max-width: 768px) {
-            .grid-2, .grid-3 {
+            .grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* Карточки фич — строгие, как в операционной */
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+        .card {
+            background: #0F1115;
+            border: 1px solid #1E2128;
             border-radius: 20px;
             padding: 28px;
             transition: 0.2s;
         }
 
-        .feature-card:hover {
-            border-color: var(--med-red);
-            transform: translateY(-3px);
+        .card:hover {
+            border-color: #E11D48;
         }
 
-        .feature-icon {
-            font-size: 2.2rem;
+        .card-icon {
+            font-size: 2rem;
             margin-bottom: 16px;
         }
 
-        .feature-card h3 {
+        .card h3 {
             font-size: 1.2rem;
             margin-bottom: 8px;
         }
 
-        .feature-card p {
+        .card p {
             font-size: 0.85rem;
-            color: var(--text);
         }
 
-        /* Секция подключения */
+        .steps {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .step {
             display: flex;
-            align-items: center;
-            gap: 24px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+            gap: 20px;
+            background: #0F1115;
+            border: 1px solid #1E2128;
             border-radius: 20px;
-            padding: 20px 24px;
+            padding: 20px;
             margin-bottom: 16px;
         }
 
         .step-num {
-            width: 48px;
-            height: 48px;
-            background: var(--med-red);
+            width: 44px;
+            height: 44px;
+            background: #E11D48;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: white;
             flex-shrink: 0;
         }
 
         .step h3 {
             margin-bottom: 4px;
+            font-size: 1rem;
         }
 
-        /* Хедер */
+        .step p {
+            font-size: 0.8rem;
+        }
+
         header {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: calc(100% - 40px);
-            max-width: 1280px;
-            background: rgba(20, 23, 25, 0.95);
+            max-width: 1200px;
+            background: rgba(15, 17, 21, 0.95);
             backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
+            border: 1px solid #1E2128;
             border-radius: 100px;
             padding: 8px 20px;
             z-index: 100;
         }
 
-        .header-inner {
+        .header-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -244,23 +222,18 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
         }
 
-        .logo-text {
+        .logo span {
             font-size: 1.2rem;
             font-weight: 700;
-            color: var(--white);
-        }
-
-        .nav {
-            display: flex;
-            gap: 8px;
+            color: white;
         }
 
         .nav a {
-            color: var(--text);
+            color: #8A94A1;
             text-decoration: none;
             padding: 8px 16px;
             border-radius: 100px;
@@ -269,99 +242,30 @@
         }
 
         .nav a:hover {
-            color: var(--white);
-            background: rgba(197, 58, 31, 0.15);
+            color: white;
+            background: rgba(225, 29, 72, 0.15);
         }
 
-        /* Герой */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            padding-top: 100px;
+        section {
+            padding: 100px 0;
         }
 
-        .hero h1 {
-            font-size: clamp(2.2rem, 6vw, 3.8rem);
-            margin-bottom: 20px;
-        }
-
-        .hero h1 span {
-            color: var(--med-red);
-        }
-
-        .hero-desc {
-            font-size: 1.1rem;
-            max-width: 650px;
-            margin: 0 auto 32px;
-        }
-
-        .specs {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .spec {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            padding: 6px 18px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .command-hint {
-            margin-top: 30px;
-            padding: 14px;
-            background: var(--bg-card);
-            border: 1px dashed var(--med-red);
-            border-radius: 12px;
-            font-family: monospace;
-            color: var(--med-red-light);
-            cursor: pointer;
-            max-width: 450px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .online-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 24px;
-        }
-
-        .pulse {
-            width: 8px;
-            height: 8px;
-            background: #22C55E;
-            border-radius: 50%;
-            animation: pulse 1.8s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.2); }
-            100% { opacity: 1; transform: scale(1); }
+        .bg-card {
+            background: #0F1115;
         }
 
         footer {
-            background: var(--bg-card);
+            background: #0F1115;
             padding: 60px 0 30px;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid #1E2128;
         }
 
         .toast {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            background: var(--bg-card);
-            border: 1px solid var(--med-red);
+            background: #0F1115;
+            border: 1px solid #E11D48;
             border-radius: 12px;
             padding: 12px 24px;
             color: white;
@@ -375,43 +279,55 @@
             transform: translateY(0);
             opacity: 1;
         }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #22C55E;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="header-inner">
+    <div class="header-flex">
         <a href="#home" class="logo">
             <span style="font-size: 1.3rem;">🏥</span>
-            <span class="logo-text">КЛИНИКА</span>
+            <span>КЛИНИКА</span>
         </a>
-        <nav class="nav">
+        <div class="nav">
             <a href="#home">главная</a>
-            <a href="#features">что внутри</a>
-            <a href="#how">как зайти</a>
-        </nav>
+            <a href="#features">о сервере</a>
+            <a href="#connect">как зайти</a>
+        </div>
     </div>
 </header>
 
 <div class="toast" id="toast">✓ скопировано</div>
 
-<!-- ГЛАВНЫЙ ЭКРАН -->
 <section class="hero" id="home">
     <div class="container">
         <div>
-            <span class="stamp">🏥 100 слотов · 3PP · PvPvE</span>
-            <h1>КЛИНИКА — <span>здесь лечат</span><br>от ванильной скуки</h1>
-            <p class="hero-desc">
-                Вертолёты, боты-стрелки, авиаснабжение, торговцы, квесты на русском.<br>
-                PvP не ограничен — стреляй везде, кроме безопасных зон у торговцев.
-            </p>
-
-            <div class="specs">
-                <span class="spec">🚁 Huey · Little Bird · Merlin</span>
-                <span class="spec">🤖 20+ ботов по карте</span>
-                <span class="spec">✈️ авиаснабжение</span>
-                <span class="spec">🏪 безопасные зоны</span>
-                <span class="spec">📖 квесты на русском</span>
+            <span class="badge">🏥 100 слотов · PvPvE · 3PP</span>
+            <h1>КЛИНИКА — <span class="red">здесь</span><br>лечат от ванили</h1>
+            <p>Вертолёты, боты-стрелки, авиаснабжение, торговцы, квесты на русском.<br>PvP не ограничен — только у торговцев тихо.</p>
+            
+            <div class="tag-list">
+                <span class="tag">🚁 Huey · Little Bird · Merlin</span>
+                <span class="tag">🤖 20+ ботов</span>
+                <span class="tag">✈️ авиаснабжение</span>
+                <span class="tag">🏪 торговцы</span>
+                <span class="tag">📖 квесты</span>
+                <span class="tag">🔫 PvP везде</span>
             </div>
 
             <div class="ip-block">
@@ -419,132 +335,124 @@
                 <button class="copy-btn" onclick="copyIP()">копировать IP</button>
             </div>
 
-            <div class="command-hint" onclick="copyCommand()">
-                > connect 5.32.150.26:2302
-            </div>
-            <p style="font-size: 0.7rem; margin-top: 8px;">нажми на команду — скопируется (вставь в консоль F1)</p>
-
-            <div class="online-indicator">
-                <span class="pulse"></span>
-                <span style="font-size: 0.8rem;">сервер готов к приёму</span>
+            <div style="margin-top: 32px;">
+                <span class="online-dot"></span>
+                <span style="font-size: 0.8rem; margin-left: 8px;">сервер работает</span>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ЧТО ВНУТРИ -->
-<section id="features" style="background: var(--bg-card);">
+<section id="features" class="bg-card">
     <div class="container">
         <div style="text-align: center; margin-bottom: 60px;">
-            <span class="stamp">диагноз: скука — лечение: КЛИНИКА</span>
-            <h2 style="font-size: 2rem; margin-top: 8px;">что вас ждёт</h2>
+            <span class="badge">что внутри</span>
+            <h2 style="font-size: 2rem;">в КЛИНИКЕ не скучают</h2>
         </div>
-        <div class="grid-3">
-            <div class="feature-card">
-                <div class="feature-icon">🚁</div>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🚁</div>
                 <h3>вертолёты</h3>
-                <p>Huey, Little Bird, Merlin. Летайте над картой, добирайтесь за минуты, эвакуируйте друзей.</p>
+                <p>Huey, Little Bird, Merlin. Быстрое перемещение, эвакуация, разведка с воздуха.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🤖</div>
+            <div class="card">
+                <div class="card-icon">🤖</div>
                 <h3>боты-стрелки</h3>
-                <p>Патрули на военных базах, охрана вертолётных крушений и заражённых зон. Охоться или убегай.</p>
+                <p>Патрули на военных базах, охрана крушений вертолётов, заражённые зоны.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">✈️</div>
+            <div class="card">
+                <div class="card-icon">✈️</div>
                 <h3>авиаснабжение</h3>
-                <p>Контейнеры с элитным лутом падают с неба. Кто первый подбежит — того добыча.</p>
+                <p>Контейнеры с элитным лутом падают с неба. Кто первый — того добыча.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🏪</div>
+            <div class="card">
+                <div class="card-icon">🏪</div>
                 <h3>торговцы</h3>
-                <p>Безопасные зоны в Черногорске и Березено. Продавайте найденное, покупайте снаряжение и технику.</p>
+                <p>Черногорск, Березено. Безопасные зоны. Продавай лут, покупай снаряжение.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🏰</div>
-                <h3>строительство баз</h3>
-                <p>Кодозамки, территории, вертолётные площадки. Защитите свой дом и технику.</p>
+            <div class="card">
+                <div class="card-icon">🏰</div>
+                <h3>строительство</h3>
+                <p>Кодозамки, территории, вертолётные площадки. Строй и защищай.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">📖</div>
-                <h3>квесты на русском</h3>
-                <p>Задания, награды, опыт. Полное погружение без языкового барьера.</p>
+            <div class="card">
+                <div class="card-icon">📖</div>
+                <h3>квесты</h3>
+                <p>Задания на русском. Награды, опыт, причины исследовать карту.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- КАК ЗАЙТИ -->
-<section id="how">
+<section id="connect">
     <div class="container">
-        <div style="max-width: 650px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 48px;">
-                <span class="stamp">три шага</span>
-                <h2 style="font-size: 2rem;">как попасть в зону</h2>
-            </div>
+        <div style="text-align: center; margin-bottom: 48px;">
+            <span class="badge">как попасть</span>
+            <h2 style="font-size: 2rem;">три способа подключиться</h2>
+        </div>
 
+        <div class="steps">
             <div class="step">
                 <div class="step-num">1</div>
                 <div>
-                    <h3>скопируйте IP</h3>
-                    <p style="font-size: 0.85rem;">`5.32.150.26:2302` или нажмите на команду выше</p>
+                    <h3>DZSA Launcher</h3>
+                    <p>Скачай DZSA Launcher, найди сервер по IP <span style="color: white;">5.32.150.26:2302</span> или названию "КЛИНИКА"</p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">2</div>
                 <div>
-                    <h3>откройте консоль</h3>
-                    <p style="font-size: 0.85rem;">в игре нажмите клавишу F1</p>
+                    <h3>официальный лаунчер DayZ</h3>
+                    <p>Вкладка "Сервера" → "Избранное" → нажать звездочку → добавить по IP <span style="color: white;">5.32.150.26:2302</span></p>
                 </div>
             </div>
 
             <div class="step">
                 <div class="step-num">3</div>
                 <div>
-                    <h3>вставьте и нажмите Enter</h3>
-                    <p style="font-size: 0.85rem;">вы на сервере. Добро пожаловать в КЛИНИКУ.</p>
+                    <h3>через Steam</h3>
+                    <p>Вид → Серверы → вкладка "Избранное" → добавить сервер → ввести <span style="color: white;">5.32.150.26:2302</span></p>
                 </div>
             </div>
+        </div>
 
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="https://discord.gg/qgT5A6puhx" target="_blank" class="btn-primary">
-                    💬 вступить в Discord
-                </a>
-                <p style="margin-top: 16px; font-size: 0.75rem;">в Discord уже есть игроки — заходите знакомиться и искать тиммейтов</p>
-            </div>
+        <div style="text-align: center; margin-top: 48px;">
+            <a href="https://discord.gg/qgT5A6puhx" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: #E11D48; color: white; text-decoration: none; padding: 14px 32px; border-radius: 100px; font-weight: 600;">
+                💬 присоединиться к Discord
+            </a>
+            <p style="margin-top: 16px; font-size: 0.75rem;">в Discord уже есть игроки — заходи знакомиться и искать тиму</p>
         </div>
     </div>
 </section>
 
-<!-- ПОДВАЛ -->
 <footer>
     <div class="container">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
             <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
                     <span style="font-size: 28px;">🏥</span>
-                    <span style="font-weight: 700; font-size: 1.2rem; color: var(--white);">КЛИНИКА</span>
+                    <span style="font-weight: 700; font-size: 1.2rem; color: white;">КЛИНИКА</span>
                 </div>
                 <p style="font-size: 0.8rem;">сервер, где хочется остаться</p>
             </div>
             <div>
-                <h4 style="color: var(--white); margin-bottom: 16px;">навигация</h4>
+                <h4 style="color: white; margin-bottom: 16px;">навигация</h4>
                 <ul style="list-style: none;">
-                    <li style="margin-bottom: 8px;"><a href="#home" style="color: var(--text); text-decoration: none;">главная</a></li>
-                    <li style="margin-bottom: 8px;"><a href="#features" style="color: var(--text); text-decoration: none;">возможности</a></li>
-                    <li style="margin-bottom: 8px;"><a href="#how" style="color: var(--text); text-decoration: none;">как зайти</a></li>
+                    <li style="margin-bottom: 8px;"><a href="#home" style="color: #8A94A1; text-decoration: none;">главная</a></li>
+                    <li style="margin-bottom: 8px;"><a href="#features" style="color: #8A94A1; text-decoration: none;">о сервере</a></li>
+                    <li style="margin-bottom: 8px;"><a href="#connect" style="color: #8A94A1; text-decoration: none;">подключение</a></li>
                 </ul>
             </div>
             <div>
-                <h4 style="color: var(--white); margin-bottom: 16px;">контакты</h4>
+                <h4 style="color: white; margin-bottom: 16px;">контакты</h4>
                 <ul style="list-style: none;">
-                    <li style="margin-bottom: 8px;"><a href="https://discord.gg/qgT5A6puhx" style="color: var(--text); text-decoration: none;">Discord</a></li>
+                    <li style="margin-bottom: 8px;"><a href="https://discord.gg/qgT5A6puhx" style="color: #8A94A1; text-decoration: none;">Discord</a></li>
                     <li style="font-size: 0.8rem;">IP: 5.32.150.26:2302</li>
                 </ul>
             </div>
         </div>
-        <div style="text-align: center; padding-top: 30px; border-top: 1px solid var(--border); font-size: 0.7rem;">
+        <div style="text-align: center; padding-top: 30px; border-top: 1px solid #1E2128; font-size: 0.7rem;">
             © 2025 КЛИНИКА DayZ · вертолёты · боты · авиаснабжение · PvPvE
         </div>
     </div>
@@ -553,31 +461,11 @@
 <script>
     function copyIP() {
         navigator.clipboard.writeText('5.32.150.26:2302');
-        showToast('✓ IP скопирован');
-    }
-
-    function copyCommand() {
-        navigator.clipboard.writeText('connect 5.32.150.26:2302');
-        showToast('✓ команда скопирована, вставь в консоль (F1)');
-    }
-
-    function showToast(text) {
         const toast = document.getElementById('toast');
-        toast.textContent = text;
+        toast.textContent = '✓ IP скопирован';
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 3000);
     }
-
-    // Плавный скролл
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
 </script>
 </body>
 </html>
